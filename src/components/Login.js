@@ -1,10 +1,14 @@
-import React, {useState} from "react";
-import {Link} from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {Link, useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
-
+import {useDispatch, useSelector} from "react-redux";
+import {loginUser} from "../redux/apiCalls/authApiCall";
 const Login = () => {
+  // const navicate = useNavigate();
+  // const {user} = useSelector((state) => state.auth);
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
+  const dispatch = useDispatch();
   const register = (e) => {
     e.preventDefault();
     if (!email) {
@@ -12,9 +16,16 @@ const Login = () => {
     } else if (!password) {
       return toast.error("password is required");
     } else {
-      console.log([email, password]);
+      console.log(email, password);
+      dispatch(loginUser({email, password}));
     }
   };
+  // useEffect(() => {
+  //   if (user) {
+  //     navicate("/");
+  //   }
+  // });
+
   return (
     <div
       style={{maxWidth: "500px"}}

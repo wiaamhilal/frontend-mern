@@ -1,6 +1,6 @@
 import "./App.css";
 import Header from "./components/Header";
-import {Route, Routes} from "react-router-dom";
+import {Route, Routes, Navigate} from "react-router-dom";
 import Home from "./components/Home";
 import Posts from "./components/Posts";
 import CreatePost from "./components/CreatePost";
@@ -17,8 +17,10 @@ import Register from "./components/Register";
 import Login from "./components/Login";
 import ForgetPassword from "./components/ForgetPassword";
 import ResetPassword from "./components/ResetPassword";
+import {useSelector} from "react-redux";
 
 function App() {
+  const {user} = useSelector((state) => state.auth);
   return (
     <div className="App">
       <ToastContainer theme="colored" position="top-center" />
@@ -115,7 +117,7 @@ function App() {
           path="/register"
           element={
             <>
-              <Header /> <Register />
+              <Header /> {!user ? <Register /> : <Navigate to="/" />}
             </>
           }
         />
@@ -123,7 +125,7 @@ function App() {
           path="/login"
           element={
             <>
-              <Header /> <Login />
+              <Header /> {!user ? <Login /> : <Navigate to="/" />}
             </>
           }
         />
