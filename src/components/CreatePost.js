@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import styled from "styled-components";
-import {toast, ToastContainer} from "react-toastify";
+import {toast} from "react-toastify";
 
 const CreatePost = () => {
   const [title, settitle] = useState("");

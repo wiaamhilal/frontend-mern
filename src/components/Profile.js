@@ -1,10 +1,20 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Posts from "./Posts";
 import {posts} from "../dummyData";
 import {toast} from "react-toastify";
 import swal from "sweetalert";
 import UpdateProfile from "./UpdateProfile.js";
+import {useDispatch, useSelector} from "react-redux";
+import {getUserProfile} from "../redux/apiCalls/profileApiCall.js";
+import {useParams} from "react-router-dom";
 const Profile = () => {
+  const {profile} = useSelector((state) => state.profile);
+  console.log(profile);
+  const {userId} = useParams();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getUserProfile(userId));
+  }, [userId]);
   const [profiletoggle, setprofiletoggle] = useState(false);
   const deleteAcount = () => {
     swal({
@@ -41,11 +51,7 @@ const Profile = () => {
         >
           <img
             className="rounded-circle"
-            src={
-              file
-                ? URL.createObjectURL(file)
-                : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOtu74pEiq7ofeQeTsco0migV16zZoBwSlGg&s"
-            }
+            src={file ? URL.createObjectURL(file) : profile.profilePhoto.url}
             alt=""
             style={{width: "100px", maxWidth: "100%"}}
           />
@@ -72,11 +78,14 @@ const Profile = () => {
             </span>
           )}
         </div>
-        <h2 className="text-white">wiaam hilal</h2>
+        <h2 className="text-white">{profile.username}</h2>
         <h4 className="text-white">
           hello my name is wiaam hilal and i am a web developer
         </h4>
-        <h5 className="text-secondary"> Date Joined: Fri Nov 04 2004</h5>
+        <h5 className="text-secondary">
+          {" "}
+          {new Date(profile?.createdAt).toDateString()}
+        </h5>
         <button
           className="btn btn-success"
           onClick={() => setprofiletoggle(true)}
@@ -84,7 +93,7 @@ const Profile = () => {
           Update Profile
         </button>
       </div>
-      <h1>my posts</h1>
+      <h1>{profile.username} posts</h1>
       <div className="container">
         <Posts posts={posts} />
       </div>

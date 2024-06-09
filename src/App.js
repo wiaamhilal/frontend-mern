@@ -45,7 +45,7 @@ function App() {
           path="/create-post"
           element={
             <>
-              <Header /> <CreatePost />
+              <Header /> {user ? <CreatePost /> : <Navigate to="/" />}
             </>
           }
         />
@@ -77,7 +77,7 @@ function App() {
           path="/dashboard"
           element={
             <>
-              <Header /> <Dashboard />
+              <Header /> {user?.isAdmin ? <Dashboard /> : <Navigate to="/" />}
             </>
           }
         />
@@ -85,7 +85,7 @@ function App() {
           path="/dashboard/user-table"
           element={
             <>
-              <Header /> <UsersTable />
+              <Header /> {user?.isAdmin ? <UsersTable /> : <Navigate to="/" />}
             </>
           }
         />
@@ -93,7 +93,7 @@ function App() {
           path="/dashboard/posts-tabe"
           element={
             <>
-              <Header /> <PostsTable />
+              <Header /> {user?.isAdmin ? <PostsTable /> : <Navigate to="/" />}
             </>
           }
         />
@@ -101,7 +101,8 @@ function App() {
           path="/dashboard/categories-tabe"
           element={
             <>
-              <Header /> <CategoriesTable />
+              <Header />
+              {user?.isAdmin ? <CategoriesTable /> : <Navigate to="/" />}
             </>
           }
         />
@@ -109,7 +110,8 @@ function App() {
           path="/dashboard/comment-table"
           element={
             <>
-              <Header /> <CommentsTable />
+              <Header />{" "}
+              {user?.isAdmin ? <CommentsTable /> : <Navigate to="/" />}
             </>
           }
         />

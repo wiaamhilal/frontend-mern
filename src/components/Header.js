@@ -74,26 +74,30 @@ const Headerr = () => {
                 </li>
               )}
 
-              <li className="nav-item">
-                <Link
-                  className="nav-link"
-                  to="/create-post"
-                  tabindex="-1"
-                  aria-disabled="true"
-                >
-                  Create
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link
-                  className="nav-link"
-                  to="/dashboard"
-                  tabindex="-1"
-                  aria-disabled="true"
-                >
-                  Admin Dashboard
-                </Link>
-              </li>
+              {user && (
+                <li className="nav-item">
+                  <Link
+                    className="nav-link"
+                    to="/create-post"
+                    tabindex="-1"
+                    aria-disabled="true"
+                  >
+                    Create
+                  </Link>
+                </li>
+              )}
+              {user?.isAdmin && (
+                <li className="nav-item">
+                  <Link
+                    className="nav-link"
+                    to="/dashboard"
+                    tabindex="-1"
+                    aria-disabled="true"
+                  >
+                    Admin Dashboard
+                  </Link>
+                </li>
+              )}
             </ul>
             {user && (
               <li className="nav-item dropdown d-flex align-items-center me-md-3">
@@ -115,8 +119,11 @@ const Headerr = () => {
                 </Link>
                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                   <li>
-                    <Link className="dropdown-item" to="/login">
-                      progile
+                    <Link
+                      className="dropdown-item"
+                      to={`/profile/${user?._id}`}
+                    >
+                      profile
                     </Link>
                   </li>
                   <li>
