@@ -1,13 +1,13 @@
 import React, {useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
 import styled from "styled-components";
+import {updateProfile} from "../redux/apiCalls/profileApiCall";
 
 const UpdateProfile = ({setprofiletoggle, profiletoggle}) => {
-  const user = {
-    username: "wiaam",
-    bio: "hello im a web developer",
-  };
-  const [username, setusername] = useState(user.username);
-  const [bio, setbio] = useState(user.bio);
+  const {profile} = useSelector((state) => state.profile);
+  const dispatch = useDispatch();
+  const [username, setusername] = useState(profile.username);
+  const [bio, setbio] = useState(profile.bio);
   const [password, setpassword] = useState("");
 
   const updatePost = (e) => {
@@ -17,7 +17,7 @@ const UpdateProfile = ({setprofiletoggle, profiletoggle}) => {
     if (password.trim() !== "") {
       updatedUser.password = password;
     }
-    console.log(updatedUser);
+    dispatch(updateProfile(profile._id, updatedUser));
     setprofiletoggle(false);
   };
   return (

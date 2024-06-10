@@ -8,6 +8,12 @@ const profileSlice = createSlice({
     setprofile(state, action) {
       state.profile = action.payload;
     },
+    setprofilePhoto(state, action) {
+      state.profile.profilePhoto = action.payload;
+    },
+    setProfile(state, action) {
+      state.profile = action.payload;
+    },
   },
 });
 

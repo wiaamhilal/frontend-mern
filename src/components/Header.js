@@ -110,12 +110,12 @@ const Headerr = () => {
                   aria-expanded="false"
                 >
                   <img
-                    src={user?.profilePhoto.url}
+                    src={user?.profilePhoto?.url}
                     alt=""
                     style={{width: "50px", height: "50px"}}
                     className="rounded-circle me-2"
                   />
-                  <span>{user.username}</span>
+                  <span>{user?.username}</span>
                 </Link>
                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                   <li>

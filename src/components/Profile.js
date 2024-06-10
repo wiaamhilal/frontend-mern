@@ -5,7 +5,10 @@ import {toast} from "react-toastify";
 import swal from "sweetalert";
 import UpdateProfile from "./UpdateProfile.js";
 import {useDispatch, useSelector} from "react-redux";
-import {getUserProfile} from "../redux/apiCalls/profileApiCall.js";
+import {
+  changeProfilePhoto,
+  getUserProfile,
+} from "../redux/apiCalls/profileApiCall.js";
 import {useParams} from "react-router-dom";
 const Profile = () => {
   const {profile} = useSelector((state) => state.profile);
@@ -39,7 +42,9 @@ const Profile = () => {
     if (!file) {
       return toast.error("no image provided");
     } else {
-      console.log("image has been uploaded");
+      const formData = new FormData();
+      formData.append("image", file);
+      dispatch(changeProfilePhoto(formData));
     }
   };
   return (
@@ -51,7 +56,7 @@ const Profile = () => {
         >
           <img
             className="rounded-circle"
-            src={file ? URL.createObjectURL(file) : profile.profilePhoto.url}
+            src={file ? URL.createObjectURL(file) : profile?.profilePhoto.url}
             alt=""
             style={{width: "100px", maxWidth: "100%"}}
           />
@@ -78,10 +83,8 @@ const Profile = () => {
             </span>
           )}
         </div>
-        <h2 className="text-white">{profile.username}</h2>
-        <h4 className="text-white">
-          hello my name is wiaam hilal and i am a web developer
-        </h4>
+        <h2 className="text-white">{profile?.username}</h2>
+        <h4 className="text-white">{profile?.bio}</h4>
         <h5 className="text-secondary">
           {" "}
           {new Date(profile?.createdAt).toDateString()}
@@ -93,7 +96,7 @@ const Profile = () => {
           Update Profile
         </button>
       </div>
-      <h1>{profile.username} posts</h1>
+      <h1>{profile?.username} posts</h1>
       <div className="container">
         <Posts posts={posts} />
       </div>
