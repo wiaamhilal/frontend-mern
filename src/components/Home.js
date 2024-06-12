@@ -1,12 +1,23 @@
-import React from "react";
-
+import React, {useEffect} from "react";
+import PostItem from "./PostItem";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchPosts} from "../redux/apiCalls/postApiCall";
 const Home = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchPosts(1));
+  }, [fetchPosts]);
+  const {posts} = useSelector((state) => state.post);
+  console.log(posts);
   return (
     <div>
-      <img
-        src="https://images.unsplash.com/photo-1496715976403-7e36dc43f17b?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-        alt=""
-      />
+      <div className="">
+        <h2>latest post</h2>
+        {posts.map((item) => (
+          <PostItem post={item} key={item._id} />
+        ))}
+      </div>
     </div>
   );
 };

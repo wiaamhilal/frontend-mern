@@ -1,24 +1,20 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
-import {posts, categories} from "../dummyData";
+
 import PostItem from "./PostItem";
 import {SideBar} from "./SideBar";
 import Paganation from "./Paganation";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchPosts, getPostsCount} from "../redux/apiCalls/postApiCall";
+import PostList from "./PostList";
 const Posts = () => {
+  const {posts} = useSelector((state) => state.post);
+
   return (
     <Main className="">
       <div className="row">
-        <div className="col-10">
-          <h2>latest post</h2>
-          {posts.map((item) => (
-            <PostItem post={item} key={item._id} />
-          ))}
-        </div>
-        <div className="col-2">
-          <SideBar categories={categories} />
-        </div>
+        <PostList posts={posts} />
       </div>
-      <Paganation />
     </Main>
   );
 };

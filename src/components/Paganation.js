@@ -1,17 +1,44 @@
 import React from "react";
 import styled from "styled-components";
 
-const Paganation = () => {
+const Paganation = ({pages, setcurrentPage, currentPage}) => {
+  const generatedPages = [];
+  for (let i = 1; i <= pages; i++) {
+    generatedPages.push(i);
+  }
+
   return (
-    <Main className="shadow">
-      <Previous className="btn btn-secondary btn-sm">previous</Previous>
-      {[1, 2, 3, 4, 5].map((item) => (
-        <Number className="btn btn-secondary btn-sm" key={item}>
-          {item}
-        </Number>
-      ))}
-      <Next className="btn btn-secondary btn-sm ">next page</Next>
-    </Main>
+    <nav aria-label="..." className="d-flex justify-content-center">
+      <ul class="pagination">
+        <button class="page-item btn p-0" disabled={currentPage === 1}>
+          <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
+            Previous
+          </a>
+        </button>
+        {generatedPages.map((page) => (
+          <li
+            onClick={() => setcurrentPage(page)}
+            key={page}
+            class="page-item"
+            aria-current="page"
+          >
+            <a class="page-link" href="#">
+              {" "}
+              {page}
+            </a>
+          </li>
+        ))}
+        <button
+          class="page-item btn p-0"
+          onClick={() => setcurrentPage((currentPage += 1))}
+          disabled={currentPage === generatedPages.length}
+        >
+          <a class="page-link" href="#">
+            Next
+          </a>
+        </button>
+      </ul>
+    </nav>
   );
 };
 const Main = styled.div`
@@ -24,4 +51,5 @@ const Main = styled.div`
 const Previous = styled.div``;
 const Number = styled.div``;
 const Next = styled.div``;
+
 export default Paganation;

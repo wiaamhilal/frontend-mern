@@ -4,10 +4,14 @@ import {Link} from "react-router-dom";
 const PostItem = ({post}) => {
   return (
     <Main className="shadow">
-      <img src={post.image} alt="" />
+      <img src={post.image.url} alt="" />
       <Auther>
         {" "}
-        <span>auther: {post.user.username}</span> <span>{post.createdAt}</span>
+        <Link to={`/profile/${post.user._id}`}>
+          {" "}
+          auther: {post.user.username}
+        </Link>{" "}
+        <span>{post.createdAt}</span>
       </Auther>
       <div className="d-flex align-items-center justify-content-between">
         <h2>{post.title}</h2>
