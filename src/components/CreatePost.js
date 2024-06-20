@@ -1,8 +1,16 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import {toast} from "react-toastify";
+import {useDispatch, useSelector} from "react-redux";
+import {createNewPost} from "../redux/apiCalls/postApiCall";
+import {useNavigate} from "react-router-dom";
+import {RotatingLines} from "react-loader-spinner";
 
 const CreatePost = () => {
+  const dispatch = useDispatch();
+  const navicate = useNavigate();
+  const {loading, isPostCreated} = useSelector((state) => state.post);
+  const {categories} = useSelector((state) => state.category);
   const [title, settitle] = useState("");
   const [desc, setdesc] = useState("");
   const [category, setcategory] = useState("");
@@ -20,7 +28,13 @@ const CreatePost = () => {
     formData.append("description", desc);
     formData.append("title", title);
     formData.append("category", category);
+    dispatch(createNewPost(formData));
   };
+  useEffect(() => {
+    if (isPostCreated === true) {
+      navicate("/");
+    }
+  }, [isPostCreated, navicate]);
   return (
     <div>
       <Main>
@@ -37,8 +51,9 @@ const CreatePost = () => {
             onChange={(e) => setcategory(e.target.value)}
           >
             <option disabled>category</option>
-            <option value="music">music</option>
-            <option value="coffe">coffe</option>
+            {categories.map((item) => (
+              <option value={item.title}>{item.title}</option>
+            ))}
           </select>
           <textarea
             onChange={(e) => setdesc(e.target.value)}
@@ -53,11 +68,26 @@ const CreatePost = () => {
             className="file btn"
             onChange={(e) => setfile(e.target.files[0])}
           />
-          <input
-            type="submit"
-            value="create"
-            className="btn btn-primary w-100"
-          />
+          <div className="">
+            {loading ? (
+              <button className="btn btn-primary w-100 p-0">
+                {" "}
+                <RotatingLines
+                  visible={true}
+                  height="35"
+                  width="35"
+                  color="white"
+                  strokeWidth="5"
+                  animationDuration="0.75"
+                  ariaLabel="rotating-lines-loading"
+                  wrapperStyle={{}}
+                  wrapperClass=""
+                />
+              </button>
+            ) : (
+              <button className="btn btn-primary w-100">submit</button>
+            )}
+          </div>
         </form>
       </Main>
     </div>

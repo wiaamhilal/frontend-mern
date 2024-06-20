@@ -1,22 +1,27 @@
 import React, {useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
 import {toast} from "react-toastify";
 import styled from "styled-components";
+import {updatePostText} from "../redux/apiCalls/postApiCall";
 
 const UpdatePost = ({toggle, settoggle, post}) => {
-  const [title, settitle] = useState(post.title);
-  const [desc, setdesc] = useState(post.description);
-  const [category, setcategory] = useState(post.category);
+  const dispatch = useDispatch();
+  const {categories} = useSelector((state) => state.category);
+  const [title, settitle] = useState(post?.title);
+  const [description, setdescription] = useState(post?.description);
+  const [category, setcategory] = useState(post?.category);
 
   const updatePost = (e) => {
     e.preventDefault();
     if (title.trim() === "") {
       return toast.error("post title is required");
-    } else if (desc.trim() === "") {
+    } else if (description.trim() === "") {
       return toast.error("description is required");
     } else if (category.trim() === "") {
       return toast.error("category is required");
     } else {
-      console.log(title, category, desc);
+      dispatch(updatePostText({title, description, category}, post._id));
+      settoggle(false);
     }
   };
   return (
@@ -52,12 +57,13 @@ const UpdatePost = ({toggle, settoggle, post}) => {
                   onChange={(e) => setcategory(e.target.value)}
                   value={category}
                 >
-                  <option value="music">Music</option>
-                  <option value="travelling">travelling</option>
+                  {categories.map((item) => (
+                    <option value={item.title}>{item.title}</option>
+                  ))}
                 </select>
                 <textarea
-                  onChange={(e) => setdesc(e.target.value)}
-                  value={desc}
+                  onChange={(e) => setdescription(e.target.value)}
+                  value={description}
                   className="input"
                   placeholder="description"
                   rows="5"

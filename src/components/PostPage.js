@@ -1,108 +1,132 @@
-import React, {useState} from "react";
-import {posts} from "../dummyData";
-import {useParams} from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import {toast} from "react-toastify";
 import Comment from "./Comment";
 import CommentList from "./CommentList";
 import swal from "sweetalert";
 import UpdatePost from "./UpdatePost";
 import EditComment from "./EditComment";
+import {useDispatch, useSelector} from "react-redux";
+import {
+  deletePostApi,
+  fetchSinglePost,
+  toggleLike,
+  updatePostImage,
+} from "../redux/apiCalls/postApiCall";
 
 const PostPage = () => {
+  const {post} = useSelector((state) => state.post);
+  const {user} = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
   const [image, setimage] = useState("");
   const [toggle, settoggle] = useState(false);
   const [commetnttoggle, setcommenttoggle] = useState(false);
-  console.log(toggle);
+
   const uploadImgSubmit = (e) => {
     e.preventDefault();
     if (!image) {
       toast.error("no image chosen");
     } else {
-      console.log("image has been uploaded");
+      const formData = new FormData();
+      formData.append("image", image);
+      dispatch(updatePostImage(formData, post._id));
     }
   };
+  const navicate = useNavigate();
   const deletePost = () => {
     swal({
       title: "Are you sure?",
-      text: "Once deleted, you will not be able to recover this imaginary file!",
+      text: "Once deleted, you will not be able to recover this imaginary post!",
       icon: "warning",
       buttons: true,
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
-        swal("the post has been deleted", {
-          icon: "success",
-        });
-      } else {
-        swal("something went wrong");
+        dispatch(deletePostApi(post?._id));
+        navicate(`/profile/${user?._id}`);
+        window.location.reload(false);
       }
     });
   };
   const {id} = useParams();
-  const post = posts.find((p) => p._id === parseInt(id));
+  // const post = posts.find((p) => p._id === parseInt(id));
+  useEffect(() => {
+    dispatch(fetchSinglePost(id));
+  }, [id]);
+  console.log(id);
   return (
     <div>
       <div className="container">
         <img
-          src={image ? URL.createObjectURL(image) : post.image}
+          src={image ? URL.createObjectURL(image) : post?.image.url}
           alt=""
           style={{width: "100%", borderRadius: "20px"}}
         />
-        <form onSubmit={uploadImgSubmit}>
-          <input
-            type="file"
-            id="file"
-            name="file"
-            style={{display: "none"}}
-            onChange={(e) => setimage(e.target.files[0])}
-          />
-          <div className="d-flex align-items-center justify-content-between mt-3">
-            <label htmlFor="file" className="btn btn-secondary btn-sm">
-              change the image
-            </label>
+        {user?._id === post?.user._id && (
+          <form>
             <input
-              type="submit"
-              value="change now"
-              className="btn btn-primary btn-sm"
+              type="file"
+              id="file"
+              name="file"
+              style={{display: "none"}}
+              onChange={(e) => setimage(e.target.files[0])}
             />
-          </div>
-        </form>
-        <h1 className="text-center">{post.title}</h1>
+            <div className="d-flex align-items-center justify-content-between mt-3">
+              <label htmlFor="file" className="btn btn-secondary btn-sm">
+                change the image
+              </label>
+              <input
+                onClick={uploadImgSubmit}
+                type="submit"
+                value="change now"
+                className="btn btn-primary btn-sm"
+              />
+            </div>
+          </form>
+        )}
+        <h1 className="text-center">{post?.title}</h1>
         <div className="d-flex align-items-center me-2 justify-content-center fw-bold mb-3">
           <img
-            src={post.user.image}
+            src={post?.user.profilePhoto.url}
             alt=""
             style={{width: "40px"}}
             className="rounded-circle me-2"
           />
           <div>
-            <span className="d-block">{post.user.username}</span>
-            <span>{post.createdAt}</span>
+            <Link to={`/profile/${post?.user._id}`} className="d-block">
+              {post?.user.username}
+            </Link>
+            <span>{new Date(post?.createdAt).toDateString()}</span>
           </div>
         </div>
         <p className="text-center mb-3">
-          {post.description} hi this is the discrion is face just for shawing
+          {post?.description} hi this is the discrion is face just for shawing
           some words i
         </p>
         <div className="d-flex align-items-center justify-content-between">
-          <span>
+          <span onClick={() => dispatch(toggleLike(post?._id))}>
             {/* <img src="" alt="" style={{width: "50px"}} /> */}
-            {post.likes.length} Likes
+            {post?.likes.length} Likes
           </span>
-          <span>
-            <span
-              className="btn btn-success me-3"
-              onClick={() => settoggle(true)}
-            >
-              update
-            </span>
-            <span className="btn btn-danger" onClick={deletePost}>
-              delete
-            </span>
-          </span>
+          {user?._id === post?.user._id && (
+            <div>
+              <span
+                className="btn btn-success me-3"
+                onClick={() => settoggle(true)}
+              >
+                update
+              </span>
+              <span className="btn btn-danger" onClick={deletePost}>
+                delete
+              </span>
+            </div>
+          )}
         </div>
-        <Comment />
-        <CommentList setcommenttoggle={setcommenttoggle} />
+        <Comment postId={post?._id} />
+        <CommentList
+          setcommenttoggle={setcommenttoggle}
+          comments={post?.comments}
+        />
         <UpdatePost settoggle={settoggle} toggle={toggle} post={post} />
         <EditComment
           commetnttoggle={commetnttoggle}

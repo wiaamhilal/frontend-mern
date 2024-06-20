@@ -4,29 +4,32 @@ import {Link} from "react-router-dom";
 const PostItem = ({post}) => {
   return (
     <Main className="shadow">
-      <img src={post.image.url} alt="" />
+      <img src={post?.image.url} alt="" />
       <Auther>
         {" "}
-        <Link to={`/profile/${post.user._id}`}>
+        <Link to={`/profile/${post?.user._id}`}>
           {" "}
-          auther: {post.user.username}
+          auther: {post?.user.username}
         </Link>{" "}
-        <span>{post.createdAt}</span>
+        <span>{post?.createdAt}</span>
       </Auther>
       <div className="d-flex align-items-center justify-content-between">
-        <h2>{post.title}</h2>
+        <h2>{post?.title}</h2>
         <Link
-          to={`/posts/category/${post.category}`}
+          to={`/posts/category/${post?.category}`}
           className="text-white btn btn-sm btn-secondary rounded-pill"
         >
-          {post.category}
+          {post?.category}
         </Link>
       </div>
       <p>
         hi this is desc for traingn only dont foucus ono in sik hi how are is
         all good
       </p>
-      <Link className="btn btn-success w-100" to={`/posts/details/${post._id}`}>
+      <Link
+        className="btn btn-success w-100"
+        to={`/posts/details/${post?._id}`}
+      >
         Read more..
       </Link>
     </Main>

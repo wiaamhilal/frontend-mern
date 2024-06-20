@@ -1,16 +1,18 @@
 import React, {useState} from "react";
 import {toast} from "react-toastify";
 import styled from "styled-components";
+import {useDispatch} from "react-redux";
+import {createNewComment} from "../redux/apiCalls/commentApiCall";
 
-const Comment = () => {
+const Comment = ({postId}) => {
   const [text, settext] = useState("");
-
+  const dispatch = useDispatch();
   const sedComment = (e) => {
     e.preventDefault();
     if (text === "") {
       toast.error("write your comment first");
     } else {
-      console.log(text);
+      dispatch(createNewComment({text, postId}));
       settext("");
     }
   };

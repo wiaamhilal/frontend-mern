@@ -2,11 +2,9 @@ import "./App.css";
 import Header from "./components/Header";
 import {Route, Routes, Navigate} from "react-router-dom";
 import Home from "./components/Home";
-import Posts from "./components/Posts";
 import CreatePost from "./components/CreatePost";
 import PostPage from "./components/PostPage";
 import {ToastContainer} from "react-toastify";
-import CategoryPage from "./components/CategoryPage";
 import Profile from "./components/Profile";
 import Dashboard from "./components/Dashboard";
 import {UsersTable} from "./components/UsersTable";
@@ -18,6 +16,8 @@ import Login from "./components/Login";
 import ForgetPassword from "./components/ForgetPassword";
 import ResetPassword from "./components/ResetPassword";
 import {useSelector} from "react-redux";
+import CategoryPage2 from "./components/CategoryPage2";
+import PostList from "./components/PostList";
 
 function App() {
   const {user} = useSelector((state) => state.auth);
@@ -37,7 +37,7 @@ function App() {
           path="/posts"
           element={
             <>
-              <Header /> <Posts />
+              <Header /> <PostList />
             </>
           }
         />
@@ -61,7 +61,7 @@ function App() {
           path="/posts/category/:category"
           element={
             <>
-              <Header /> <CategoryPage />
+              <Header /> <CategoryPage2 />
             </>
           }
         />

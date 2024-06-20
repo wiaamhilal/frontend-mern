@@ -1,6 +1,4 @@
 import React, {useEffect, useState} from "react";
-import Posts from "./Posts";
-import {posts} from "../dummyData";
 import {toast} from "react-toastify";
 import swal from "sweetalert";
 import UpdateProfile from "./UpdateProfile.js";
@@ -10,8 +8,10 @@ import {
   getUserProfile,
 } from "../redux/apiCalls/profileApiCall.js";
 import {useParams} from "react-router-dom";
+import PostList from "./PostList.js";
 const Profile = () => {
   const {profile} = useSelector((state) => state.profile);
+  const {posts} = useSelector((state) => state.post);
   console.log(profile);
   const {userId} = useParams();
   const dispatch = useDispatch();
@@ -98,7 +98,7 @@ const Profile = () => {
       </div>
       <h1>{profile?.username} posts</h1>
       <div className="container">
-        <Posts posts={posts} />
+        <PostList />
       </div>
       <button className="btn btn-danger mb-3 ms-3" onClick={deleteAcount}>
         delete profile

@@ -1,7 +1,13 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {Link} from "react-router-dom";
-
-export const SideBar = ({categories}) => {
+import {useDispatch, useSelector} from "react-redux";
+import {fitchAllCategories} from "../redux/apiCalls/categoryApiCall";
+export const SideBar = () => {
+  const {categories} = useSelector((state) => state.category);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fitchAllCategories());
+  });
   return (
     <div className="">
       <h2 style={{borderBottom: "1px solid #eee"}}>categories</h2>
