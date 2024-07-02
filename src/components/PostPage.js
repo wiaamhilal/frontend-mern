@@ -20,7 +20,6 @@ const PostPage = () => {
   const dispatch = useDispatch();
   const [image, setimage] = useState("");
   const [toggle, settoggle] = useState(false);
-  const [commetnttoggle, setcommenttoggle] = useState(false);
 
   const uploadImgSubmit = (e) => {
     e.preventDefault();
@@ -123,15 +122,8 @@ const PostPage = () => {
           )}
         </div>
         <Comment postId={post?._id} />
-        <CommentList
-          setcommenttoggle={setcommenttoggle}
-          comments={post?.comments}
-        />
+        <CommentList comments={post?.comments} />
         <UpdatePost settoggle={settoggle} toggle={toggle} post={post} />
-        <EditComment
-          commetnttoggle={commetnttoggle}
-          setcommenttoggle={setcommenttoggle}
-        />
       </div>
     </div>
   );

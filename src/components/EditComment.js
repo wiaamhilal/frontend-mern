@@ -1,17 +1,18 @@
 import React, {useState} from "react";
+import {useDispatch} from "react-redux";
 import {toast} from "react-toastify";
 import styled from "styled-components";
+import {updateCommentApi} from "../redux/apiCalls/commentApiCall";
 
-const EditComment = ({commetnttoggle, setcommenttoggle}) => {
-  const [title, settitle] = useState("");
-
+const EditComment = ({commetnttoggle, setcommenttoggle, mycomment}) => {
+  const [text, settext] = useState(mycomment?.text);
+  const dispatch = useDispatch();
   const updateComment = (e) => {
     e.preventDefault();
-    if (title.trim() === "") {
+    if (text.trim() === "") {
       return toast.error("post title is required");
     } else {
-      console.log(title);
-      settitle("");
+      dispatch(updateCommentApi(mycomment?._id, {text}));
       setcommenttoggle(false);
     }
   };
@@ -39,8 +40,8 @@ const EditComment = ({commetnttoggle, setcommenttoggle}) => {
                 type="text"
                 placeholder="title"
                 className="input"
-                onChange={(e) => settitle(e.target.value)}
-                value={title}
+                onChange={(e) => settext(e.target.value)}
+                value={text}
               />
             </div>
             <div className="modal-footer">

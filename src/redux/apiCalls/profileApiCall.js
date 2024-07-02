@@ -42,7 +42,7 @@ export function changeProfilePhoto(newImage) {
   };
 }
 
-// change profile photo
+// update profile
 export function updateProfile(userId, newUpdate) {
   return async (dispatch, getState) => {
     try {
@@ -62,6 +62,70 @@ export function updateProfile(userId, newUpdate) {
       let user = JSON.parse(localStorage.getItem("userInfo"));
       user.username = data.username;
       localStorage.setItem("userInfo", JSON.stringify(user));
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
+}
+
+// delete profile
+export function deleteProfileApi(userId) {
+  return async (dispatch, getState) => {
+    try {
+      dispatch(profileActions.setloading);
+      const {data} = await request.delete(
+        `/api/users/profile/${userId}`,
+
+        {
+          headers: {
+            Authorization: "Bearer " + getState().auth.user.token,
+          },
+        }
+      );
+      dispatch(profileActions.setIsPostDeleted());
+      setTimeout(() => dispatch(profileActions.clearisPostDeleted()), 2000);
+      toast.success(data.message);
+    } catch (error) {
+      toast.error(error.response.data.message);
+      dispatch(profileActions.clearLoaing());
+    }
+  };
+}
+
+// get users Count
+export function getUsersCountApi() {
+  return async (dispatch, getState) => {
+    try {
+      const {data} = await request.get(
+        `/api/users/count`,
+
+        {
+          headers: {
+            Authorization: "Bearer " + getState().auth.user.token,
+          },
+        }
+      );
+      dispatch(profileActions.setUsersCount(data));
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
+}
+
+// get all profiles
+export function getAllProfilesApi() {
+  return async (dispatch, getState) => {
+    try {
+      const {data} = await request.get(
+        `/api/users/profile`,
+
+        {
+          headers: {
+            Authorization: "Bearer " + getState().auth.user.token,
+          },
+        }
+      );
+      dispatch(profileActions.setProfiles(data));
     } catch (error) {
       toast.error(error.response.data.message);
     }

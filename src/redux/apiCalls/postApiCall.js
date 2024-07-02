@@ -2,7 +2,7 @@ import request from "../../utils/request";
 import {toast} from "react-toastify";
 import {postActions} from "../slices/postSlice";
 
-// get all posts
+// get all posts by page number
 export function fetchPosts(pageNumber) {
   return async (dispatch) => {
     try {
@@ -134,6 +134,18 @@ export function deletePostApi(postId) {
       });
       dispatch(postActions.setPosts(data.postId));
       toast.success(data.message);
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
+}
+
+// get all posts
+export function fetchAllPosts() {
+  return async (dispatch) => {
+    try {
+      const {data} = await request.get(`/api/posts/`);
+      dispatch(postActions.setPosts(data));
     } catch (error) {
       toast.error(error.response.data.message);
     }

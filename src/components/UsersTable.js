@@ -1,9 +1,19 @@
-import React from "react";
+import React, {useEffect} from "react";
 import SidebarDashboard from "./SidebarDashboard";
 import {Link} from "react-router-dom";
 import swal from "sweetalert";
+import {useDispatch, useSelector} from "react-redux";
+import {
+  deleteProfileApi,
+  getAllProfilesApi,
+} from "../redux/apiCalls/profileApiCall";
 export const UsersTable = () => {
-  const deleteUser = () => {
+  const {profiles, isProfileDeleted} = useSelector((state) => state.profile);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getAllProfilesApi());
+  }, [isProfileDeleted]);
+  const deleteUser = (userId) => {
     swal({
       title: "Are you sure?",
       text: "Once deleted, you will not be able to recover this imaginary file!",
@@ -12,11 +22,7 @@ export const UsersTable = () => {
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
-        swal("the user has been deleted", {
-          icon: "success",
-        });
-      } else {
-        swal("something went wrong");
+        dispatch(deleteProfileApi(userId));
       }
     });
   };
@@ -36,24 +42,30 @@ export const UsersTable = () => {
             </tr>
           </thead>
           <tbody>
-            {[1, 2, 3, 4, 5, 6].map((item) => (
+            {profiles.map((item, index) => (
               <tr>
-                <th scope="row">{item}</th>
+                <th scope="row">{index + 1}</th>
                 <td>
                   <img
-                    src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                    src={item.profilePhoto.url}
                     alt=""
                     style={{width: "40px"}}
                     className="rounded-circle"
                   />
-                  <span className="ms-2">wiaam hilal</span>
+                  <span className="ms-2">{item.username}</span>
                 </td>
-                <td>wiaam@gmial.com</td>
+                <td>{item.email}</td>
                 <td>
-                  <Link to="/profile/1" className="btn btn-success me-3">
+                  <Link
+                    to={`/profile/${item._id}`}
+                    className="btn btn-success me-3"
+                  >
                     view profile
                   </Link>
-                  <button className="btn btn-danger" onClick={deleteUser}>
+                  <button
+                    className="btn btn-danger"
+                    onClick={() => deleteUser(item._id)}
+                  >
                     delete
                   </button>
                 </td>

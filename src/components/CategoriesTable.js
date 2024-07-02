@@ -1,8 +1,12 @@
 import React from "react";
 import SidebarDashboard from "./SidebarDashboard";
 import swal from "sweetalert";
+import {useDispatch, useSelector} from "react-redux";
+import {deleteCategoryApi} from "../redux/apiCalls/categoryApiCall";
 export const CategoriesTable = () => {
-  const deleteCategory = () => {
+  const dispatch = useDispatch();
+  const {categories} = useSelector((state) => state.category);
+  const deleteCategory = (categoryId) => {
     swal({
       title: "Are you sure?",
       text: "Once deleted, you will not be able to recover this imaginary file!",
@@ -11,14 +15,14 @@ export const CategoriesTable = () => {
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
-        swal("the category has been deleted", {
-          icon: "success",
-        });
-      } else {
-        swal("something went wrong");
+        dispatch(deleteCategoryApi(categoryId));
       }
     });
   };
+
+  // }
+  // });
+  // };
   return (
     <div className="row mt-5">
       <div className="col-2">
@@ -34,12 +38,15 @@ export const CategoriesTable = () => {
             </tr>
           </thead>
           <tbody>
-            {[1, 2, 3].map((item) => (
+            {categories.map((item, index) => (
               <tr>
-                <th scope="row">{item}</th>
-                <td>music</td>
+                <th scope="row">{index + 1}</th>
+                <td>{item.title}</td>
                 <td>
-                  <button className="btn btn-danger" onClick={deleteCategory}>
+                  <button
+                    className="btn btn-danger"
+                    onClick={() => deleteCategory(item._id)}
+                  >
                     delete
                   </button>
                 </td>

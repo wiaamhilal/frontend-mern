@@ -1,8 +1,12 @@
 import React from "react";
 import SidebarDashboard from "./SidebarDashboard";
 import swal from "sweetalert";
+import {useDispatch, useSelector} from "react-redux";
+import {deleteCommentApi} from "../redux/apiCalls/commentApiCall";
 export const CommentsTable = () => {
-  const deleteComment = () => {
+  const {comments} = useSelector((state) => state.comment);
+  const dispatch = useDispatch();
+  const deleteComment = (commentId) => {
     swal({
       title: "Are you sure?",
       text: "Once deleted, you will not be able to recover this imaginary comment!",
@@ -11,11 +15,7 @@ export const CommentsTable = () => {
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
-        swal("the comment has been deleted", {
-          icon: "success",
-        });
-      } else {
-        swal("something went wrong");
+        dispatch(deleteCommentApi(commentId));
       }
     });
   };
@@ -35,21 +35,24 @@ export const CommentsTable = () => {
             </tr>
           </thead>
           <tbody>
-            {[1, 2, 3, 4].map((item) => (
+            {comments.map((item, index) => (
               <tr>
-                <th scope="row">{item}</th>
+                <th scope="row">{index + 1}</th>
                 <td>
                   <img
-                    src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                    src={item.user.profilePhoto.url}
                     alt=""
                     style={{width: "40px"}}
                     className="rounded-circle"
                   />
-                  <span className="ms-2">wiaam hilal</span>
+                  <span className="ms-2">{item.user.username}</span>
                 </td>
-                <td>comment descriotion</td>
+                <td>{item.text}</td>
                 <td>
-                  <button className="btn btn-danger" onClick={deleteComment}>
+                  <button
+                    className="btn btn-danger"
+                    onClick={() => deleteComment(item._id)}
+                  >
                     delete
                   </button>
                 </td>

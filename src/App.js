@@ -18,6 +18,7 @@ import ResetPassword from "./components/ResetPassword";
 import {useSelector} from "react-redux";
 import CategoryPage2 from "./components/CategoryPage2";
 import PostList from "./components/PostList";
+import VerifyEmail from "./verfyemail/VerifyEmail";
 
 function App() {
   const {user} = useSelector((state) => state.auth);
@@ -150,6 +151,14 @@ function App() {
         <Route
           path="*"
           element={<h1 className="mt-5 text-center ">404 page not found</h1>}
+        />
+        <Route
+          path="/users/:userId/verify/:token"
+          element={
+            <>
+              <Header /> {!user ? <VerifyEmail /> : <Navigate to="/" />}
+            </>
+          }
         />
       </Routes>
     </div>

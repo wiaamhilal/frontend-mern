@@ -1,15 +1,18 @@
 import React from "react";
 import styled from "styled-components";
 import {Link} from "react-router-dom";
-const PostItem = ({post}) => {
+const PostItem = ({post, username, userId}) => {
+  const selectUser = userId
+    ? `/profile/${userId}`
+    : `/profile/${post?.user._id}`;
   return (
     <Main className="shadow">
       <img src={post?.image.url} alt="" />
       <Auther>
         {" "}
-        <Link to={`/profile/${post?.user._id}`}>
+        <Link to={selectUser}>
           {" "}
-          auther: {post?.user.username}
+          auther: {username ? username : post?.user.username}
         </Link>{" "}
         <span>{post?.createdAt}</span>
       </Auther>

@@ -1,14 +1,18 @@
 import React, {useState} from "react";
 import {toast} from "react-toastify";
 import styled from "styled-components";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {createNewComment} from "../redux/apiCalls/commentApiCall";
 
 const Comment = ({postId}) => {
+  const {user} = useSelector((state) => state.auth);
   const [text, settext] = useState("");
   const dispatch = useDispatch();
   const sedComment = (e) => {
     e.preventDefault();
+    if (!user) {
+      return toast.error("you have to sign in first");
+    }
     if (text === "") {
       toast.error("write your comment first");
     } else {

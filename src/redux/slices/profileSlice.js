@@ -3,6 +3,10 @@ const profileSlice = createSlice({
   name: "profile",
   initialState: {
     profile: null,
+    loading: false,
+    isProfileDeleted: false,
+    usersCount: null,
+    profiles: [],
   },
   reducers: {
     setprofile(state, action) {
@@ -11,8 +15,27 @@ const profileSlice = createSlice({
     setprofilePhoto(state, action) {
       state.profile.profilePhoto = action.payload;
     },
-    setProfile(state, action) {
-      state.profile = action.payload;
+    // setProfile(state, action) {
+    //   state.profile = action.payload;
+    // },
+    setloading(state) {
+      state.loading = true;
+    },
+    clearLoaing(state) {
+      state.loading = false;
+    },
+    setIsPostDeleted(state) {
+      state.isProfileDeleted = true;
+      state.loading = false;
+    },
+    clearisPostDeleted(state) {
+      state.isProfileDeleted = false;
+    },
+    setUsersCount(state, action) {
+      state.usersCount = action.payload;
+    },
+    setProfiles(state, action) {
+      state.profiles = action.payload;
     },
   },
 });

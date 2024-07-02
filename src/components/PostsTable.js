@@ -1,10 +1,17 @@
-import React from "react";
+import React, {useEffect} from "react";
 import SidebarDashboard from "./SidebarDashboard";
 import {Link} from "react-router-dom";
 import swal from "sweetalert";
-import {posts} from "../dummyData";
+import {useDispatch, useSelector} from "react-redux";
+import {deletePostApi, fetchAllPosts} from "../redux/apiCalls/postApiCall";
 export const PostsTable = () => {
-  const deletePost = () => {
+  const {posts} = useSelector((state) => state.post);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchAllPosts());
+  }, []);
+
+  const deletePost = (postId) => {
     swal({
       title: "Are you sure?",
       text: "Once deleted, you will not be able to recover this imaginary file!",
@@ -13,11 +20,8 @@ export const PostsTable = () => {
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
-        swal("the user has been deleted", {
-          icon: "success",
-        });
-      } else {
-        swal("something went wrong");
+        dispatch(deletePostApi(postId));
+        window.location.reload(false);
       }
     });
   };
@@ -37,27 +41,30 @@ export const PostsTable = () => {
             </tr>
           </thead>
           <tbody>
-            {posts.map((item, index) => (
+            {posts?.map((item, index) => (
               <tr>
                 <th scope="row">{index + 1}</th>
                 <td>
                   <img
-                    src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                    src={item.user.profilePhoto.url}
                     alt=""
                     style={{width: "40px"}}
                     className="rounded-circle"
                   />
-                  <span className="ms-2">{item.user.username}</span>
+                  <span className="ms-2">{item?.user.username}</span>
                 </td>
-                <td>{item.title}</td>
+                <td>{item?.title}</td>
                 <td>
                   <Link
-                    to={`/posts/details/${item._id}`}
+                    to={`/posts/details/${item?._id}`}
                     className="btn btn-success me-3"
                   >
                     view post
                   </Link>
-                  <button className="btn btn-danger" onClick={deletePost}>
+                  <button
+                    className="btn btn-danger"
+                    onClick={() => deletePost(item?._id)}
+                  >
                     delete
                   </button>
                 </td>

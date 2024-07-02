@@ -1,14 +1,43 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
 import Moment from "react-moment";
-import {useSelector} from "react-redux";
-const CommentList = ({setcommenttoggle, comments}) => {
+import {useDispatch, useSelector} from "react-redux";
+import EditComment from "./EditComment";
+import swal from "sweetalert";
+import {deleteCommentApi} from "../redux/apiCalls/commentApiCall";
+const CommentList = ({comments}) => {
   const {user} = useSelector((state) => state.auth);
+  const [commetnttoggle, setcommenttoggle] = useState(false);
+  const [mycomment, setmycomment] = useState();
+  const dispatch = useDispatch();
+  const deleteCommentHandler = (commentId) => {
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this imaginary post!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        dispatch(deleteCommentApi(commentId));
+      }
+    });
+  };
+  console.log(mycomment);
+  const findMyComment = (comment) => {
+    setmycomment(comment);
+    setcommenttoggle(true);
+  };
   return (
     <Main>
       <h2>{comments?.length} comments</h2>
       {comments?.map((comment) => (
         <Box className="shadow">
+          <EditComment
+            commetnttoggle={commetnttoggle}
+            setcommenttoggle={setcommenttoggle}
+            mycomment={mycomment}
+          />
           <div className="d-flex align-items-center justify-content-between">
             <h5>{comment.username}</h5>{" "}
             <span>
@@ -25,11 +54,16 @@ const CommentList = ({setcommenttoggle, comments}) => {
             <div>
               <span
                 className="me-3 btn btn-success btn-sm"
-                onClick={() => setcommenttoggle(true)}
+                onClick={() => findMyComment(comment)}
               >
                 update
               </span>
-              <span className="btn btn-danger btn-sm">delete</span>
+              <span
+                className="btn btn-danger btn-sm"
+                onClick={() => deleteCommentHandler(comment._id)}
+              >
+                delete
+              </span>
             </div>
           )}
         </Box>
