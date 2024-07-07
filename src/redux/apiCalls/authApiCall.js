@@ -33,3 +33,15 @@ export function logoutUser() {
     localStorage.removeItem("userInfo");
   };
 }
+
+//verify email
+export function verifyEmailApi(userId, token) {
+  return async (dispatch) => {
+    try {
+      await request.get(`/api/auth/${userId}/verify/${token}`);
+      dispatch(authActions.setisEmailVerified());
+    } catch (error) {
+      console.log(error.response.data.message);
+    }
+  };
+}

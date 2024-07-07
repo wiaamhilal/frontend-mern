@@ -141,7 +141,7 @@ function App() {
           }
         />
         <Route
-          path="/reset-password"
+          path="/reset-password/:userId/:token"
           element={
             <>
               <Header /> <ResetPassword />

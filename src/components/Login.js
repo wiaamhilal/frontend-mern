@@ -1,11 +1,11 @@
-import React, {useState} from "react";
-import {Link} from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {Link, useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {loginUser} from "../redux/apiCalls/authApiCall";
 const Login = () => {
   // const navicate = useNavigate();
-  // const {user} = useSelector((state) => state.auth);
+  // const {isEmailVerified} = useSelector((state) => state.auth);
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
   const dispatch = useDispatch();
@@ -21,7 +21,7 @@ const Login = () => {
     }
   };
   // useEffect(() => {
-  //   if (user) {
+  //   if (!isEmailVerified) {
   //     navicate("/");
   //   }
   // });

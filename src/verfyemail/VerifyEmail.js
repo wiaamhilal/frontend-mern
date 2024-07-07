@@ -1,17 +1,24 @@
-import React from "react";
-import {Link} from "react-router-dom";
-
+import React, {useEffect} from "react";
+import {Link, useParams} from "react-router-dom";
+import {useSelector, useDispatch} from "react-redux";
+import {verifyEmailApi} from "../redux/apiCalls/authApiCall";
 const VerifyEmail = () => {
-  const isEmailVerify = true;
+  const {isEmailVerified} = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const {userId, token} = useParams();
+
+  useEffect(() => {
+    dispatch(verifyEmailApi(userId, token));
+  }, [userId, token]);
   return (
     <div>
-      {isEmailVerify ? (
+      {isEmailVerified ? (
         <>
           <h1 className="text-center mt-5">
             {" "}
             you have been verify your email please sign in
           </h1>
-          <Link className="btn btn-primary" to="/signin">
+          <Link className="btn btn-primary" to="/login">
             go to login page
           </Link>
         </>
