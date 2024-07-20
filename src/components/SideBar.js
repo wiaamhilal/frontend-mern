@@ -11,12 +11,12 @@ export const SideBar = () => {
   return (
     <div className="">
       <h2 style={{borderBottom: "1px solid #eee"}}>categories</h2>
-      {categories.map((item) => (
+      {categories?.map((item) => (
         <Link
-          to={`/posts/category/${item.title}`}
+          to={`/posts/category/${item?.title}`}
           className="btn btn-secondary w-100 mb-2"
         >
-          {item.title}
+          {item?.title}
         </Link>
       ))}
     </div>

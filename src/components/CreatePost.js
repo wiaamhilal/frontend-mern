@@ -1,20 +1,25 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import {toast} from "react-toastify";
-import {useDispatch, useSelector} from "react-redux";
-import {createNewPost} from "../redux/apiCalls/postApiCall";
-import {useNavigate} from "react-router-dom";
-import {RotatingLines} from "react-loader-spinner";
+import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { createNewPost } from "../redux/apiCalls/postApiCall";
+import { useNavigate } from "react-router-dom";
+import { RotatingLines } from "react-loader-spinner";
+import { fitchAllCategories } from "../redux/apiCalls/categoryApiCall";
 
 const CreatePost = () => {
   const dispatch = useDispatch();
   const navicate = useNavigate();
-  const {loading, isPostCreated} = useSelector((state) => state.post);
-  const {categories} = useSelector((state) => state.category);
+  const { loading, isPostCreated } = useSelector((state) => state.post);
+  const { categories } = useSelector((state) => state.category);
   const [title, settitle] = useState("");
   const [desc, setdesc] = useState("");
   const [category, setcategory] = useState("");
   const [file, setfile] = useState("");
+
+  useEffect(() => {
+    dispatch(fitchAllCategories());
+  }, [categories]);
 
   const submitCreatepost = (e) => {
     e.preventDefault();
@@ -50,7 +55,6 @@ const CreatePost = () => {
             className="inputs"
             onChange={(e) => setcategory(e.target.value)}
           >
-            <option disabled>category</option>
             {categories.map((item) => (
               <option value={item.title}>{item.title}</option>
             ))}

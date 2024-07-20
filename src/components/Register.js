@@ -22,17 +22,17 @@ const Register = () => {
       dispatch(registerUser({username, email, password}));
     }
   };
-  // const navicate = useNavigate();
-  // if (registerMessage) {
-  //   swal({
-  //     title: registerMessage,
-  //     icon: "success",
-  //   }).then((ok) => {
-  //     if (ok) {
-  //       navicate("/login", {replace: true});
-  //     }
-  //   });
-  // }
+  const navicate = useNavigate();
+  if (registerMessage) {
+    swal({
+      title: registerMessage,
+      icon: "success",
+    }).then((ok) => {
+      if (ok) {
+        navicate("/sendlink", {replace: true});
+      }
+    });
+  }
   return (
     <div
       style={{maxWidth: "500px"}}

@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {toast} from "react-toastify";
-import {useParams} from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { useParams } from "react-router-dom";
 import {
   getResetPassword,
   resetPassword,
@@ -10,8 +10,10 @@ import {
 const ResetPassword = () => {
   const [password, setpassword] = useState("");
   const dispatch = useDispatch();
-  const {isError} = useSelector((state) => state.password);
-  const {userId, token} = useParams();
+  const { isError } = useSelector((state) => state.password);
+  const { userId, token } = useParams();
+
+  console.log(isError);
 
   useEffect(() => {
     dispatch(getResetPassword(userId, token));
@@ -22,12 +24,12 @@ const ResetPassword = () => {
     if (!password) {
       return toast.error("password is required");
     } else {
-      dispatch(resetPassword(password, {userId, token}));
+      dispatch(resetPassword(password, { userId, token }));
     }
   };
   return (
     <div
-      style={{maxWidth: "500px"}}
+      style={{ maxWidth: "500px" }}
       className="m-auto shadow rounded mt-4 p-3 bg-white container"
     >
       {isError ? (

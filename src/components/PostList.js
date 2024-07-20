@@ -27,7 +27,7 @@ const PostList = () => {
         <div className="col-10">
           <h2>latest post</h2>
           {posts?.map((item) => (
-            <PostItem post={item} key={item._id} />
+            <PostItem post={item} key={item?._id} />
           ))}
           :
         </div>
