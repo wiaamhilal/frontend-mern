@@ -1,20 +1,17 @@
 import React from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {Link} from "react-router-dom";
-import {logoutUser} from "../redux/apiCalls/authApiCall";
-
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { logoutUser } from "../redux/apiCalls/authApiCall";
+import { styled } from "styled-components";
 const Headerr = () => {
-  const {user} = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   return (
-    <div>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <div className="container-fluid">
-          <Link className="navbar-brand" to="#">
-            Blog
-          </Link>
+    <Main>
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark ">
+        <div className="container-fluid  justify-content-end">
           <button
-            className="navbar-toggler"
+            className="navbar-toggler "
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbarSupportedContent"
@@ -22,18 +19,38 @@ const Headerr = () => {
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
-            <span className="navbar-toggler-icon"></span>
+            <span className="navbar-toggler-icon "></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+              {user ? (
+                <Link to="#">
+                  <img
+                    src={user?.profilePhoto?.url}
+                    alt=""
+                    style={{ width: "40px", height: "40px" }}
+                    className="rounded-circle me-2"
+                  />
+                  {/* <span>{user?.username}</span> */}
+                </Link>
+              ) : (
+                <Link to="/sign in">
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png"
+                    alt=""
+                    style={{ width: "40px", height: "40px" }}
+                    className="rounded-circle me-2"
+                  />
+                </Link>
+              )}
               <li className="nav-item">
                 <Link className="nav-link active" aria-current="page" to="/">
                   Home
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/posts">
-                  Posts
+                <Link className="nav-link" to="/products">
+                  Products
                 </Link>
               </li>
               {!user && (
@@ -62,14 +79,14 @@ const Headerr = () => {
                         register
                       </Link>
                     </li>
-                    <li>
+                    {/* <li>
                       <hr className="dropdown-divider" />
-                    </li>
-                    <li>
+                    </li> */}
+                    {/* <li>
                       <Link className="dropdown-item" to="#">
                         Something else here
                       </Link>
-                    </li>
+                    </li> */}
                   </ul>
                 </li>
               )}
@@ -82,7 +99,7 @@ const Headerr = () => {
                     tabindex="-1"
                     aria-disabled="true"
                   >
-                    Create
+                    Create product
                   </Link>
                 </li>
               )}
@@ -98,46 +115,27 @@ const Headerr = () => {
                   </Link>
                 </li>
               )}
-            </ul>
-            {user && (
-              <li className="nav-item dropdown d-flex align-items-center me-md-3">
+              <li className="nav-item">
                 <Link
-                  className="nav-link dropdown-toggle "
-                  to="#"
-                  id="navbarDropdown"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
+                  className="nav-link"
+                  to="/about"
+                  tabindex="-1"
+                  aria-disabled="true"
                 >
-                  <img
-                    src={user?.profilePhoto?.url}
-                    alt=""
-                    style={{width: "50px", height: "50px"}}
-                    className="rounded-circle me-2"
-                  />
-                  <span>{user?.username}</span>
+                  About
                 </Link>
-                <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li>
-                    <Link
-                      className="dropdown-item"
-                      to={`/profile/${user?._id}`}
-                    >
-                      profile
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      className="dropdown-item"
-                      to="/register"
-                      onClick={() => dispatch(logoutUser())}
-                    >
-                      logout
-                    </Link>
-                  </li>
-                </ul>
               </li>
-            )}
+              <li className="nav-item">
+                <Link
+                  className="nav-link"
+                  to="/contactus"
+                  tabindex="-1"
+                  aria-disabled="true"
+                >
+                  Contact Us
+                </Link>
+              </li>
+            </ul>
             <form className="d-flex">
               <input
                 className="form-control me-2"
@@ -152,8 +150,8 @@ const Headerr = () => {
           </div>
         </div>
       </nav>
-    </div>
+    </Main>
   );
 };
-
+const Main = styled.div``;
 export default Headerr;

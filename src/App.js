@@ -1,27 +1,30 @@
 import "./App.css";
 import Header from "./components/Header";
-import {Route, Routes, Navigate} from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import Home from "./components/Home";
 import CreatePost from "./components/CreatePost";
 import PostPage from "./components/PostPage";
-import {ToastContainer} from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import Profile from "./components/Profile";
 import Dashboard from "./components/Dashboard";
-import {UsersTable} from "./components/UsersTable";
-import {PostsTable} from "./components/PostsTable";
-import {CategoriesTable} from "./components/CategoriesTable";
-import {CommentsTable} from "./components/CommentsTable";
+import { UsersTable } from "./components/UsersTable";
+import { PostsTable } from "./components/PostsTable";
+import { CategoriesTable } from "./components/CategoriesTable";
+import { CommentsTable } from "./components/CommentsTable";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import ForgetPassword from "./components/ForgetPassword";
 import ResetPassword from "./components/ResetPassword";
-import {useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 import CategoryPage2 from "./components/CategoryPage2";
 import PostList from "./components/PostList";
 import VerifyEmail from "./verfyemail/VerifyEmail";
+import AboutUs from "./components/AboutUs";
+import ContactUs from "./components/ContactUs";
+// import Headerr from "./components/Headerr";
 
 function App() {
-  const {user} = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
   return (
     <div className="App">
       <ToastContainer theme="colored" position="top-center" />
@@ -35,7 +38,7 @@ function App() {
           }
         />
         <Route
-          path="/posts"
+          path="/products"
           element={
             <>
               <Header /> <PostList />
@@ -157,6 +160,22 @@ function App() {
           element={
             <>
               <Header /> {!user ? <VerifyEmail /> : <Navigate to="/" />}
+            </>
+          }
+        />
+        <Route
+          path="/about"
+          element={
+            <>
+              <Header /> <AboutUs />
+            </>
+          }
+        />
+        <Route
+          path="/contactus"
+          element={
+            <>
+              <Header /> <ContactUs />
             </>
           }
         />
