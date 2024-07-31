@@ -5,6 +5,8 @@ import phoneImg from "../img/phone-call-telephone-svgrepo-com.svg";
 import emailImg from "../img/email-svgrepo-com.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { createNewClinetComment } from "../redux/apiCalls/commentApiCall";
+import { toast } from "react-toastify";
 
 const ContactUs = () => {
   const { user } = useSelector((state) => state.auth);
@@ -21,6 +23,11 @@ const ContactUs = () => {
     // dispatch(setcomments(payload));
     setcomment("");
     setnumber(number + 1);
+  };
+  const sendComment = (e) => {
+    e.preventDefault();
+    dispatch(createNewClinetComment({ text: comment }));
+    toast.success("thank you for your opininiont");
   };
   console.log(number);
   return (
@@ -148,7 +155,7 @@ const ContactUs = () => {
                 className="my-feild"
               />
               <button
-                onClick={HandleSubmit}
+                onClick={sendComment}
                 disabled={!user || !comment}
                 className="d-block btn btn-primary mt-3 w-100"
               >

@@ -21,6 +21,7 @@ import PostList from "./components/PostList";
 import VerifyEmail from "./verfyemail/VerifyEmail";
 import AboutUs from "./components/AboutUs";
 import ContactUs from "./components/ContactUs";
+import Messages from "./components/Messages";
 // import Headerr from "./components/Headerr";
 
 function App() {
@@ -176,6 +177,14 @@ function App() {
           element={
             <>
               <Header /> <ContactUs />
+            </>
+          }
+        />
+        <Route
+          path="/messages"
+          element={
+            <>
+              <Header /> <Messages />
             </>
           }
         />

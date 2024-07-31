@@ -79,14 +79,6 @@ const Headerr = () => {
                         register
                       </Link>
                     </li>
-                    {/* <li>
-                      <hr className="dropdown-divider" />
-                    </li> */}
-                    {/* <li>
-                      <Link className="dropdown-item" to="#">
-                        Something else here
-                      </Link>
-                    </li> */}
                   </ul>
                 </li>
               )}

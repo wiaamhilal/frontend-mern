@@ -1,13 +1,13 @@
 import request from "../../utils/request";
-import {toast} from "react-toastify";
-import {postActions} from "../slices/postSlice";
-import {commentActions} from "../slices/commentSlice";
+import { toast } from "react-toastify";
+import { postActions } from "../slices/postSlice";
+import { commentActions } from "../slices/commentSlice";
 
 // create a new commetn
 export function createNewComment(newComment) {
   return async (dispatch, getState) => {
     try {
-      const {data} = await request.post("/api/comments", newComment, {
+      const { data } = await request.post("/api/comments", newComment, {
         headers: {
           Authorization: "bearer " + getState().auth.user.token,
         },
@@ -23,7 +23,7 @@ export function createNewComment(newComment) {
 export function updateCommentApi(commentId, newComment) {
   return async (dispatch, getState) => {
     try {
-      const {data} = await request.put(
+      const { data } = await request.put(
         `/api/comments/${commentId}`,
         newComment,
         {
@@ -60,12 +60,64 @@ export function deleteCommentApi(commentId) {
 export function fetshAllCommentsApi() {
   return async (dispatch, getState) => {
     try {
-      const {data} = await request.get(`/api/comments`, {
+      const { data } = await request.get(`/api/comments`, {
         headers: {
           Authorization: "bearer " + getState().auth.user.token,
         },
       });
       dispatch(commentActions.setComments(data));
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
+}
+
+// create a new commetn
+export function createNewClinetComment(newComment) {
+  return async (dispatch, getState) => {
+    try {
+      const { data } = await request.post(
+        "/api/comments/client-comment",
+        newComment,
+        {
+          headers: {
+            Authorization: "bearer " + getState().auth.user.token,
+          },
+        }
+      );
+      toast.success("thank you for your comment");
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
+}
+
+// fetsh all comments clienst
+export function AllCommentsClintsApi() {
+  return async (dispatch, getState) => {
+    try {
+      const { data } = await request.get(`/api/comments/client-comment`, {
+        headers: {
+          Authorization: "bearer " + getState().auth.user.token,
+        },
+      });
+      dispatch(commentActions.setClinetComment(data));
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
+}
+
+// delete all comments client
+export function deleteAllClinetsComments() {
+  return async (dispatch, getState) => {
+    try {
+      await request.delete(`/api/comments/client-comment`, {
+        headers: {
+          Authorization: "bearer " + getState().auth.user.token,
+        },
+      });
+      dispatch(commentActions.setClinetComment([]));
     } catch (error) {
       toast.error(error.response.data.message);
     }
