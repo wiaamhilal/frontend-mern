@@ -4,7 +4,6 @@ import Paganation from "./Paganation";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPosts, getPostsCount } from "../redux/apiCalls/postApiCall";
 import { SideBar } from "./SideBar";
-import { categories } from "../dummyData";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 const PostList = () => {
@@ -26,16 +25,13 @@ const PostList = () => {
   return (
     <Holder>
       <div className="container">
-        <SideBar categories={categories} />
+        <SideBar />
         <div className="row  gap-3 justify-content-center">
-          {/* <div className="col-10"> */}
-          {/* <h2 className="mt-3">latest post</h2> */}
           {posts?.map((item) => (
             <PostItem post={item} key={item?._id} />
           ))}
-          :{/* </div> */}
         </div>
-        <div className="col-12">
+        <div className="col-12 mt-3">
           {posts?.length > 2 && (
             <Paganation
               currentPage={currentPage}

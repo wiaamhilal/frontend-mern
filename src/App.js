@@ -23,6 +23,7 @@ import AboutUs from "./components/AboutUs";
 import ContactUs from "./components/ContactUs";
 import Messages from "./components/Messages";
 // import Headerr from "./components/Headerr";
+import ProductDetails from "./components/PruductDetails";
 
 function App() {
   const { user } = useSelector((state) => state.auth);
@@ -58,7 +59,7 @@ function App() {
           path="/posts/details/:id"
           element={
             <>
-              <Header /> <PostPage />
+              <Header /> <ProductDetails />
             </>
           }
         />

@@ -1,14 +1,14 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import SidebarDashboard from "./SidebarDashboard";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import swal from "sweetalert";
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   deleteProfileApi,
   getAllProfilesApi,
 } from "../redux/apiCalls/profileApiCall";
 export const UsersTable = () => {
-  const {profiles, isProfileDeleted} = useSelector((state) => state.profile);
+  const { profiles, isProfileDeleted } = useSelector((state) => state.profile);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllProfilesApi());
@@ -28,10 +28,10 @@ export const UsersTable = () => {
   };
   return (
     <div className="row mt-5">
-      <div className="col-2">
+      <div className="col-2 d-none d-md-block ">
         <SidebarDashboard />
       </div>
-      <div className=" col-10 container">
+      <div className=" col-12 col-md-10 container table-responsive">
         <table className="table">
           <thead className="thead-dark">
             <tr>
@@ -43,13 +43,13 @@ export const UsersTable = () => {
           </thead>
           <tbody>
             {profiles.map((item, index) => (
-              <tr>
+              <tr className="">
                 <th scope="row">{index + 1}</th>
                 <td>
                   <img
                     src={item.profilePhoto.url}
                     alt=""
-                    style={{width: "40px"}}
+                    style={{ width: "40px", height: "40px" }}
                     className="rounded-circle"
                   />
                   <span className="ms-2">{item.username}</span>
@@ -58,12 +58,12 @@ export const UsersTable = () => {
                 <td>
                   <Link
                     to={`/profile/${item._id}`}
-                    className="btn btn-success me-3"
+                    className="btn btn-success me-3 btn-sm"
                   >
                     view profile
                   </Link>
                   <button
-                    className="btn btn-danger"
+                    className="btn btn-danger btn-sm"
                     onClick={() => deleteUser(item._id)}
                   >
                     delete

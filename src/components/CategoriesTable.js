@@ -1,11 +1,11 @@
 import React from "react";
 import SidebarDashboard from "./SidebarDashboard";
 import swal from "sweetalert";
-import {useDispatch, useSelector} from "react-redux";
-import {deleteCategoryApi} from "../redux/apiCalls/categoryApiCall";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteCategoryApi } from "../redux/apiCalls/categoryApiCall";
 export const CategoriesTable = () => {
   const dispatch = useDispatch();
-  const {categories} = useSelector((state) => state.category);
+  const { categories } = useSelector((state) => state.category);
   const deleteCategory = (categoryId) => {
     swal({
       title: "Are you sure?",
@@ -25,11 +25,11 @@ export const CategoriesTable = () => {
   // };
   return (
     <div className="row mt-5">
-      <div className="col-2">
+      <div className="col-2 d-none d-md-block table-responsive">
         <SidebarDashboard />
       </div>
-      <div className=" col-10 container">
-        <table className="table">
+      <div className=" col-12 col-md-10 container">
+        <table className="table" style={{ minWidth: "650px" }}>
           <thead className="thead-dark">
             <tr>
               <th scope="col">count</th>

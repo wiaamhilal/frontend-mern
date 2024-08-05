@@ -1,44 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import happy from "../img/happy-face-2-svgrepo-com.svg";
+import unhappy from "../img/unhappy-face-2-svgrepo-com.svg";
 const PostItem = ({ post, username, userId }) => {
   const selectUser = userId
     ? `/profile/${userId}`
     : `/profile/${post?.user._id}`;
   return (
-    // <Main className="shadow">
-    //   <img src={post?.image.url} alt="" />
-    //   <Auther>
-    //     {" "}
-    //     <Link to={selectUser}>
-    //       {" "}
-    //       auther: {username ? username : post?.user.username}
-    //     </Link>{" "}
-    //     <span>{post?.createdAt}</span>
-    //   </Auther>
-    //   <div className="d-flex align-items-center justify-content-between">
-    //     <h2>{post?.title}</h2>
-    //     <Link
-    //       to={`/posts/category/${post?.category}`}
-    //       className="text-white btn btn-sm btn-secondary rounded-pill"
-    //     >
-    //       {post?.category}
-    //     </Link>
-    //   </div>
-    //   <p>
-    //     hi this is desc for traingn only dont foucus ono in sik hi how are is
-    //     all good
-    //   </p>
-    //   <Link
-    //     className="btn btn-success w-100"
-    //     to={`/posts/details/${post?._id}`}
-    //   >
-    //     Read more..
-    //   </Link>
-    // </Main>
     <Link
-      to={`/post-detals/${post._id}`}
-      class="card mt-4 border-0 row-md-6 my-shadw my-card col-3 p-0"
+      to={`/posts/details/${post._id}`}
+      class="card mt-4 border-0 row-md-6 shadow my-card col-3 p-0"
       style={{
         width: "18rem",
         textDecoration: "none",
@@ -48,9 +20,16 @@ const PostItem = ({ post, username, userId }) => {
       <div class="card-body">
         <h5 class="card-title">{post?.title}</h5>
         <p class="card-text">{post?.description.substring(0, 120)}</p>
-        {/* <Link to={`/product/${id}`} class="btn btn-primary">
-        More Info
-      </Link> */}
+        <div className="d-flex align-items-center justify-content-between">
+          <div>
+            <img src={happy} alt="" style={{ width: "40px" }} />{" "}
+            <span>{post?.likes.length}</span>
+          </div>
+          <div>
+            <img src={unhappy} alt="" style={{ width: "40px" }} />{" "}
+            <span>7</span>
+          </div>
+        </div>
       </div>
     </Link>
   );

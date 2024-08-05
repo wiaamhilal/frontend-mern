@@ -1,10 +1,10 @@
 import React from "react";
 import SidebarDashboard from "./SidebarDashboard";
 import swal from "sweetalert";
-import {useDispatch, useSelector} from "react-redux";
-import {deleteCommentApi} from "../redux/apiCalls/commentApiCall";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteCommentApi } from "../redux/apiCalls/commentApiCall";
 export const CommentsTable = () => {
-  const {comments} = useSelector((state) => state.comment);
+  const { comments } = useSelector((state) => state.comment);
   const dispatch = useDispatch();
   const deleteComment = (commentId) => {
     swal({
@@ -21,11 +21,11 @@ export const CommentsTable = () => {
   };
   return (
     <div className="row mt-5">
-      <div className="col-2">
+      <div className="col-2 d-none d-md-block ">
         <SidebarDashboard />
       </div>
-      <div className=" col-10 container">
-        <table className="table">
+      <div className=" col-12 col-md-10 container table-responsive">
+        <table className="table" style={{ minWidth: "650px" }}>
           <thead className="thead-dark">
             <tr>
               <th scope="col">count</th>
@@ -42,7 +42,7 @@ export const CommentsTable = () => {
                   <img
                     src={item.user.profilePhoto.url}
                     alt=""
-                    style={{width: "40px"}}
+                    style={{ width: "40px", height: "40px" }}
                     className="rounded-circle"
                   />
                   <span className="ms-2">{item.user.username}</span>
@@ -50,7 +50,7 @@ export const CommentsTable = () => {
                 <td>{item.text}</td>
                 <td>
                   <button
-                    className="btn btn-danger"
+                    className="btn btn-danger btn-sm"
                     onClick={() => deleteComment(item._id)}
                   >
                     delete

@@ -1,10 +1,17 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const SidebarDashboard = () => {
+  const navicate = useNavigate();
   return (
     <div>
-      <h2 className="mb-3">Dashboard</h2>
-      <ul>
+      <h2
+        className="mb-3"
+        onClick={() => navicate("/dashboard")}
+        style={{ cursor: "pointer" }}
+      >
+        Dashboard
+      </h2>
+      <ul className="text-secondary ms-2 fw-bold">
         <li className="nav-item">
           <Link to="/dashboard/user-table" className="mb-3 nav-link">
             Users

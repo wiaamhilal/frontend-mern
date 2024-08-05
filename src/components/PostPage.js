@@ -1,12 +1,12 @@
-import React, {useEffect, useState} from "react";
-import {Link, useNavigate, useParams} from "react-router-dom";
-import {toast} from "react-toastify";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import Comment from "./Comment";
 import CommentList from "./CommentList";
 import swal from "sweetalert";
 import UpdatePost from "./UpdatePost";
 import EditComment from "./EditComment";
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   deletePostApi,
   fetchSinglePost,
@@ -15,8 +15,8 @@ import {
 } from "../redux/apiCalls/postApiCall";
 
 const PostPage = () => {
-  const {post} = useSelector((state) => state.post);
-  const {user} = useSelector((state) => state.auth);
+  const { post } = useSelector((state) => state.post);
+  const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const [image, setimage] = useState("");
   const [toggle, settoggle] = useState(false);
@@ -47,8 +47,7 @@ const PostPage = () => {
       }
     });
   };
-  const {id} = useParams();
-  // const post = posts.find((p) => p._id === parseInt(id));
+  const { id } = useParams();
   useEffect(() => {
     dispatch(fetchSinglePost(id));
   }, [id]);
@@ -59,7 +58,7 @@ const PostPage = () => {
         <img
           src={image ? URL.createObjectURL(image) : post?.image.url}
           alt=""
-          style={{width: "100%", borderRadius: "20px"}}
+          style={{ width: "100%", borderRadius: "20px" }}
         />
         {user?._id === post?.user._id && (
           <form>
@@ -67,7 +66,7 @@ const PostPage = () => {
               type="file"
               id="file"
               name="file"
-              style={{display: "none"}}
+              style={{ display: "none" }}
               onChange={(e) => setimage(e.target.files[0])}
             />
             <div className="d-flex align-items-center justify-content-between mt-3">
@@ -88,7 +87,7 @@ const PostPage = () => {
           <img
             src={post?.user.profilePhoto.url}
             alt=""
-            style={{width: "40px"}}
+            style={{ width: "40px" }}
             className="rounded-circle me-2"
           />
           <div>
@@ -105,7 +104,7 @@ const PostPage = () => {
         <div className="d-flex align-items-center justify-content-between">
           <span onClick={() => dispatch(toggleLike(post?._id))}>
             {/* <img src="" alt="" style={{width: "50px"}} /> */}
-            {post?.likes.length} Likes
+            {post?.likes?.length} Likes
           </span>
           {user?._id === post?.user._id && (
             <div>
