@@ -24,11 +24,12 @@ import ContactUs from "./components/ContactUs";
 import Messages from "./components/Messages";
 // import Headerr from "./components/Headerr";
 import ProductDetails from "./components/PruductDetails";
+import styled from "styled-components";
 
 function App() {
   const { user } = useSelector((state) => state.auth);
   return (
-    <div className="App">
+    <Holder className="App">
       <ToastContainer theme="colored" position="top-center" />
       <Routes>
         <Route
@@ -190,8 +191,15 @@ function App() {
           }
         />
       </Routes>
-    </div>
+    </Holder>
   );
 }
+
+const Holder = styled.div`
+  background-image: url("https://images.unsplash.com/photo-1615799998603-7c6270a45196?q=80&w=1604&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+  background-size: contain;
+  padding-bottom: 5px;
+  min-height: 100vh;
+`;
 
 export default App;

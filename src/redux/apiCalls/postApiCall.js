@@ -1,12 +1,12 @@
 import request from "../../utils/request";
-import {toast} from "react-toastify";
-import {postActions} from "../slices/postSlice";
+import { toast } from "react-toastify";
+import { postActions } from "../slices/postSlice";
 
 // get all posts by page number
 export function fetchPosts(pageNumber) {
   return async (dispatch) => {
     try {
-      const {data} = await request.get(`/api/posts?pageNumber=${pageNumber}`);
+      const { data } = await request.get(`/api/posts?pageNumber=${pageNumber}`);
       dispatch(postActions.setPosts(data));
     } catch (error) {
       toast.error(error.response.data.message);
@@ -18,7 +18,7 @@ export function fetchPosts(pageNumber) {
 export function getPostsCount() {
   return async (dispatch) => {
     try {
-      const {data} = await request.get(`/api/posts/count`);
+      const { data } = await request.get(`/api/posts/count`);
       dispatch(postActions.setPostsCount(data));
     } catch (error) {
       toast.error(error.response.data.message);
@@ -30,7 +30,7 @@ export function getPostsCount() {
 export function fetchPostsByCategory(category) {
   return async (dispatch) => {
     try {
-      const {data} = await request.get(`/api/posts?category=${category}`);
+      const { data } = await request.get(`/api/posts?category=${category}`);
       dispatch(postActions.setPostsCate(data));
     } catch (error) {
       toast.error(error.response.data.message);
@@ -62,7 +62,7 @@ export function createNewPost(newPost) {
 export function fetchSinglePost(postId) {
   return async (dispatch) => {
     try {
-      const {data} = await request.get(`/api/posts/${postId}`);
+      const { data } = await request.get(`/api/posts/${postId}`);
       dispatch(postActions.setpost(data));
     } catch (error) {
       toast.error(error.response.data.message);
@@ -74,7 +74,7 @@ export function fetchSinglePost(postId) {
 export function toggleLike(postId) {
   return async (dispatch, getState) => {
     try {
-      const {data} = await request.put(
+      const { data } = await request.put(
         `/api/posts/like/${postId}`,
         {},
         {
@@ -90,7 +90,26 @@ export function toggleLike(postId) {
   };
 }
 
-// toggle like
+// toggle dislike
+export function toggleDislike(postId) {
+  return async (dispatch, getState) => {
+    try {
+      const { data } = await request.put(
+        `/api/posts/dislike/${postId}`,
+        {},
+        {
+          headers: {
+            Authorization: "bearer " + getState().auth.user.token,
+          },
+        }
+      );
+      dispatch(postActions.setDislikes(data));
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
+}
+// update post image
 export function updatePostImage(newImage, postId) {
   return async (dispatch, getState) => {
     try {
@@ -111,7 +130,7 @@ export function updatePostImage(newImage, postId) {
 export function updatePostText(newPost, postId) {
   return async (dispatch, getState) => {
     try {
-      const {data} = await request.put(`/api/posts/${postId}`, newPost, {
+      const { data } = await request.put(`/api/posts/${postId}`, newPost, {
         headers: {
           Authorization: "bearer " + getState().auth.user.token,
         },
@@ -127,7 +146,7 @@ export function updatePostText(newPost, postId) {
 export function deletePostApi(postId) {
   return async (dispatch, getState) => {
     try {
-      const {data} = await request.delete(`/api/posts/${postId}`, {
+      const { data } = await request.delete(`/api/posts/${postId}`, {
         headers: {
           Authorization: "bearer " + getState().auth.user.token,
         },
@@ -144,7 +163,7 @@ export function deletePostApi(postId) {
 export function fetchAllPosts() {
   return async (dispatch) => {
     try {
-      const {data} = await request.get(`/api/posts/`);
+      const { data } = await request.get(`/api/posts/`);
       dispatch(postActions.setPosts(data));
     } catch (error) {
       toast.error(error.response.data.message);

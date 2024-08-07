@@ -88,7 +88,7 @@ const PostPage = () => {
             src={post?.user.profilePhoto.url}
             alt=""
             style={{ width: "40px" }}
-            className="rounded-circle me-2"
+            className="rounded-circle"
           />
           <div>
             <Link to={`/profile/${post?.user._id}`} className="d-block">

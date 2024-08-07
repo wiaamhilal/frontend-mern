@@ -32,7 +32,7 @@ export const UsersTable = () => {
         <SidebarDashboard />
       </div>
       <div className=" col-12 col-md-10 container table-responsive">
-        <table className="table">
+        <table className="table" style={{ minWidth: "650px" }}>
           <thead className="thead-dark">
             <tr>
               <th scope="col">count</th>

@@ -1,12 +1,12 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Moment from "react-moment";
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import EditComment from "./EditComment";
 import swal from "sweetalert";
-import {deleteCommentApi} from "../redux/apiCalls/commentApiCall";
-const CommentList = ({comments}) => {
-  const {user} = useSelector((state) => state.auth);
+import { deleteCommentApi } from "../redux/apiCalls/commentApiCall";
+const CommentList = ({ comments }) => {
+  const { user } = useSelector((state) => state.auth);
   const [commetnttoggle, setcommenttoggle] = useState(false);
   const [mycomment, setmycomment] = useState();
   const dispatch = useDispatch();
@@ -29,8 +29,8 @@ const CommentList = ({comments}) => {
     setcommenttoggle(true);
   };
   return (
-    <Main>
-      <h2>{comments?.length} comments</h2>
+    <Main className="container">
+      <h2 className="mb-4">{comments?.length} comments</h2>
       {comments?.map((comment) => (
         <Box className="shadow">
           <EditComment
@@ -53,13 +53,13 @@ const CommentList = ({comments}) => {
           {user?._id === comment.user && (
             <div>
               <span
-                className="me-3 btn btn-success btn-sm"
+                className="me-3 btn btn-success btn-sm rounded-pill"
                 onClick={() => findMyComment(comment)}
               >
                 update
               </span>
               <span
-                className="btn btn-danger btn-sm"
+                className="btn btn-danger btn-sm rounded-pill"
                 onClick={() => deleteCommentHandler(comment._id)}
               >
                 delete

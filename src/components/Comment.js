@@ -1,11 +1,11 @@
-import React, {useState} from "react";
-import {toast} from "react-toastify";
+import React, { useState } from "react";
+import { toast } from "react-toastify";
 import styled from "styled-components";
-import {useDispatch, useSelector} from "react-redux";
-import {createNewComment} from "../redux/apiCalls/commentApiCall";
+import { useDispatch, useSelector } from "react-redux";
+import { createNewComment } from "../redux/apiCalls/commentApiCall";
 
-const Comment = ({postId}) => {
-  const {user} = useSelector((state) => state.auth);
+const Comment = ({ postId }) => {
+  const { user } = useSelector((state) => state.auth);
   const [text, settext] = useState("");
   const dispatch = useDispatch();
   const sedComment = (e) => {
@@ -16,34 +16,71 @@ const Comment = ({postId}) => {
     if (text === "") {
       toast.error("write your comment first");
     } else {
-      dispatch(createNewComment({text, postId}));
+      dispatch(createNewComment({ text, postId }));
       settext("");
     }
   };
   return (
-    <Main className="mt-4">
+    // <Main className="mt-4">
+    //   <form onSubmit={sedComment}>
+    //     <input
+    //       type="text"
+    //       placeholder="add a comment"
+    //       value={text}
+    //       onChange={(e) => settext(e.target.value)}
+    //     />
+    //     <button className="btn btn-primary btn-sm">add</button>
+    //   </form>
+    // </Main>
+    <Comments>
       <form onSubmit={sedComment}>
+        {" "}
         <input
           type="text"
-          placeholder="add a comment"
+          placeholder="Leave a comment"
           value={text}
           onChange={(e) => settext(e.target.value)}
         />
-        <button className="btn btn-primary btn-sm">add</button>
+        <button>Submit</button>
       </form>
-    </Main>
+    </Comments>
   );
 };
-const Main = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  input {
-    padding: 0px 1px 3px 3px;
-    border-radius: 4px;
-    /* border: none; */
+// const Main = styled.div`
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   input {
+//     padding: 0px 1px 3px 3px;
+//     border-radius: 4px;
+//     /* border: none; */
+//     border: 1px solid #ccc;
+//   }
+// `;
+const Comments = styled.div`
+  margin-top: 20px;
+  padding-top: 20px;
+  margin-bottom: 20px;
+  border-top: 1px solid #ccc;
+  & form {
+    display: flex;
+    justify-content: center;
+  }
+  & input {
     border: 1px solid #ccc;
+    border-right: none;
+    background-color: white;
+    // border-radius: 6px 0 0 6px;
+    border-radius: 6px;
+    padding: 3px;
+    outline: none;
+  }
+  & button {
+    // border-radius: 0 6px 6px 0;
+    border-radius: 6px;
+    padding: 3px;
+    border: 1px solid #ccc;
+    border-left: none;
   }
 `;
-
 export default Comment;

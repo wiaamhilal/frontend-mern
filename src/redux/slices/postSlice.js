@@ -1,4 +1,4 @@
-import {createSlice} from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 const postSlice = createSlice({
   name: "post",
   initialState: {
@@ -8,7 +8,8 @@ const postSlice = createSlice({
     loading: false,
     isPostCreated: false,
     post: null,
-    likes: [],
+    // likes: [],
+    // dislikes:[],
   },
   reducers: {
     setPosts(state, action) {
@@ -36,6 +37,9 @@ const postSlice = createSlice({
     setLikes(state, action) {
       state.post.likes = action.payload.likes;
     },
+    setDislikes(state, action) {
+      state.post.dislikes = action.payload.dislikes;
+    },
     deletePost(state, action) {
       state.posts = state.posts.filter((post) => post._id !== action.payload);
     },
@@ -60,4 +64,4 @@ const postSlice = createSlice({
 const postReducer = postSlice.reducer;
 const postActions = postSlice.actions;
 
-export {postReducer, postActions};
+export { postReducer, postActions };

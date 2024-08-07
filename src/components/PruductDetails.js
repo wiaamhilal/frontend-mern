@@ -4,19 +4,26 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import boldLike from "../img/like-svgrepo-com (2).svg";
 import normalLike from "../img/like-svgrepo-com (3).svg";
+import boldDisLike from "../img/dislike-svgrepo-com (1).svg";
+import normaDislLike from "../img/dislike-svgrepo-com.svg";
 import swal from "sweetalert";
 import { toast } from "react-toastify";
 import {
   deletePostApi,
   fetchAllPosts,
+  fetchSinglePost,
+  toggleDislike,
   toggleLike,
   updatePostImage,
 } from "../redux/apiCalls/postApiCall";
+import CommentList from "./CommentList";
+import UpdatePost from "./UpdatePost";
+import Comment from "./Comment";
 
 const ParamsComp = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((user) => user.auth);
-  const { post, posts } = useSelector((state) => state.post);
+  const { post } = useSelector((state) => state.post);
   const [image, setimage] = useState("");
   const [toggle, settoggle] = useState(false);
 
@@ -48,116 +55,122 @@ const ParamsComp = () => {
   };
 
   const { id } = useParams();
+  useEffect(() => {
+    dispatch(fetchSinglePost(id));
+  }, [id]);
   return (
-    <div>
-      {posts?.map(
-        (item) =>
-          item?._id === id && (
-            <div className="bg-light">
-              <Main className="container">
-                <Head>
-                  {" "}
-                  <Photo>
-                    <img
-                      className="mb-3"
-                      src={item?.image?.url}
-                      alt=""
-                      style={{}}
-                    />
-                  </Photo>
-                  <div>
-                    <h2 className=" text-center d-block text-sm-start">
-                      {item?.title}
-                    </h2>
-                    <span className="text-color">{item?.description}</span>
-                  </div>
-                </Head>
-                <div className="d-flex align-items-center justify-content-between mt-3">
-                  <h4 className="mt-3">The price: 1200 dhr</h4>
-                  <button
-                    // onClick={() =>
-                    //   dispatch(
-                    //     addItem({
-                    //       ...item,
-                    //     })
-                    //   )
-                    // }
-                    className="btn btn-sm btn-success rounded-pill"
-                  >
-                    Add To Card
-                  </button>
-                </div>
-                <div className="d-flex align-items-center mt-4">
-                  <h4 className="me-4">Publisher :</h4>
-                  <Link to={`/profile/${item?.user._id}`} className="text-dark">
-                    <img
-                      src={item.user.profilePhoto.url}
-                      style={{ width: "40px", height: "40px" }}
-                      className="rounded-circle"
-                    />{" "}
-                    <span className="fw-bold">{item.user.username}</span>
-                  </Link>
-                </div>
-                <div className="d-flex align-items-center mt-4">
-                  <h4 className="me-4">Publish Date :</h4>
-                  <h5>{new Date(item?.createdAt).toDateString()}</h5>
-                </div>
-                {user?._id === item?.user._id && (
-                  <div className="mt-3 ">
-                    <span
-                      className="btn btn-success me-3 btn-sm rounded-pill"
-                      onClick={() => settoggle(true)}
-                    >
-                      update the product
-                    </span>
-                    <span
-                      className="btn btn-danger btn-sm rounded-pill"
-                      onClick={deletePost}
-                    >
-                      delete the product
-                    </span>
-                  </div>
-                )}
-                <Like>
-                  <span
-                    className="d-flex justify-content-center"
-                    style={{ flexDirection: "column" }}
-                  >
-                    <img src="" alt="" />
-                    <div onClick={() => dispatch(toggleLike(item._id))}>
-                      {item?.likes?.includes(user?._id) ? (
-                        <img src={normalLike} alt="" />
-                      ) : (
-                        <img src={boldLike} alt="" />
-                      )}
-                    </div>
-                    <span className="fw-bold text-secondary m-auto mt-1">
-                      {item?.likes.length}
-                    </span>
-                  </span>
-
-                  <span
-                    className="d-flex justify-content-center"
-                    style={{ flexDirection: "column" }}
-                  >
-                    <dislike>dislike</dislike>
-                    <span className="fw-bold text-secondary m-auto">4</span>
-                  </span>
-                </Like>
-                <Comments>
-                  <form>
-                    {" "}
-                    <input type="text" placeholder="Leave a comment" />
-                    <button>Submit</button>
-                  </form>
-                </Comments>
-              </Main>
+    <Holder>
+      <div className="">
+        <Main className="container">
+          <Head>
+            {" "}
+            <Photo>
+              <img className="mb-3" src={post?.image.url} alt="" style={{}} />
+            </Photo>
+            <div>
+              <h2 className=" text-center d-block text-sm-start">
+                {post?.title}
+              </h2>
+              <span className="text-color">{post?.description}</span>
             </div>
-          )
-      )}
-    </div>
+          </Head>
+          <div className="d-flex align-items-center justify-content-between mt-3">
+            <h4 className="mt-3">The price: 1200 dhr</h4>
+            <button
+              // onClick={() =>
+              //   dispatch(
+              //     addItem({
+              //       ...item,
+              //     })
+              //   )
+              // }
+              className="btn btn-sm btn-success rounded-pill"
+            >
+              Add To Card
+            </button>
+          </div>
+          <div className="d-flex align-items-center mt-4">
+            <h4 className="me-4">Publisher :</h4>
+            <Link to={`/profile/${post?.user?._id}`} className="text-dark">
+              <img
+                src={post?.user.profilePhoto.url}
+                style={{ width: "40px", height: "40px" }}
+                className="rounded-circle"
+              />{" "}
+              <span className="fw-bold">{post?.user.username}</span>
+            </Link>
+          </div>
+          <div className="d-flex align-items-center mt-4">
+            <h4 className="me-4">Publish Date :</h4>
+            <h5>{new Date(post?.createdAt).toDateString()}</h5>
+          </div>
+          {user?._id === post?.user?._id && (
+            <div className="mt-3 mb-4 ">
+              <span
+                className="btn btn-success me-3 btn-sm rounded-pill"
+                onClick={() => settoggle(true)}
+              >
+                update the product
+              </span>
+              <span
+                className="btn btn-danger btn-sm rounded-pill"
+                onClick={deletePost}
+              >
+                delete the product
+              </span>
+            </div>
+          )}
+          <Like>
+            <span
+              className="d-flex justify-content-center"
+              style={{ flexDirection: "column" }}
+            >
+              <img src="" alt="" />
+              <div
+                onClick={() => dispatch(toggleLike(post?._id))}
+                style={{ cursor: "pointer" }}
+              >
+                {post?.likes?.includes(user?._id) ? (
+                  <img src={normalLike} alt="" />
+                ) : (
+                  <img src={boldLike} alt="" />
+                )}
+              </div>
+              <span className="fw-bold text-secondary m-auto mt-1">
+                {post?.likes?.length}
+              </span>
+            </span>
+
+            <span
+              className="d-flex justify-content-center"
+              style={{ flexDirection: "column" }}
+            >
+              <div
+                style={{ cursor: "pointer" }}
+                onClick={() => dispatch(toggleDislike(post?._id))}
+              >
+                {post?.dislikes?.includes(user?._id) ? (
+                  <img src={normaDislLike} alt="" />
+                ) : (
+                  <img src={boldDisLike} alt="" />
+                )}
+              </div>
+              <span className="fw-bold text-secondary m-auto">
+                {post?.dislikes?.length}
+              </span>
+            </span>
+          </Like>
+        </Main>
+        <Comment postId={post?._id} />
+        <CommentList comments={post?.comments} />
+        <UpdatePost settoggle={settoggle} toggle={toggle} post={post} />
+      </div>
+    </Holder>
   );
 };
+
+const Holder = styled.div``;
+
 const Main = styled.div`
   padding-top: 40px;
 `;
@@ -192,32 +205,7 @@ const Like = styled.div`
     width: 40px;
   }
 `;
-const Comments = styled.div`
-  margin-top: 20px;
-  padding-top: 20px;
-  margin-bottom: 20px;
-  border-top: 1px solid #ccc;
-  & form {
-    display: flex;
-    justify-content: center;
-  }
-  & input {
-    border: 1px solid #ccc;
-    border-right: none;
-    background-color: white;
-    // border-radius: 6px 0 0 6px;
-    border-radius: 6px;
-    padding: 3px;
-    outline: none;
-  }
-  & button {
-    // border-radius: 0 6px 6px 0;
-    border-radius: 6px;
-    padding: 3px;
-    border: 1px solid #ccc;
-    border-left: none;
-  }
-`;
+
 const Details = styled.div``;
 const CardHolder = styled.div`
   & .card-item {
