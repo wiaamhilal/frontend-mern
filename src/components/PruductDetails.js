@@ -26,6 +26,21 @@ const ParamsComp = () => {
   const { post } = useSelector((state) => state.post);
   const [image, setimage] = useState("");
   const [toggle, settoggle] = useState(false);
+  const likeToggle = () => {
+    if (!user) {
+      return toast.error("you have to sign in first");
+    } else {
+      dispatch(toggleLike(post?._id));
+    }
+  };
+
+  const dislikeToggle = () => {
+    if (!user) {
+      return toast.error("you have to sign in first");
+    } else {
+      dispatch(toggleDislike(post?._id));
+    }
+  };
 
   const uploadImgSubmit = (e) => {
     e.preventDefault();
@@ -65,7 +80,12 @@ const ParamsComp = () => {
           <Head>
             {" "}
             <Photo>
-              <img className="mb-3" src={post?.image.url} alt="" style={{}} />
+              <img
+                className="mb-3 my-shadw"
+                src={post?.image.url}
+                alt=""
+                style={{}}
+              />
             </Photo>
             <div>
               <h2 className=" text-center d-block text-sm-start">
@@ -84,13 +104,13 @@ const ParamsComp = () => {
               //     })
               //   )
               // }
-              className="btn btn-sm btn-success rounded-pill"
+              className="btn btn-sm btn-success rounded-pill shadow"
             >
               Add To Card
             </button>
           </div>
           <div className="d-flex align-items-center mt-4">
-            <h4 className="me-4">Publisher :</h4>
+            <h4 className="me-4 ">Publisher :</h4>
             <Link to={`/profile/${post?.user?._id}`} className="text-dark">
               <img
                 src={post?.user.profilePhoto.url}
@@ -107,13 +127,13 @@ const ParamsComp = () => {
           {user?._id === post?.user?._id && (
             <div className="mt-3 mb-4 ">
               <span
-                className="btn btn-success me-3 btn-sm rounded-pill"
+                className="btn btn-success me-3 btn-sm rounded-pill shadow"
                 onClick={() => settoggle(true)}
               >
                 update the product
               </span>
               <span
-                className="btn btn-danger btn-sm rounded-pill"
+                className="btn btn-danger btn-sm rounded-pill shadow"
                 onClick={deletePost}
               >
                 delete the product
@@ -126,10 +146,7 @@ const ParamsComp = () => {
               style={{ flexDirection: "column" }}
             >
               <img src="" alt="" />
-              <div
-                onClick={() => dispatch(toggleLike(post?._id))}
-                style={{ cursor: "pointer" }}
-              >
+              <div onClick={() => likeToggle()} style={{ cursor: "pointer" }}>
                 {post?.likes?.includes(user?._id) ? (
                   <img src={normalLike} alt="" />
                 ) : (
@@ -147,7 +164,7 @@ const ParamsComp = () => {
             >
               <div
                 style={{ cursor: "pointer" }}
-                onClick={() => dispatch(toggleDislike(post?._id))}
+                onClick={() => dislikeToggle()}
               >
                 {post?.dislikes?.includes(user?._id) ? (
                   <img src={normaDislLike} alt="" />

@@ -16,3 +16,7 @@
   resize: none;
   margin-bottom: 10px;
 }
+
+.my-shadw {
+  box-shadow: 12px 12px 10px 1px #808080ad;
+}

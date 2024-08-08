@@ -5,8 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import EditComment from "./EditComment";
 import swal from "sweetalert";
 import { deleteCommentApi } from "../redux/apiCalls/commentApiCall";
+import { Link } from "react-router-dom";
 const CommentList = ({ comments }) => {
   const { user } = useSelector((state) => state.auth);
+  const { post } = useSelector((state) => state.post);
   const [commetnttoggle, setcommenttoggle] = useState(false);
   const [mycomment, setmycomment] = useState();
   const dispatch = useDispatch();
@@ -29,17 +31,21 @@ const CommentList = ({ comments }) => {
     setcommenttoggle(true);
   };
   return (
-    <Main className="container">
-      <h2 className="mb-4">{comments?.length} comments</h2>
+    <Main className="container ">
+      <h2 className="">{comments?.length} comments</h2>
+      <div className="my-line"></div>
       {comments?.map((comment) => (
-        <Box className="shadow">
+        <Box className="shadow bg-light">
           <EditComment
             commetnttoggle={commetnttoggle}
             setcommenttoggle={setcommenttoggle}
             mycomment={mycomment}
           />
           <div className="d-flex align-items-center justify-content-between">
-            <h5>{comment.username}</h5>{" "}
+            <Link to={`/profile/${post?.user?._id}`} className="text-dark">
+              <h5>{comment.username}</h5>{" "}
+            </Link>
+
             <span>
               {
                 <Moment fromNow ago>
@@ -72,11 +78,16 @@ const CommentList = ({ comments }) => {
   );
 };
 const Main = styled.div`
-h2 {
-    border-bottom: 1px solid #b1adad;
-    padding-bottom: 10px;
-}
-}`;
+  h2 {
+    // border-bottom: 1px solid #b1adad;
+    // padding-bottom: 10px;
+  }
+  & .my-line {
+    box-shadow: 12px 8px 7px 1px #000;
+    height: 1px;
+    margin-bottom: 35px;
+  }
+`;
 const Box = styled.div`
   width: 100%;
   background: white;

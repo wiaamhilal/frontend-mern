@@ -21,17 +21,6 @@ const Comment = ({ postId }) => {
     }
   };
   return (
-    // <Main className="mt-4">
-    //   <form onSubmit={sedComment}>
-    //     <input
-    //       type="text"
-    //       placeholder="add a comment"
-    //       value={text}
-    //       onChange={(e) => settext(e.target.value)}
-    //     />
-    //     <button className="btn btn-primary btn-sm">add</button>
-    //   </form>
-    // </Main>
     <Comments>
       <form onSubmit={sedComment}>
         {" "}
@@ -46,17 +35,6 @@ const Comment = ({ postId }) => {
     </Comments>
   );
 };
-// const Main = styled.div`
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   input {
-//     padding: 0px 1px 3px 3px;
-//     border-radius: 4px;
-//     /* border: none; */
-//     border: 1px solid #ccc;
-//   }
-// `;
 const Comments = styled.div`
   margin-top: 20px;
   padding-top: 20px;
