@@ -16,10 +16,21 @@ const PostItem = ({ post, username, userId }) => {
         textDecoration: "none",
       }}
     >
-      <img src={post?.image.url} class="card-img-top" alt="..." />
+      <img
+        src={post?.image.url}
+        class="card-img-top"
+        alt="..."
+        style={{ height: "192px" }}
+      />
       <div class="card-body">
-        <h5 class="card-title">{post?.title}</h5>
-        <p class="card-text">{post?.description.substring(0, 120)}</p>
+        {" "}
+        <div className="d-flex align-items-center justify-content-between">
+          <h5 class="card-title">{post?.title}</h5>
+          <h5 class="card-title">{post?.price} dhr</h5>
+        </div>
+        <p class="card-text" style={{ height: "96px" }}>
+          {post?.description.substring(0, 120)}...
+        </p>
         <div className="d-flex align-items-center justify-content-between">
           <div>
             <img src={happy} alt="" style={{ width: "40px" }} />{" "}
@@ -27,37 +38,11 @@ const PostItem = ({ post, username, userId }) => {
           </div>
           <div>
             <img src={unhappy} alt="" style={{ width: "40px" }} />{" "}
-            <span>7</span>
+            <span>{post?.dislikes.length}</span>
           </div>
         </div>
       </div>
     </Link>
   );
 };
-const Main = styled.div`
-// padding: 20px;
-margin-bottom:20px;
-background: white;
-border-radius: 20px;
-}
-  img {
-    width: 100%;
-    border-radius: 20px;
-  }
-  h2 {
-  }
-  p {
-  }
-`;
-const Auther = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 10px;
-  font-weight: bold;
-  color: darkslategray;
-
-  span {
-  }
-`;
 export default PostItem;

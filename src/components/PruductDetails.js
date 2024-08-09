@@ -82,10 +82,48 @@ const ParamsComp = () => {
             <Photo>
               <img
                 className="mb-3 my-shadw"
-                src={post?.image.url}
+                src={image ? URL.createObjectURL(image) : post?.image.url}
                 alt=""
                 style={{}}
               />
+              {user?._id === post?.user._id && (
+                <form>
+                  <input
+                    type="file"
+                    id="file"
+                    name="file"
+                    style={{ display: "none" }}
+                    onChange={(e) => setimage(e.target.files[0])}
+                  />
+                  <div className="d-flex align-items-center justify-content-between mt-3">
+                    {!image && (
+                      <label
+                        htmlFor="file"
+                        className="btn btn-secondary btn-sm rounded-pill"
+                      >
+                        change the image
+                      </label>
+                    )}
+
+                    {image && (
+                      <>
+                        <button
+                          onClick={() => window.location.reload(false)}
+                          className="btn btn-danger btn-sm rounded-pill me-3 "
+                        >
+                          cancel Change
+                        </button>
+                        <input
+                          onClick={uploadImgSubmit}
+                          type="submit"
+                          value="change now"
+                          className="btn btn-success btn-sm rounded-pill"
+                        />
+                      </>
+                    )}
+                  </div>
+                </form>
+              )}
             </Photo>
             <div>
               <h2 className=" text-center d-block text-sm-start">
@@ -104,7 +142,7 @@ const ParamsComp = () => {
               //     })
               //   )
               // }
-              className="btn btn-sm btn-success rounded-pill shadow"
+              className="btn btn-sm btn-secondary rounded-pill shadow"
             >
               Add To Card
             </button>
@@ -127,7 +165,7 @@ const ParamsComp = () => {
           {user?._id === post?.user?._id && (
             <div className="mt-3 mb-4 ">
               <span
-                className="btn btn-success me-3 btn-sm rounded-pill shadow"
+                className="btn btn-secondary me-3 btn-sm rounded-pill shadow"
                 onClick={() => settoggle(true)}
               >
                 update the product

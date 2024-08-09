@@ -10,7 +10,7 @@ const PostList = () => {
   const { posts } = useSelector((state) => state.post);
   const { postsCount } = useSelector((state) => state.post);
   const dispatch = useDispatch();
-  const POST_PER_PAGE = 3;
+  const POST_PER_PAGE = 8;
 
   const [currentPage, setcurrentPage] = useState(1);
   const pages = Math.ceil(postsCount / POST_PER_PAGE);

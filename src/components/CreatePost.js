@@ -13,6 +13,7 @@ const CreatePost = () => {
   const { loading, isPostCreated } = useSelector((state) => state.post);
   const { categories } = useSelector((state) => state.category);
   const [title, settitle] = useState("");
+  const [price, setprice] = useState(null);
   const [desc, setdesc] = useState("");
   const [category, setcategory] = useState("");
   const [file, setfile] = useState("");
@@ -23,7 +24,8 @@ const CreatePost = () => {
 
   const submitCreatepost = (e) => {
     e.preventDefault();
-    if (title.trim() === "") return toast.error("post title is required");
+    if (title.trim() === "") return toast.error("product title is required");
+    if (price.trim() === "") return toast.error("product price is required");
     if (desc.trim() === "") return toast.error("description is required");
     if (category.trim() === "") return toast.error("category is required");
     if (!file) return toast.error("the image is required");
@@ -32,6 +34,7 @@ const CreatePost = () => {
     formData.append("image", file);
     formData.append("description", desc);
     formData.append("title", title);
+    formData.append("price", price);
     formData.append("category", category);
     dispatch(createNewPost(formData));
   };
@@ -50,6 +53,12 @@ const CreatePost = () => {
             type="text"
             placeholder="post title"
             onChange={(e) => settitle(e.target.value)}
+          />
+          <input
+            className="inputs"
+            type="number"
+            placeholder="procuct price"
+            onChange={(e) => setprice(e.target.value)}
           />
           <select
             className="inputs"
