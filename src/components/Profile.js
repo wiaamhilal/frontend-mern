@@ -45,9 +45,6 @@ const Profile = () => {
       if (willDelete) {
         dispatch(deleteProfileApi(user?._id));
         dispatch(logoutUser());
-        // swal("the acount has been deleted", {
-        //   icon: "success",
-        // });
       }
     });
   };
