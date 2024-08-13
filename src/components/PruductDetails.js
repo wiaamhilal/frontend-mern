@@ -148,7 +148,7 @@ const ParamsComp = () => {
             </button>
           </div>
           <div className="d-flex align-items-center mt-4">
-            <h4 className="me-4 ">Publisher :</h4>
+            <h4 className="me-4 ">the seller :</h4>
             <Link to={`/profile/${post?.user?._id}`} className="text-dark">
               <img
                 src={post?.user.profilePhoto.url}

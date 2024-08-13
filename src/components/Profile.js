@@ -1,25 +1,26 @@
-import React, {useEffect, useState} from "react";
-import {toast} from "react-toastify";
+import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import swal from "sweetalert";
 import UpdateProfile from "./UpdateProfile.js";
-import {useDispatch, useSelector} from "react-redux";
-import {Oval} from "react-loader-spinner";
+import { useDispatch, useSelector } from "react-redux";
+import { Oval } from "react-loader-spinner";
 import {
   changeProfilePhoto,
   deleteProfileApi,
   getUserProfile,
 } from "../redux/apiCalls/profileApiCall.js";
-import {useNavigate, useParams} from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import PostList from "./PostList.js";
 import PostItem from "./PostItem.js";
-import {logoutUser} from "../redux/apiCalls/authApiCall.js";
+import { logoutUser } from "../redux/apiCalls/authApiCall.js";
+import styled from "styled-components";
 const Profile = () => {
-  const {profile, loading, isProfileDeleted} = useSelector(
+  const { profile, loading, isProfileDeleted } = useSelector(
     (state) => state.profile
   );
-  const {user} = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
   console.log(profile);
-  const {userId} = useParams();
+  const { userId } = useParams();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -78,17 +79,24 @@ const Profile = () => {
     );
   }
   return (
-    <div>
-      <div className="p-4 rounded bg-primary text-center">
+    <Main>
+      <div
+        className=" rounded text-center backdiv my-shadw mb-4"
+        style={{ position: "relative" }}
+      >
+        <BackUserImg
+          className="back-user-img"
+          src="https://images.unsplash.com/photo-1562065540-efa93744ed71?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        />
         <div
           className="position-relative m-auto"
-          style={{width: "fit-content"}}
+          style={{ width: "fit-content" }}
         >
           <img
-            className="rounded-circle"
+            className="rounded-circle mt-3"
             src={file ? URL.createObjectURL(file) : profile?.profilePhoto.url}
             alt=""
-            style={{width: "100px", maxWidth: "100%"}}
+            style={{ width: "85px", maxWidth: "100%", height: "85px" }}
           />
           {user?._id === profile?._id && (
             <form>
@@ -96,19 +104,18 @@ const Profile = () => {
                 type="file"
                 id="file"
                 onChange={(e) => setfile(e.target.files[0])}
-                style={{display: "none"}}
+                style={{ display: "none" }}
               />
               <label
                 htmlFor="file"
-                className=" fw-bold position-absolute btn btn-sm btn-success rounded-circle"
-                style={{right: "0", bottom: "0"}}
+                className=" fw-bold position-absolute btn btn-sm btn-secondary rounded-circle my-label"
               >
                 +
               </label>
               {file && (
                 <span
                   className="btn btn-success"
-                  style={{position: "absolute", top: "0"}}
+                  style={{ position: "absolute", top: "0" }}
                   onClick={ChangePhoto}
                 >
                   submit
@@ -117,25 +124,28 @@ const Profile = () => {
             </form>
           )}
         </div>
-        <h2 className="text-white">{profile?.username}</h2>
-        <h4 className="text-white">{profile?.bio}</h4>
-        <h5 className="text-secondary">
+        <h2 className="text-dark position-relative">{profile?.username}</h2>
+        <p className="position-relative fw-bold">
+          {profile?.bio.substring(0, 100)}
+        </p>
+        <h5 className="text-secondary position-relative">
           {" "}
           {new Date(profile?.createdAt).toDateString()}
         </h5>
         {user?._id === profile?._id && (
           <button
-            className="btn btn-success"
+            className="btn btn-secondary rounded-pill position-relative mt-2"
             onClick={() => setprofiletoggle(true)}
           >
             Update Profile
           </button>
         )}
       </div>
-      <h1>{profile?.username} posts</h1>
-      <div className="container">
+      <h2 className="">{profile?.username} Products :</h2>
+      <div className="justify-content-center row gap-3">
         {profile?.posts?.map((item) => (
           <PostItem
+            className="col-12 col-sm-6 col-md-4 col-lg-3"
             post={item}
             username={profile?.username}
             userId={profile?._id}
@@ -143,7 +153,10 @@ const Profile = () => {
         ))}
       </div>
       {user?._id === profile?._id && (
-        <button className="btn btn-danger mb-3 ms-3" onClick={deleteAcount}>
+        <button
+          className="btn btn-danger mb-3 ms-3 mt-3 rounded-pill"
+          onClick={deleteAcount}
+        >
           delete profile
         </button>
       )}
@@ -154,8 +167,31 @@ const Profile = () => {
           profiletoggle={profiletoggle}
         />
       )}
-    </div>
+    </Main>
   );
 };
+const BackUserImg = styled.img`
+  width: 100%;
+  position: absolute;
+  /* top: 56px; */
+  left: 0;
+  /* height: 278px; */
+  height: 100%;
+  opacity: 0.3;
+`;
 
+const Main = styled.div`
+  & .backdiv {
+    height: 300px;
+  }
+  & .my-label {
+    right: 0px;
+    bottom: 0px;
+    height: 25px;
+    width: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+`;
 export default Profile;
