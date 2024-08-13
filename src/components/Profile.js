@@ -170,7 +170,6 @@ const Profile = () => {
 const BackUserImg = styled.img`
   width: 100%;
   position: absolute;
-  /* top: 56px; */
   left: 0;
   /* height: 278px; */
   height: 100%;
