@@ -19,11 +19,13 @@ import {
 import CommentList from "./CommentList";
 import UpdatePost from "./UpdatePost";
 import Comment from "./Comment";
+import { postActions } from "../redux/slices/postSlice";
+import FormatCurrency from "./FormatCurrency";
 
 const ParamsComp = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((user) => user.auth);
-  const { post } = useSelector((state) => state.post);
+  const { post, basket } = useSelector((state) => state.post);
   const [image, setimage] = useState("");
   const [toggle, settoggle] = useState(false);
   const likeToggle = () => {
@@ -33,7 +35,7 @@ const ParamsComp = () => {
       dispatch(toggleLike(post?._id));
     }
   };
-
+  console.log(basket);
   const dislikeToggle = () => {
     if (!user) {
       return toast.error("you have to sign in first");
@@ -42,14 +44,15 @@ const ParamsComp = () => {
     }
   };
 
-  const uploadImgSubmit = (e) => {
+  const uploadImgSubmit = async (e) => {
     e.preventDefault();
     if (!image) {
       toast.error("no image chosen");
     } else {
       const formData = new FormData();
       formData.append("image", image);
-      dispatch(updatePostImage(formData, post._id));
+      await dispatch(updatePostImage(formData, post._id));
+      window.location.reload(false);
     }
   };
   const navicate = useNavigate();
@@ -68,7 +71,12 @@ const ParamsComp = () => {
       }
     });
   };
-
+  const addToTheCard = (post) => {
+    dispatch(postActions.setbasket({ ...post }));
+  };
+  useEffect(() => {
+    localStorage.setItem("basket", JSON.stringify(basket));
+  }, [basket]);
   const { id } = useParams();
   useEffect(() => {
     dispatch(fetchSinglePost(id));
@@ -99,7 +107,7 @@ const ParamsComp = () => {
                     {!image && (
                       <label
                         htmlFor="file"
-                        className="btn btn-secondary btn-sm rounded-pill"
+                        className="btn btn-success btn-sm rounded-pill"
                       >
                         change the image
                       </label>
@@ -133,16 +141,14 @@ const ParamsComp = () => {
             </div>
           </Head>
           <div className="d-flex align-items-center justify-content-between mt-3">
-            <h4 className="mt-3">The price: 1200 dhr</h4>
+            <div className="d-flex">
+              {" "}
+              <h4 className="me-2">The price:</h4>
+              <h5 className="mt-1">{FormatCurrency(post?.price)}</h5>
+            </div>
             <button
-              // onClick={() =>
-              //   dispatch(
-              //     addItem({
-              //       ...item,
-              //     })
-              //   )
-              // }
-              className="btn btn-sm btn-secondary rounded-pill shadow"
+              onClick={() => addToTheCard(post)}
+              className="btn btn-sm btn-success rounded-pill shadow"
             >
               Add To Card
             </button>
@@ -165,7 +171,7 @@ const ParamsComp = () => {
           {user?._id === post?.user?._id && (
             <div className="mt-3 mb-4 ">
               <span
-                className="btn btn-secondary me-3 btn-sm rounded-pill shadow"
+                className="btn btn-success me-3 btn-sm rounded-pill shadow"
                 onClick={() => settoggle(true)}
               >
                 update the product
@@ -224,10 +230,12 @@ const ParamsComp = () => {
   );
 };
 
-const Holder = styled.div``;
+const Holder = styled.div`
+  padding-top: 80px;
+`;
 
 const Main = styled.div`
-  padding-top: 40px;
+  // padding-top: 40px;
 `;
 const Head = styled.div`
   display: flex;

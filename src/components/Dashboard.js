@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 const Dashboard = () => {
   return (
-    <Holder className="pt-4 m-4 m-md-0">
+    <Holder className=" m-4 m-md-0">
       <div className="row">
         <div className="sidebar col-2 d-none d-md-block ">
           <SidebarDashboard />
@@ -17,5 +17,7 @@ const Dashboard = () => {
     </Holder>
   );
 };
-const Holder = styled.div``;
+const Holder = styled.div`
+  padding-top: 80px;
+`;
 export default Dashboard;

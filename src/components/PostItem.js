@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import happy from "../img/happy-face-2-svgrepo-com.svg";
 import unhappy from "../img/unhappy-face-2-svgrepo-com.svg";
+import FormatCurrency from "./FormatCurrency";
 const PostItem = ({ post, username, userId }) => {
   const selectUser = userId
     ? `/profile/${userId}`
@@ -26,10 +27,10 @@ const PostItem = ({ post, username, userId }) => {
         {" "}
         <div className="d-flex align-items-center justify-content-between">
           <h5 class="card-title">{post?.title}</h5>
-          <h5 class="card-title">{post?.price} dhr</h5>
+          <h6 class="card-title">{FormatCurrency(post?.price)}</h6>
         </div>
         <p class="card-text" style={{ height: "96px" }}>
-          {post?.description.substring(0, 120)}...
+          {post?.description?.substring(0, 120)}...
         </p>
         <div className="d-flex align-items-center justify-content-between">
           <div>

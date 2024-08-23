@@ -157,7 +157,7 @@ const ContactUs = () => {
               <button
                 onClick={sendComment}
                 disabled={!user || !comment}
-                className="d-block btn btn-primary mt-3 w-100"
+                className="d-block btn btn-success mt-3 w-100"
               >
                 Submit
               </button>

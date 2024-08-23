@@ -30,7 +30,7 @@ const ResetPassword = () => {
   return (
     <div
       style={{ maxWidth: "500px" }}
-      className="m-auto shadow rounded mt-4 p-3 bg-white container"
+      className="shadow rounded p-3 bg-white container mt-5"
     >
       {isError ? (
         <h1>not found</h1>

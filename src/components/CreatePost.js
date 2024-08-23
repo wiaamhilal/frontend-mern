@@ -40,11 +40,11 @@ const CreatePost = () => {
   };
   useEffect(() => {
     if (isPostCreated === true) {
-      navicate("/");
+      navicate("/products");
     }
   }, [isPostCreated, navicate]);
   return (
-    <div>
+    <Holder>
       <Main>
         <h1 className="text-center">Create Post</h1>
         <form onSubmit={submitCreatepost}>
@@ -83,7 +83,7 @@ const CreatePost = () => {
           />
           <div className="">
             {loading ? (
-              <button className="btn btn-primary w-100 p-0">
+              <button className="btn btn-success w-100 p-0">
                 {" "}
                 <RotatingLines
                   visible={true}
@@ -98,21 +98,23 @@ const CreatePost = () => {
                 />
               </button>
             ) : (
-              <button className="btn btn-primary w-100">submit</button>
+              <button className="btn btn-success w-100">submit</button>
             )}
           </div>
         </form>
       </Main>
-    </div>
+    </Holder>
   );
 };
+const Holder = styled.div`
+  padding-top: 80px;
+`;
 const Main = styled.div`
   max-width: 500px;
   margin: auto;
   background: white;
   padding: 10px;
   border-radius: 10px;
-  margin-top: 20px;
   & .inputs {
     padding: 5px;
     border-radius: 6px;

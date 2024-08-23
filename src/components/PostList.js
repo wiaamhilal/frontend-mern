@@ -45,6 +45,8 @@ const PostList = () => {
   );
 };
 
-const Holder = styled.div``;
+const Holder = styled.div`
+  padding-top: 70px;
+`;
 
 export default PostList;

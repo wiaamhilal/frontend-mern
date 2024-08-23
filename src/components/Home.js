@@ -61,7 +61,7 @@ const Main = styled.div`
     font-size: 18px;
     line-height: 2;
     color: white;
-    padding-top: 150px;
+    padding-top: 200px;
     @media (min-width: 767px) {
       font-size: 28px;
     }

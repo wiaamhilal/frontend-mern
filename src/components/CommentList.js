@@ -59,7 +59,7 @@ const CommentList = ({ comments }) => {
           {user?._id === comment.user && (
             <div>
               <span
-                className="me-3 btn btn-secondary btn-sm rounded-pill"
+                className="me-3 btn btn-success btn-sm rounded-pill"
                 onClick={() => findMyComment(comment)}
               >
                 update

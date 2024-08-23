@@ -25,12 +25,31 @@ import Messages from "./components/Messages";
 // import Headerr from "./components/Headerr";
 import ProductDetails from "./components/PruductDetails";
 import styled from "styled-components";
+import Basket from "./components/Basket";
+import LocationPage from "./components/LocationPage";
+import Payment from "./components/Payment";
+import Orders from "./components/Orders";
+import SendLink from "./components/SendLink";
+
+export const GetBasketTotal = (basket) => {
+  return basket?.reduce((total, current) => {
+    total += current.price;
+    return total;
+  }, 0);
+};
 
 function App() {
   const { user } = useSelector((state) => state.auth);
+  console.log(user);
+
   return (
     <Holder className="App">
-      <ToastContainer theme="colored" position="top-center" />
+      {/* {!user && <Navigate to="/login" />} */}
+      <ToastContainer
+        theme="colored"
+        position="top-left"
+        style={{ marginTop: "60px" }}
+      />
       <Routes>
         <Route
           path="/"
@@ -162,7 +181,7 @@ function App() {
           path="/users/:userId/verify/:token"
           element={
             <>
-              <Header /> {!user ? <VerifyEmail /> : <Navigate to="/" />}
+              <Header /> <VerifyEmail />
             </>
           }
         />
@@ -187,6 +206,46 @@ function App() {
           element={
             <>
               <Header /> <Messages />
+            </>
+          }
+        />
+        <Route
+          path="/basket"
+          element={
+            <>
+              <Header /> <Basket />
+            </>
+          }
+        />
+        <Route
+          path="/location"
+          element={
+            <>
+              <Header /> <LocationPage />
+            </>
+          }
+        />{" "}
+        <Route
+          path="/payment"
+          element={
+            <>
+              <Header /> <Payment />
+            </>
+          }
+        />
+        <Route
+          path="/orders"
+          element={
+            <>
+              <Header /> <Orders />
+            </>
+          }
+        />
+        <Route
+          path="/sendlink"
+          element={
+            <>
+              <Header /> <SendLink />
             </>
           }
         />

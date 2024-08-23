@@ -1,14 +1,18 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { logoutUser } from "../redux/apiCalls/authApiCall";
 import { styled } from "styled-components";
+import cardIcon from "../img/shopping-card-svgrepo-com (1).svg";
 const Headerr = () => {
   const { user } = useSelector((state) => state.auth);
+  const { basket } = useSelector((state) => state.post);
+  const { profile } = useSelector((state) => state.profile);
   const dispatch = useDispatch();
+  const navicate = useNavigate();
   return (
     <Main>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark ">
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark my-nav ">
         <div className="container-fluid  justify-content-end">
           <button
             className="navbar-toggler "
@@ -22,7 +26,7 @@ const Headerr = () => {
             <span className="navbar-toggler-icon "></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0 ">
               {user ? (
                 <Link to="#">
                   <img
@@ -127,6 +131,26 @@ const Headerr = () => {
                   Contact Us
                 </Link>
               </li>
+              {profile?.orders && (
+                <li className="nav-item">
+                  <Link
+                    className="nav-link"
+                    to="/orders"
+                    tabindex="-1"
+                    aria-disabled="true"
+                  >
+                    Your Order
+                  </Link>
+                </li>
+              )}
+
+              <Basket
+                className="mb-2 mb-md-0"
+                onClick={() => navicate("/basket")}
+              >
+                <img src={cardIcon} alt="" />
+                {basket.length ? <span>{basket?.length}</span> : null}
+              </Basket>
             </ul>
             <form className="d-flex">
               <input
@@ -145,5 +169,35 @@ const Headerr = () => {
     </Main>
   );
 };
-const Main = styled.div``;
+const Main = styled.div`
+  & .my-nav {
+    position: fixed;
+    width: 100%;
+    z-index: 99999;
+    top: 0;
+  }
+`;
+const Basket = styled.div`
+  position: relative;
+  width: fit-content;
+  cursor: pointer;
+  & span {
+    position: absolute;
+    bottom: -3px;
+    right: -4px;
+    color: white;
+    background-color: red;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  & img {
+    width: 30px;
+    margin-left: 5px;
+    margin-top: 5px;
+  }
+`;
 export default Headerr;

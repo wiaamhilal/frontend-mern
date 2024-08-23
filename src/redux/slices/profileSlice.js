@@ -1,4 +1,4 @@
-import {createSlice} from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 const profileSlice = createSlice({
   name: "profile",
   initialState: {
@@ -7,6 +7,8 @@ const profileSlice = createSlice({
     isProfileDeleted: false,
     usersCount: null,
     profiles: [],
+    location: [],
+    orders: [],
   },
   reducers: {
     setprofile(state, action) {
@@ -37,10 +39,16 @@ const profileSlice = createSlice({
     setProfiles(state, action) {
       state.profiles = action.payload;
     },
+    setlocation(state, action) {
+      state.location = action.payload;
+    },
+    setOrders(state, action) {
+      state.orders = action.payload;
+    },
   },
 });
 
 const profileReducer = profileSlice.reducer;
 const profileActions = profileSlice.actions;
 
-export {profileReducer, profileActions};
+export { profileReducer, profileActions };

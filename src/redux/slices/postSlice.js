@@ -10,6 +10,7 @@ const postSlice = createSlice({
     post: null,
     // likes: [],
     // dislikes:[],
+    basket: [],
   },
   reducers: {
     setPosts(state, action) {
@@ -57,6 +58,22 @@ const postSlice = createSlice({
       );
       const commentIndex = state.post.comments.indexOf(myComment);
       state.post.comments.splice(commentIndex, 1);
+    },
+    setbasket(state, action) {
+      state.basket.push(action.payload);
+    },
+    deleteBasketItem: (state, action) => {
+      let newbasket = state.basket;
+      const index = state.basket.findIndex(
+        (item) => item.id === action.payload
+      );
+      if (index >= 0) {
+        newbasket.splice(index, 1);
+      }
+      state.basket = newbasket;
+    },
+    clearBasket: (state, action) => {
+      state.basket = [];
     },
   },
 });

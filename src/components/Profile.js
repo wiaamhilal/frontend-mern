@@ -123,7 +123,7 @@ const Profile = () => {
         </div>
         <h2 className="text-dark position-relative">{profile?.username}</h2>
         <p className="position-relative fw-bold">
-          {profile?.bio.substring(0, 100)}
+          {profile?.bio?.substring(0, 100)}
         </p>
         <h5 className="text-secondary position-relative">
           {" "}
@@ -131,7 +131,7 @@ const Profile = () => {
         </h5>
         {user?._id === profile?._id && (
           <button
-            className="btn btn-secondary rounded-pill position-relative mt-2"
+            className="btn btn-sm btn-success rounded-pill position-relative mt-2"
             onClick={() => setprofiletoggle(true)}
           >
             Update Profile
@@ -177,6 +177,7 @@ const BackUserImg = styled.img`
 `;
 
 const Main = styled.div`
+  padding-top: 56px;
   & .backdiv {
     height: 300px;
   }
