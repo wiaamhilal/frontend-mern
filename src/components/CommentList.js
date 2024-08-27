@@ -65,7 +65,7 @@ const CommentList = ({ comments }) => {
                 update
               </span>
               <span
-                className="btn btn-danger btn-sm rounded-pill"
+                className="btn btn-secondary btn-sm rounded-pill"
                 onClick={() => deleteCommentHandler(comment._id)}
               >
                 delete

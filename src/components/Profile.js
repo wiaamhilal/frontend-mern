@@ -14,6 +14,7 @@ import PostList from "./PostList.js";
 import PostItem from "./PostItem.js";
 import { logoutUser } from "../redux/apiCalls/authApiCall.js";
 import styled from "styled-components";
+import { authActions } from "../redux/slices/authSlice.js";
 const Profile = () => {
   const { profile, loading, isProfileDeleted } = useSelector(
     (state) => state.profile
@@ -49,14 +50,19 @@ const Profile = () => {
     });
   };
   const [file, setfile] = useState(null);
-  const ChangePhoto = (e) => {
+  const ChangePhoto = async (e) => {
     e.preventDefault();
     if (!file) {
       return toast.error("no image provided");
     } else {
+      dispatch(authActions.setLoadingApp(true));
       const formData = new FormData();
       formData.append("image", file);
-      dispatch(changeProfilePhoto(formData));
+      await dispatch(changeProfilePhoto(formData));
+      setfile(null);
+      dispatch(authActions.setLoadingApp(false));
+
+      // window.location.reload(false);
     }
   };
 
@@ -105,13 +111,13 @@ const Profile = () => {
               />
               <label
                 htmlFor="file"
-                className=" fw-bold position-absolute btn btn-sm btn-secondary rounded-circle my-label"
+                className=" fw-bold position-absolute btn btn-sm btn-success rounded-circle my-label"
               >
                 +
               </label>
               {file && (
                 <span
-                  className="btn btn-success"
+                  className="btn btn-success rounded-pill"
                   style={{ position: "absolute", top: "0" }}
                   onClick={ChangePhoto}
                 >
@@ -151,7 +157,7 @@ const Profile = () => {
       </div>
       {user?._id === profile?._id && (
         <button
-          className="btn btn-danger mb-3 ms-3 mt-3 rounded-pill"
+          className="btn btn-secondary mb-3 ms-3 mt-3 rounded-pill"
           onClick={deleteAcount}
         >
           delete profile

@@ -11,6 +11,7 @@ const postSlice = createSlice({
     // likes: [],
     // dislikes:[],
     basket: [],
+    orderDate: "",
   },
   reducers: {
     setPosts(state, action) {
@@ -74,6 +75,9 @@ const postSlice = createSlice({
     },
     clearBasket: (state, action) => {
       state.basket = [];
+    },
+    setOrderDate(state, action) {
+      state.orderDate = action.payload;
     },
   },
 });

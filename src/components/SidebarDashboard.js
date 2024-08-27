@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 const SidebarDashboard = () => {
   const navicate = useNavigate();
   return (
-    <div>
+    <div className="">
       <h2
         className="mb-3"
         onClick={() => navicate("/dashboard")}

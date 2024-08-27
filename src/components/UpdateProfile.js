@@ -1,10 +1,10 @@
-import React, {useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import {updateProfile} from "../redux/apiCalls/profileApiCall";
+import { updateProfile } from "../redux/apiCalls/profileApiCall";
 
-const UpdateProfile = ({setprofiletoggle, profiletoggle}) => {
-  const {profile} = useSelector((state) => state.profile);
+const UpdateProfile = ({ setprofiletoggle, profiletoggle }) => {
+  const { profile } = useSelector((state) => state.profile);
   const dispatch = useDispatch();
   const [username, setusername] = useState(profile.username);
   const [bio, setbio] = useState(profile.bio);
@@ -12,7 +12,7 @@ const UpdateProfile = ({setprofiletoggle, profiletoggle}) => {
 
   const updatePost = (e) => {
     e.preventDefault();
-    const updatedUser = {username, bio};
+    const updatedUser = { username, bio };
 
     if (password.trim() !== "") {
       updatedUser.password = password;
@@ -25,10 +25,10 @@ const UpdateProfile = ({setprofiletoggle, profiletoggle}) => {
       <div
         className="modal"
         tabindex="-1"
-        style={profiletoggle ? {display: "block"} : {display: "none"}}
+        style={profiletoggle ? { display: "block" } : { display: "none" }}
       >
-        <div className="modal-dialog" style={{animation: "fade 0.5s"}}>
-          <div className="modal-content">
+        <div className="modal-dialog" style={{ animation: "fade 0.5s" }}>
+          <div className="modal-content" style={{ marginTop: "80px" }}>
             <div className="modal-header">
               <h5 className="modal-title">Update Your Profile</h5>
               <button
@@ -67,7 +67,7 @@ const UpdateProfile = ({setprofiletoggle, profiletoggle}) => {
             <div className="modal-footer">
               <button
                 type="button"
-                className="btn btn-secondary"
+                className="btn btn-secondary rounded-pill"
                 data-bs-dismiss="modal"
                 onClick={() => setprofiletoggle(false)}
               >
@@ -75,10 +75,10 @@ const UpdateProfile = ({setprofiletoggle, profiletoggle}) => {
               </button>
               <button
                 type="button"
-                className="btn btn-primary"
+                className="btn btn-success rounded-pill"
                 onClick={updatePost}
               >
-                Update Post
+                Update Now
               </button>
             </div>
           </div>
@@ -88,9 +88,11 @@ const UpdateProfile = ({setprofiletoggle, profiletoggle}) => {
   );
 };
 const Main = styled.div`
+  // margin-top: 70px;
   //   & .modal-dialog {
   //     animation: fade 0.5s;
   //   }
+
   & .my-form {
     display: flex;
     flex-direction: column;

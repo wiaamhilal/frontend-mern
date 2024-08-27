@@ -1,12 +1,12 @@
-import React, {useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {toast} from "react-toastify";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import styled from "styled-components";
-import {updatePostText} from "../redux/apiCalls/postApiCall";
+import { updatePostText } from "../redux/apiCalls/postApiCall";
 
-const UpdatePost = ({toggle, settoggle, post}) => {
+const UpdatePost = ({ toggle, settoggle, post }) => {
   const dispatch = useDispatch();
-  const {categories} = useSelector((state) => state.category);
+  const { categories } = useSelector((state) => state.category);
   const [title, settitle] = useState(post?.title);
   const [description, setdescription] = useState(post?.description);
   const [category, setcategory] = useState(post?.category);
@@ -20,7 +20,7 @@ const UpdatePost = ({toggle, settoggle, post}) => {
     } else if (category.trim() === "") {
       return toast.error("category is required");
     } else {
-      dispatch(updatePostText({title, description, category}, post._id));
+      dispatch(updatePostText({ title, description, category }, post._id));
       settoggle(false);
     }
   };
@@ -29,9 +29,12 @@ const UpdatePost = ({toggle, settoggle, post}) => {
       <div
         className="modal"
         tabindex="-1"
-        style={toggle ? {display: "block"} : {display: "none"}}
+        style={toggle ? { display: "block" } : { display: "none" }}
       >
-        <div className="modal-dialog" style={{animation: "fade 0.5s"}}>
+        <div
+          className="modal-dialog"
+          style={{ animation: "fade 0.5s", marginTop: "70px" }}
+        >
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title">Update Post</h5>
@@ -73,7 +76,7 @@ const UpdatePost = ({toggle, settoggle, post}) => {
             <div className="modal-footer">
               <button
                 type="button"
-                className="btn btn-secondary"
+                className="btn btn-secondary rounded-pill"
                 data-bs-dismiss="modal"
                 onClick={() => settoggle(false)}
               >
@@ -81,7 +84,7 @@ const UpdatePost = ({toggle, settoggle, post}) => {
               </button>
               <button
                 type="button"
-                className="btn btn-primary"
+                className="btn btn-success rounded-pill"
                 onClick={updatePost}
               >
                 Update Post

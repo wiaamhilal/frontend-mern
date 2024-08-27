@@ -30,6 +30,8 @@ import LocationPage from "./components/LocationPage";
 import Payment from "./components/Payment";
 import Orders from "./components/Orders";
 import SendLink from "./components/SendLink";
+import { RotatingLines } from "react-loader-spinner";
+import { useEffect } from "react";
 
 export const GetBasketTotal = (basket) => {
   return basket?.reduce((total, current) => {
@@ -39,11 +41,37 @@ export const GetBasketTotal = (basket) => {
 };
 
 function App() {
-  const { user } = useSelector((state) => state.auth);
+  const { user, loadingApp } = useSelector((state) => state.auth);
   console.log(user);
+  let myLoadingApp = false;
+  useEffect(() => {
+    if (loadingApp == true) {
+      myLoadingApp = true;
+    } else {
+      myLoadingApp = false;
+    }
+  }, [loadingApp, myLoadingApp]);
+  console.log(loadingApp);
 
   return (
     <Holder className="App">
+      {myLoadingApp && (
+        <div className="holder-loading">
+          <div className="loading-app">
+            <RotatingLines
+              visible={true}
+              height="100"
+              width="100"
+              color="white"
+              strokeWidth="5"
+              animationDuration="0.75"
+              ariaLabel="rotating-lines-loading"
+              wrapperStyle={{}}
+              wrapperClass=""
+            />
+          </div>
+        </div>
+      )}
       {/* {!user && <Navigate to="/login" />} */}
       <ToastContainer
         theme="colored"
@@ -259,6 +287,22 @@ const Holder = styled.div`
   background-size: contain;
   padding-bottom: 5px;
   min-height: 100vh;
+
+  & .holder-loading {
+    height: 200%;
+    width: 100%;
+    position: absolute;
+    background: #000000b8;
+    z-index: 100;
+  }
+
+  & .loading-app {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 10000;
+    transform: translate(-50%, -50%);
+  }
 `;
 
 export default App;

@@ -25,8 +25,8 @@ const Payment = () => {
 
   const buyNow = () => {
     dispatch(setUserOrdersApi(user._id, { orders: basket }));
-    dispatch(postActions.clearBasket());
     dispatch(setConfirmOrderApi(user._id));
+    // dispatch(postActions.setOrderDate(Date()));
     // const created = Timestamp.now();
     // const ref = doc(db, "users", user?.uid, "orders", "5454545");
     // setDoc(ref, {
@@ -35,6 +35,8 @@ const Payment = () => {
     //   created: created,
     // });
     navicate("/orders");
+    dispatch(postActions.clearBasket());
+    window.location.reload(false);
     // dispatch(clearBasket());
   };
   return (

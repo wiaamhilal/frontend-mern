@@ -177,7 +177,7 @@ const ParamsComp = () => {
                 update the product
               </span>
               <span
-                className="btn btn-danger btn-sm rounded-pill shadow"
+                className="btn btn-secondary btn-sm rounded-pill shadow"
                 onClick={deletePost}
               >
                 delete the product

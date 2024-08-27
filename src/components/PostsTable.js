@@ -26,11 +26,14 @@ export const PostsTable = () => {
     });
   };
   return (
-    <div className="row mt-5">
-      <div className="col-2 d-none d-md-block ">
+    <div className="row">
+      <div className="col-2 d-none d-md-block " style={{ marginTop: "80px" }}>
         <SidebarDashboard />
       </div>
-      <div className=" col-12 col-md-10 container table-responsive">
+      <div
+        className=" col-12 col-md-10 container table-responsive"
+        style={{ marginTop: "80px" }}
+      >
         <table className="table" style={{ minWidth: "650px" }}>
           <thead className="thead-dark">
             <tr>
@@ -70,19 +73,6 @@ export const PostsTable = () => {
                 </td>
               </tr>
             ))}
-
-            {/* <tr>
-              <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>@fat</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>Larry</td>
-              <td>the Bird</td>
-              <td>@twitter</td>
-            </tr> */}
           </tbody>
         </table>
       </div>

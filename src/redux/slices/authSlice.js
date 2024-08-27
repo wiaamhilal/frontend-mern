@@ -1,4 +1,4 @@
-import {createSlice} from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 const authSlice = createSlice({
   name: "auth",
   initialState: {
@@ -7,6 +7,7 @@ const authSlice = createSlice({
       : null,
     registerMessage: "",
     isEmailVerified: false,
+    loadingApp: false,
   },
   reducers: {
     login(state, action) {
@@ -29,10 +30,13 @@ const authSlice = createSlice({
       state.isEmailVerified = true;
       state.registerMessage = null;
     },
+    setLoadingApp(state, action) {
+      state.action = action.payload;
+    },
   },
 });
 
 const authReducer = authSlice.reducer;
 const authActions = authSlice.actions;
 
-export {authActions, authReducer};
+export { authActions, authReducer };

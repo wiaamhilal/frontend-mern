@@ -20,7 +20,7 @@ const BasketItem = ({
   const dispatch = useDispatch();
   return (
     <div className="position-relative">
-      <Link to={`/product/${id}`} style={{ textDecoration: "none" }}>
+      <Link to={`/posts/details/${id}`} style={{ textDecoration: "none" }}>
         <Item className="bg-light rounded row position-relative shadow mb-3 mb-md-4">
           <img className="col-4 rounded" src={image?.url} alt="" />
 
@@ -41,11 +41,11 @@ const BasketItem = ({
               {" "}
               <div className="me-3 d-flex align-items-center">
                 <img src={normalLike} className="likes-img me-2" alt="" />{" "}
-                <span>{likes?.length - 1}</span>
+                <span>{likes?.length}</span>
               </div>
               <div className="d-flex align-items-center">
                 <img src={normaDislLike} className="likes-img me-2" alt="" />{" "}
-                <span>{dislikes?.length - 1}</span>
+                <span>{dislikes?.length}</span>
               </div>
             </div>
           </div>
@@ -54,7 +54,7 @@ const BasketItem = ({
       {showbutton && (
         <button
           onClick={() => dispatch(postActions.deleteBasketItem(id))}
-          className="btn btn-sm btn-danger position-absolute"
+          className="btn btn-sm btn-secondary position-absolute"
           style={{ bottom: "5px", right: "0px", width: "fit-content" }}
         >
           delete

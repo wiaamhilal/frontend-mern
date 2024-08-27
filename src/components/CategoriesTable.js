@@ -24,11 +24,14 @@ export const CategoriesTable = () => {
   // });
   // };
   return (
-    <div className="row mt-5">
-      <div className="col-2 d-none d-md-block table-responsive">
+    <div className="row">
+      <div className="col-2 d-none d-md-block" style={{ marginTop: "80px" }}>
         <SidebarDashboard />
       </div>
-      <div className=" col-12 col-md-10 container">
+      <div
+        className=" col-12 col-md-10 container table-responsive"
+        style={{ marginTop: "80px" }}
+      >
         <table className="table" style={{ minWidth: "650px" }}>
           <thead className="thead-dark">
             <tr>

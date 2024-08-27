@@ -13,14 +13,15 @@ import {
 const Orders = () => {
   const { user } = useSelector((state) => state.auth);
   const { profile } = useSelector((state) => state.profile);
-  const { basket } = useSelector((state) => state.post);
+  // const { basket, orderDate } = useSelector((state) => state.post);
   useEffect(() => {
     dispatch(getUserProfile(user._id));
-  }, [profile]);
+  }, []);
   //   const [orders, setorders] = useState([]);
-
-  console.log(profile?.orders);
+  // const mytime = profile?.orders[0].createdAt;
+  // console.log(moment(Date()).format("MMMM DD  h:mma"));
   const dispatch = useDispatch();
+  // console.log(Date.now() + 2323);
 
   // useEffect(() => {
   //   if (user) {
@@ -45,7 +46,11 @@ const Orders = () => {
             Total Price : {formatCurrency(GetBasketTotal(profile?.orders))}
           </h2>
           <h2 className="fw-bold text-secondary mt-4">
-            Order Time : {moment.unix().format("MMMM DD  h:mma")}
+            Order Time : {moment(Date.now()).format("MMMM DD  h:mma")}
+          </h2>
+          <h2 className="fw-bold text-secondary mt-4">
+            Delever Time : {moment(Date.now() + 200000000).format("MMMM DD")}{" "}
+            around 12:00pm until 5:00pm
           </h2>
 
           <h2 className="fw-bold text-secondary mt-4">
