@@ -64,6 +64,7 @@ const CreatePost = () => {
             className="inputs"
             onChange={(e) => setcategory(e.target.value)}
           >
+            <option value="none">category</option>
             {categories.map((item) => (
               <option value={item.title}>{item.title}</option>
             ))}
@@ -81,6 +82,20 @@ const CreatePost = () => {
             className="file btn"
             onChange={(e) => setfile(e.target.files[0])}
           />
+          <div>
+            {file && (
+              <img
+                style={{
+                  width: "100%",
+                  maxHeight: "250px",
+                  borderRadius: "10px",
+                }}
+                className="mb-3"
+                alt=""
+                src={URL.createObjectURL(file)}
+              />
+            )}
+          </div>
           <div className="">
             {loading ? (
               <button className="btn btn-success w-100 p-0">

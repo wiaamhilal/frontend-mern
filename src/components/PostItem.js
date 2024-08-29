@@ -25,8 +25,11 @@ const PostItem = ({ post, username, userId }) => {
       />
       <div class="card-body">
         {" "}
-        <div className="d-flex align-items-center justify-content-between">
-          <h5 class="card-title">{post?.title}</h5>
+        <div
+          className="d-flex align-items-center justify-content-between"
+          style={{ height: "48px" }}
+        >
+          <h5 class="card-title">{post?.title?.substring(0, 22)}</h5>
           <h6 class="card-title">{FormatCurrency(post?.price)}</h6>
         </div>
         <p class="card-text" style={{ height: "96px" }}>

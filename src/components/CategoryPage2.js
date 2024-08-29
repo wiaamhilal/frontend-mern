@@ -36,7 +36,7 @@ const CategoryPage2 = () => {
 
   return (
     <div>
-      <div className="container">
+      <div className="container" style={{ paddingTop: "70px" }}>
         <SideBar />
         <div className="row  gap-3 justify-content-center">
           {postsCate.map((item) => (

@@ -11,7 +11,7 @@ export const SideBar = () => {
   });
   return (
     <Main>
-      <li className="nav-item dropdown btn btn-secondary">
+      <li className="nav-item dropdown btn btn-success">
         <Link
           className="nav-link dropdown-toggle"
           to="#"

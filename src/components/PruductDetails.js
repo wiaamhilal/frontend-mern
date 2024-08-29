@@ -52,7 +52,8 @@ const ParamsComp = () => {
       const formData = new FormData();
       formData.append("image", image);
       await dispatch(updatePostImage(formData, post._id));
-      window.location.reload(false);
+      setimage("");
+      // window.location.reload(false);
     }
   };
   const navicate = useNavigate();

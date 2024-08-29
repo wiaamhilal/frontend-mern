@@ -173,7 +173,8 @@ function App() {
           path="/register"
           element={
             <>
-              <Header /> {!user ? <Register /> : <Navigate to="/" />}
+              <Header />
+              <Register />
             </>
           }
         />

@@ -26,19 +26,19 @@ const PostList = () => {
     <Holder>
       <div className="container">
         <SideBar />
-        <div className="row  gap-3 justify-content-center">
+        <div className="row gap-3 justify-content-center">
           {posts?.map((item) => (
             <PostItem post={item} key={item?._id} />
           ))}
         </div>
         <div className="col-12 mt-3">
-          {posts?.length > 2 && (
-            <Paganation
-              currentPage={currentPage}
-              setcurrentPage={setcurrentPage}
-              pages={pages}
-            />
-          )}
+          {/* {posts?.length > 2 && ( */}
+          <Paganation
+            currentPage={currentPage}
+            setcurrentPage={setcurrentPage}
+            pages={pages}
+          />
+          {/* )} */}
         </div>
       </div>
     </Holder>
