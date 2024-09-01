@@ -66,7 +66,7 @@ export const UsersTable = () => {
                     view profile
                   </Link>
                   <button
-                    className="btn btn-danger btn-sm"
+                    className="btn btn-secondary btn-sm"
                     onClick={() => deleteUser(item._id)}
                   >
                     delete

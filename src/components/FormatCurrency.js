@@ -1,5 +1,5 @@
 const FormatCurrency = new Intl.NumberFormat(undefined, {
-  currency: "UAE",
+  currency: "AED",
   style: "currency",
 });
 

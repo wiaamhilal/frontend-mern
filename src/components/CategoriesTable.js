@@ -47,7 +47,7 @@ export const CategoriesTable = () => {
                 <td>{item.title}</td>
                 <td>
                   <button
-                    className="btn btn-danger"
+                    className="btn btn-secondary btn-sm"
                     onClick={() => deleteCategory(item._id)}
                   >
                     delete

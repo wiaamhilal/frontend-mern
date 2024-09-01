@@ -53,7 +53,7 @@ export const CommentsTable = () => {
                 <td>{item.text}</td>
                 <td>
                   <button
-                    className="btn btn-danger btn-sm"
+                    className="btn btn-secondary btn-sm"
                     onClick={() => deleteComment(item._id)}
                   >
                     delete

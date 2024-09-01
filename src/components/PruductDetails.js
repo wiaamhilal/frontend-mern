@@ -141,19 +141,83 @@ const ParamsComp = () => {
               <span className="text-color">{post?.description}</span>
             </div>
           </Head>
-          <div className="d-flex align-items-center justify-content-between mt-3">
-            <div className="d-flex">
+          <Boxholder className="row gap-4">
+            <div className="col-12 col-sm-6 col-md-3">
+              <h5 className="fw-bold m-0 p-0">{FormatCurrency(post?.price)}</h5>
+            </div>
+            <div className="col-12 col-sm-6 col-md-3">
+              <div class="btn-group">
+                <button
+                  class="btn btn-success btn-sm dropdown-toggle rounded-pill"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  free feturn
+                </button>
+                <div
+                  class="dropdown-menu"
+                  style={{ width: "290px", padding: "10px" }}
+                >
+                  You can return this item for FREE within the allowed return
+                  period for any reason and without any shipping charges. The
+                  item must be returned in new and unused condition.
+                </div>
+              </div>
+            </div>
+            <div className="col-12 col-sm-6 col-md-3">
+              {" "}
+              <button
+                onClick={() => addToTheCard(post)}
+                className="btn btn-sm btn-success rounded-pill shadow me-2"
+              >
+                Add To Card
+              </button>
+              <button
+                onClick={() => addToTheCard(post) & navicate("/basket")}
+                className="btn btn-sm btn-success rounded-pill shadow"
+              >
+                Buy Now
+              </button>
+            </div>
+            <span className="col-12 col-sm-6 col-md-3 m-0 fw-bold">
+              FREE delivery Wednesday, 4 September
+            </span>
+            <span className="col-12 col-sm-6 col-md-3 m-0 fw-bold">
+              Or fastest delivery Tuesday, 3 September
+            </span>
+            <div className="col-12 col-sm-6 col-md-3">
+              <span className="fw-bold d-block">
+                <span className="me-4">Fulfilled by </span>{" "}
+                <a href="https://weaams.com/">weaams.com</a>
+              </span>{" "}
+              <span className="fw-bold d-block">
+                <span className="me-4"> Sold by </span>
+                <span className="fw-bold">{post?.user.username}</span>{" "}
+              </span>
+              <span className="fw-bold d-block">
+                <span className="me-4">Payment</span> transaction Secure
+              </span>
+            </div>
+            <div className="col-12 col-sm-6 col-md-3">
+              {" "}
+              <h5 className="bw-bold">Add a Protection Plan:</h5>
+            </div>
+            <div className="col-12 col-sm-6 col-md-3 fw-bold">
+              <input type="checkbox" /> 1-Year Extended Warranty by Salama Care
+              (E-mail delivery) for AED 40.00
+            </div>
+            <div className="col-12 col-sm-6 col-md-3 fw-bold">
+              <input type="checkbox" /> 2-Year Extended Warranty by Salama Care
+              (E-mail delivery) for AED 66.00
+            </div>
+          </Boxholder>
+          {/* <div className="d-flex align-items-center justify-content-between mt-3"> */}
+          {/* <div className="d-flex">
               {" "}
               <h4 className="me-2">The price:</h4>
-              <h5 className="mt-1">{FormatCurrency(post?.price)}</h5>
-            </div>
-            <button
-              onClick={() => addToTheCard(post)}
-              className="btn btn-sm btn-success rounded-pill shadow"
-            >
-              Add To Card
-            </button>
-          </div>
+            </div> */}
+          {/* </div> */}
           <div className="d-flex align-items-center mt-4">
             <h4 className="me-4 ">the seller :</h4>
             <Link to={`/profile/${post?.user?._id}`} className="text-dark">
@@ -305,5 +369,12 @@ const MainToggle = styled.div`
     width: 400px;
     max-width: 100%;
   }
+`;
+const Boxholder = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 20px 0;
 `;
 export default ParamsComp;

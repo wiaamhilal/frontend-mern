@@ -65,7 +65,7 @@ export const PostsTable = () => {
                     view post
                   </Link>
                   <button
-                    className="btn btn-danger btn-sm"
+                    className="btn btn-secondary btn-sm"
                     onClick={() => deletePost(item?._id)}
                   >
                     delete
