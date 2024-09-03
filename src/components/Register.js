@@ -64,7 +64,7 @@ const Register = () => {
               placeholder="enter your password"
               className="my-input w-100 shadow"
             />
-            <button className="btn btn-primary w-100 mt-3">Register</button>
+            <button className="btn btn-success w-100 mt-3">Register</button>
           </form>
           <p className="mt-4 text-center">
             already have an account? <Link to="/login">Login</Link>

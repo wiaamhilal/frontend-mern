@@ -51,7 +51,7 @@ const Login = () => {
               placeholder="enter your password"
               className="my-input w-100 shadow"
             />
-            <button className="btn btn-primary w-100 mt-3">Submit</button>
+            <button className="btn btn-success w-100 mt-3">Submit</button>
           </form>
           <p className="mt-4 text-center">
             did you forget your password?{" "}

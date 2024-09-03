@@ -1,15 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import locationImg from "../img/location-sign-svgrepo-com.svg";
 import phoneImg from "../img/phone-call-telephone-svgrepo-com.svg";
 import emailImg from "../img/email-svgrepo-com.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { createNewClinetComment } from "../redux/apiCalls/commentApiCall";
+import {
+  AllCommentsClintsApi,
+  createNewClinetComment,
+} from "../redux/apiCalls/commentApiCall";
 import { toast } from "react-toastify";
+import { getUserProfile } from "../redux/apiCalls/profileApiCall";
+import { commentActions } from "../redux/slices/commentSlice";
 
 const ContactUs = () => {
   const { user } = useSelector((state) => state.auth);
+  const { profile } = useSelector((state) => state.profile);
+  const { clinetComments } = useSelector((state) => state.comment);
+
   const dispatch = useDispatch();
   const [comment, setcomment] = useState("");
   const [number, setnumber] = useState(0);
@@ -27,9 +35,16 @@ const ContactUs = () => {
   const sendComment = (e) => {
     e.preventDefault();
     dispatch(createNewClinetComment({ text: comment }));
-    toast.success("thank you for your opininiont");
+    // toast.success("thank you for your opininiont");
+    setcomment("");
   };
-  console.log(number);
+  console.log();
+  useEffect(() => {
+    if (user) {
+      dispatch(getUserProfile(user?._id));
+      dispatch(AllCommentsClintsApi());
+    }
+  }, [user, clinetComments]);
   return (
     <Holder>
       <Main className="container text-color">
@@ -122,7 +137,7 @@ const ContactUs = () => {
                 {!user && (
                   <div className="d-flex align-items-center">
                     <Link
-                      to="/signin"
+                      to="/login"
                       style={{ fontSize: "12px" }}
                       className="btn btn-sm btn-primary rounded-pill mb-1"
                     >
@@ -137,7 +152,7 @@ const ContactUs = () => {
               <input
                 disabled={!user}
                 type="text"
-                value={user?.displayName}
+                value={user?.username}
                 className="my-feild"
               />
               <h6 className="fw-bold mt-3">Email</h6>
@@ -145,7 +160,7 @@ const ContactUs = () => {
                 type="email"
                 disabled={!user}
                 className="my-feild"
-                value={user?.email}
+                value={profile?.email}
               />
               <h6 className="fw-bold mt-3">comments</h6>
               <textarea
@@ -165,14 +180,20 @@ const ContactUs = () => {
           </SecondPart>
         </MessageUs>
       </Main>
-      <Link onClick={() => setnumber(0)} to="/messages" className="messages">
-        <img
-          style={{ width: "50px" }}
-          src="https://cdn-icons-png.flaticon.com/512/865/865771.png"
-          alt=""
-        />
-        {number > 0 && <span>{number}</span>}
-      </Link>
+      {user?.isAdmin && (
+        <Link
+          // onClick={() => dispatch}
+          to="/messages"
+          className="messages"
+        >
+          <img
+            style={{ width: "50px" }}
+            src="https://cdn-icons-png.flaticon.com/512/865/865771.png"
+            alt=""
+          />
+          {clinetComments.length > 0 && <span>{clinetComments.length}</span>}
+        </Link>
+      )}
     </Holder>
   );
 };

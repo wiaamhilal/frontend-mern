@@ -4,29 +4,53 @@ import styled from "styled-components";
 import {
   AllCommentsClintsApi,
   deleteAllClinetsComments,
+  deleteClinetsComment,
 } from "../redux/apiCalls/commentApiCall";
+import swal from "sweetalert";
 
 const Messages = () => {
   const [message, setmessage] = useState([]);
   const dispatch = useDispatch();
   const { clinetComments } = useSelector((state) => state.comment);
-  const DeleteComment = (id) => {};
+  const DeleteComment = (id) => {
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this imaginary comment!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        dispatch(deleteClinetsComment(id));
+      }
+    });
+  };
   const DeleteAll = () => {
-    dispatch(deleteAllClinetsComments());
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover all this imaginary comments!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        dispatch(deleteAllClinetsComments());
+      }
+    });
   };
   useEffect(() => {
     dispatch(AllCommentsClintsApi());
-  }, []);
-  console.log(clinetComments);
+  }, [clinetComments]);
+  // console.log(clinetComments);
   return (
     <Holder>
       <button
-        className="btn w-100 btn-danger m-auto rounded-pill mb-3"
+        className="btn w-100 btn-secondary m-auto rounded-pill mb-3"
         onClick={DeleteAll}
       >
         Clear All
       </button>
-      {clinetComments.map((item) => (
+      {clinetComments?.map((item) => (
         <Main className="container mb-3" style={{ position: "relative" }}>
           <div className="d-flex align-items-center  ">
             <img
@@ -42,8 +66,8 @@ const Messages = () => {
             </div>
           </div>
           <button
-            onClick={() => DeleteComment(item.id)}
-            className="btn btn-sm btn-danger"
+            onClick={() => DeleteComment(item._id)}
+            className="btn btn-sm btn-secondary"
             style={{ right: "10px", top: "10px", position: "absolute" }}
           >
             Delete

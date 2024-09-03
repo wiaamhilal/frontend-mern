@@ -109,15 +109,35 @@ export function AllCommentsClintsApi() {
 }
 
 // delete all comments client
-export function deleteAllClinetsComments() {
+export function deleteClinetsComment(id) {
   return async (dispatch, getState) => {
     try {
-      await request.delete(`/api/comments/client-comment`, {
+      await request.delete(`/api/comments/client-comment/${id}`, {
         headers: {
           Authorization: "bearer " + getState().auth.user.token,
         },
       });
-      dispatch(commentActions.setClinetComment([]));
+      // dispatch(commentActions.setClinetComment());
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
+}
+
+// delete all comments client
+export function deleteAllClinetsComments() {
+  return async (dispatch, getState) => {
+    try {
+      await request.post(
+        `/api/comments/client-comment/delete-all`,
+        {},
+        {
+          headers: {
+            Authorization: "bearer " + getState().auth.user.token,
+          },
+        }
+      );
+      // dispatch(commentActions.setClinetComment());
     } catch (error) {
       toast.error(error.response.data.message);
     }

@@ -9,7 +9,7 @@ const Headerr = () => {
   return (
     <Holder>
       <Main className="container">
-        <Link className="logo" to="/">
+        <Link className="logo" to={`/profile/${user._id}`}>
           <img
             src="https://st2.depositphotos.com/2723391/10875/v/450/depositphotos_108752618-stock-illustration-capital-letter-n.jpg"
             alt=""
