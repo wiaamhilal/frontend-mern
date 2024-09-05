@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logoutUser } from "../redux/apiCalls/authApiCall";
@@ -8,8 +8,15 @@ const Headerr = () => {
   const { user } = useSelector((state) => state.auth);
   const { basket } = useSelector((state) => state.post);
   const { profile } = useSelector((state) => state.profile);
+  // const [isOpen, setisOpen] = useState(true);
   const dispatch = useDispatch();
   const navicate = useNavigate();
+  // const toggerNavbar = () => {
+  //   setisOpen(!isOpen);
+  // };
+  // const coseNavbar = () => {
+  //   setisOpen(false);
+  // };
   return (
     <Main>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark my-nav ">
@@ -175,6 +182,7 @@ const Main = styled.div`
     width: 100%;
     z-index: 99999;
     top: 0;
+    opacity: 0.9;
   }
 `;
 const Basket = styled.div`
