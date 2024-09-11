@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteCommentApi } from "../redux/apiCalls/commentApiCall";
 export const CommentsTable = () => {
   const { comments } = useSelector((state) => state.comment);
+  const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const deleteComment = (commentId) => {
     swal({
@@ -55,6 +56,7 @@ export const CommentsTable = () => {
                   <button
                     className="btn btn-secondary btn-sm"
                     onClick={() => deleteComment(item._id)}
+                    disabled={user.email !== "weaam224112@gmail.com"}
                   >
                     delete
                   </button>

@@ -1,12 +1,12 @@
-import {passwordActions} from "../slices/passwordSlice";
+import { passwordActions } from "../slices/passwordSlice";
 import request from "../../utils/request";
-import {toast} from "react-toastify";
+import { toast } from "react-toastify";
 
 // forgot password
 export function forgotPassword(email) {
   return async () => {
     try {
-      const {data} = await request.post("/api/password/reset-password-link", {
+      const { data } = await request.post("/api/password/reset-password-link", {
         email,
       });
       toast.success(data.message);
@@ -30,15 +30,17 @@ export function getResetPassword(userId, token) {
 
 // reset the password
 export function resetPassword(newPassword, user) {
-  return async () => {
+  return async (dispatch) => {
     try {
-      const {data} = await request.post(
+      const { data } = await request.post(
         `/api/password/reset-password/${user.userId}/${user.token}`,
         {
           password: newPassword,
         }
       );
       toast.success(data.message);
+      dispatch(passwordActions.setsucResPass(true));
+      setTimeout(() => dispatch(passwordActions.setsucResPass(false)), 5000);
     } catch (error) {
       toast.error(error.response.data.message);
     }

@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { deletePostApi, fetchAllPosts } from "../redux/apiCalls/postApiCall";
 export const PostsTable = () => {
   const { posts } = useSelector((state) => state.post);
+  const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchAllPosts());
@@ -67,6 +68,7 @@ export const PostsTable = () => {
                   <button
                     className="btn btn-secondary btn-sm"
                     onClick={() => deletePost(item?._id)}
+                    disabled={user.email !== "weaam224112@gmail.com"}
                   >
                     delete
                   </button>

@@ -6,6 +6,7 @@ import { deleteCategoryApi } from "../redux/apiCalls/categoryApiCall";
 export const CategoriesTable = () => {
   const dispatch = useDispatch();
   const { categories } = useSelector((state) => state.category);
+  const { user } = useSelector((state) => state.auth);
   const deleteCategory = (categoryId) => {
     swal({
       title: "Are you sure?",
@@ -49,6 +50,7 @@ export const CategoriesTable = () => {
                   <button
                     className="btn btn-secondary btn-sm"
                     onClick={() => deleteCategory(item._id)}
+                    disabled={user.email !== "weaam224112@gmail.com"}
                   >
                     delete
                   </button>

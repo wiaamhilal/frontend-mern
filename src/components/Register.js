@@ -36,10 +36,10 @@ const Register = () => {
   }
   return (
     <Holder>
-      <div className="container">
+      <div className="container make-center">
         <div
           style={{ maxWidth: "500px" }}
-          className="m-auto shadow rounded mt-4 p-3 bg-white container"
+          className="m-auto shadow rounded p-3 bg-white container"
         >
           <h2 className="text-center">create a new account</h2>
           <form onSubmit={register}>

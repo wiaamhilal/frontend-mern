@@ -9,6 +9,7 @@ import {
 } from "../redux/apiCalls/profileApiCall";
 export const UsersTable = () => {
   const { profiles, isProfileDeleted } = useSelector((state) => state.profile);
+  const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllProfilesApi());
@@ -68,6 +69,7 @@ export const UsersTable = () => {
                   <button
                     className="btn btn-secondary btn-sm"
                     onClick={() => deleteUser(item._id)}
+                    disabled={user.email !== "weaam224112@gmail.com"}
                   >
                     delete
                   </button>

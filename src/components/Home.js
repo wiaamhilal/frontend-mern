@@ -12,18 +12,31 @@ const Home = () => {
   console.log(user);
   return (
     <Main>
-      <p>
-        Wellcome {user && <span>{user.name}</span>} to our page go ahead and see
-        our products
-      </p>
-      <div className="d-flex algin-items-center justify-content-center">
-        <Link to="/products" className="btn fw-bold the-btn mt-2">
-          Go Ahead
-        </Link>
-      </div>
+      {user ? (
+        <>
+          <p>
+            Wellcome {user && <span>{user.username}</span>} to our page go ahead
+            and see our products
+          </p>
+          <div className="d-flex algin-items-center justify-content-center">
+            <Link to="/products" className="btn fw-bold the-btn mt-2">
+              Go Ahead
+            </Link>
+          </div>
+        </>
+      ) : (
+        <>
+          <p>sign in to be able to take advantage of the feature of our site</p>
+          <div className="d-flex algin-items-center justify-content-center">
+            <Link to="/login" className="btn fw-bold the-btn mt-2">
+              Sign in
+            </Link>
+          </div>
+        </>
+      )}
       {user ? (
         <Acount>
-          <span>{user.username}</span>
+          <span>{user?.email}</span>
           <button
             className="btn text-white"
             onClick={() => dispatch(logoutUser())}

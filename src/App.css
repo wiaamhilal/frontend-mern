@@ -20,3 +20,14 @@
 .my-shadw {
   box-shadow: 12px 12px 10px 1px #808080ad;
 }
+
+.my-color {
+  color: #08d364;
+}
+
+.make-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
