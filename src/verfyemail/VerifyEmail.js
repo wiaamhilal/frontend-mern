@@ -32,9 +32,9 @@ const VerifyEmail = () => {
           </div>
         </div>
       ) : (
-        <>
-          <h1>unauthorized this link is expired</h1>
-        </>
+        <div className="make-center">
+          <h1 className=" fw-bold">Unauthorized this link is expired</h1>
+        </div>
       )}
     </div>
   );

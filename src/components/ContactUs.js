@@ -40,7 +40,7 @@ const ContactUs = () => {
   };
   console.log();
   useEffect(() => {
-    if (user) {
+    if (user.isAdmin) {
       dispatch(getUserProfile(user?._id));
       dispatch(AllCommentsClintsApi());
     }
@@ -160,7 +160,7 @@ const ContactUs = () => {
                 type="email"
                 disabled={!user}
                 className="my-feild"
-                value={profile?.email}
+                value={user?.email}
               />
               <h6 className="fw-bold mt-3">comments</h6>
               <textarea

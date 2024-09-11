@@ -44,7 +44,7 @@ const CreatePost = () => {
     }
   }, [isPostCreated, navicate]);
   return (
-    <Holder>
+    <Holder className="container">
       <Main>
         <h1 className="text-center">Create Post</h1>
         <form onSubmit={submitCreatepost}>
@@ -79,9 +79,12 @@ const CreatePost = () => {
             type="file"
             name="file"
             id="file"
-            className="file btn"
+            className="d-none"
             onChange={(e) => setfile(e.target.files[0])}
           />
+          <label htmlFor="file" className="btn btn-success w-100 mb-3 mt-1">
+            Chose an image
+          </label>
           <div>
             {file && (
               <img
