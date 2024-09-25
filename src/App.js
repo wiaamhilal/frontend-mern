@@ -32,6 +32,7 @@ import Orders from "./components/Orders";
 import SendLink from "./components/SendLink";
 import { RotatingLines } from "react-loader-spinner";
 import { useEffect } from "react";
+import OrdersStatus from "./components/OrdersStatus";
 
 export const GetBasketTotal = (basket) => {
   return basket?.reduce((total, current) => {
@@ -275,6 +276,14 @@ function App() {
           element={
             <>
               <Header /> <SendLink />
+            </>
+          }
+        />
+        <Route
+          path="/dashboard/orders-status"
+          element={
+            <>
+              <Header /> <OrdersStatus />
             </>
           }
         />

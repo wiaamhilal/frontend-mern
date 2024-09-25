@@ -12,6 +12,9 @@ const postSlice = createSlice({
     // dislikes:[],
     basket: [],
     orderDate: "",
+    search: "",
+    orders: [],
+    ordersCount: null,
   },
   reducers: {
     setPosts(state, action) {
@@ -78,6 +81,15 @@ const postSlice = createSlice({
     },
     setOrderDate(state, action) {
       state.orderDate = action.payload;
+    },
+    setSearch(state, action) {
+      state.search = action.payload;
+    },
+    setOrders(state, action) {
+      state.orders = action.payload;
+    },
+    setOrdersCount(state, action) {
+      state.ordersCount = action.payload;
     },
   },
 });

@@ -9,25 +9,24 @@ import {
   getUserProfile,
   setUserOrdersApi,
 } from "../redux/apiCalls/profileApiCall";
+import { getAllOrdersApi } from "../redux/apiCalls/postApiCall";
 
 const Orders = () => {
+  const { orders } = useSelector((state) => state.post);
+
   const { user } = useSelector((state) => state.auth);
   const { profile } = useSelector((state) => state.profile);
-  // const { basket, orderDate } = useSelector((state) => state.post);
   useEffect(() => {
     dispatch(getUserProfile(user._id));
   }, []);
-  //   const [orders, setorders] = useState([]);
-  // const mytime = profile?.orders[0].createdAt;
-  // console.log(moment(Date()).format("MMMM DD  h:mma"));
-  const dispatch = useDispatch();
-  // console.log(Date.now() + 2323);
 
-  // useEffect(() => {
-  //   if (user) {
-  //   } else {
-  //   }
-  // }, [user]);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAllOrdersApi());
+  }, []);
+  console.log(orders);
+
   return (
     <Holder>
       {profile?.orders ? (
@@ -38,24 +37,136 @@ const Orders = () => {
           <h2 className="mb-3 fw-bold text-secondary">Your Orders : </h2>
 
           <div>
-            {profile?.orders?.map((item) => (
-              <BasketItem {...item} />
-            ))}{" "}
-          </div>
-          <h2 className="fw-bold text-secondary mt-4">
-            Total Price : {formatCurrency(GetBasketTotal(profile?.orders))}
-          </h2>
-          <h2 className="fw-bold text-secondary mt-4">
-            Order Time : {moment(Date.now()).format("MMMM DD  h:mma")}
-          </h2>
-          <h2 className="fw-bold text-secondary mt-4">
-            Delever Time : {moment(Date.now() + 200000000).format("MMMM DD")}{" "}
-            around 12:00pm until 5:00pm
-          </h2>
+            {orders?.map(
+              (item) =>
+                item?.userDetails == user?._id && (
+                  <div className="order-item">
+                    <BasketItem {...item.orderDetails[0]} />
+                    {item.orderDetails[1] && (
+                      <BasketItem {...item.orderDetails[1]} />
+                    )}
+                    {item.orderDetails[2] && (
+                      <BasketItem {...item.orderDetails[2]} />
+                    )}
+                    {item.orderDetails[3] && (
+                      <BasketItem {...item.orderDetails[3]} />
+                    )}
+                    <h3 className="fw-bold text-secondary mt-4">
+                      Total Price :{" "}
+                      {formatCurrency(GetBasketTotal(item.orderDetails))}
+                    </h3>
+                    <h3 className="fw-bold text-secondary mt-4">
+                      Order Time :{" "}
+                      {moment(item.createdAt).format("MMMM DD  h:mma")}
+                    </h3>
 
-          <h2 className="fw-bold text-secondary mt-4">
-            Delever to : {profile?.location?.building}
-          </h2>
+                    <div className="d-flex align-items-center mt-4">
+                      <h3 className="fw-bold text-secondary me-4">
+                        order status:
+                      </h3>
+                      {item.orderStatus == "false" && (
+                        <button class="btn btn-success" type="button" disabled>
+                          <span
+                            class="spinner-grow spinner-grow-sm me-2"
+                            role="status"
+                            aria-hidden="true"
+                          ></span>
+                          processing...
+                        </button>
+                      )}
+                      {item.orderStatus == "confirmid" && (
+                        <div>
+                          <h3 className="text-success">
+                            your order has been confirmid
+                          </h3>
+                          <div class="progress">
+                            <div
+                              className="progress-bar progress-bar-striped progress-bar-animated"
+                              role="progressbar"
+                              aria-valuenow="75"
+                              aria-valuemin="0"
+                              aria-valuemax="100"
+                              style={{ width: " 10%" }}
+                            ></div>
+                          </div>
+                        </div>
+                      )}
+                      {item.orderStatus == "shipped" && (
+                        <div>
+                          <h3 className="text-success">
+                            your order has been shipped
+                          </h3>
+                          <div class="progress">
+                            <div
+                              className="progress-bar progress-bar-striped progress-bar-animated"
+                              role="progressbar"
+                              aria-valuenow="75"
+                              aria-valuemin="0"
+                              aria-valuemax="100"
+                              style={{ width: " 50%" }}
+                            ></div>
+                          </div>
+                        </div>
+                      )}
+                      {item.orderStatus == "on the way" && (
+                        <div>
+                          <h3 className="text-success">
+                            your order went out for delevery
+                          </h3>
+                          <div class="progress">
+                            <div
+                              className="progress-bar progress-bar-striped progress-bar-animated"
+                              role="progressbar"
+                              aria-valuenow="75"
+                              aria-valuemin="0"
+                              aria-valuemax="100"
+                              style={{ width: " 75%" }}
+                            ></div>
+                          </div>
+                        </div>
+                      )}
+                      {item.orderStatus == "receved" && (
+                        <div>
+                          <h3 className="text-success">
+                            your order has been receved
+                          </h3>
+                          <div class="progress">
+                            <div
+                              className="progress-bar progress-bar-striped bg-success"
+                              role="progressbar"
+                              aria-valuenow="75"
+                              aria-valuemin="0"
+                              aria-valuemax="100"
+                              style={{ width: " 100%" }}
+                            ></div>
+                          </div>
+                        </div>
+                      )}
+                      {item.orderStatus == "canceled" && (
+                        <div>
+                          <h3 className="text-danger">
+                            your order has been canceled
+                          </h3>
+                          <div class="progress">
+                            <div
+                              className="progress-bar progress-bar-striped bg-danger"
+                              role="progressbar"
+                              aria-valuenow="75"
+                              aria-valuemin="0"
+                              aria-valuemax="100"
+                              style={{ width: " 100%" }}
+                            ></div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                    <h3 className="fw-bold text-secondary mt-4">
+                      Delever to : {profile?.location?.building}
+                    </h3>
+                  </div>
+                )
+            )}{" "}
+          </div>
 
           {/* <h2 className="fw-bold text-secondary mt-4">
         delevery date :
@@ -77,6 +188,13 @@ const Holder = styled.div`
   background-image: url("https://images.unsplash.com/photo-1615799998603-7c6270a45196?q=80&w=1604&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
   background-size: contain;
   min-height: 100vh;
+  & .order-item {
+    width: 100%;
+    background: #f2f2f2;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+  }
 `;
 const Main = styled.div``;
 export default Orders;

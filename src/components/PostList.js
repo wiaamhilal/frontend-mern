@@ -7,7 +7,7 @@ import { SideBar } from "./SideBar";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 const PostList = () => {
-  const { posts } = useSelector((state) => state.post);
+  const { posts, search } = useSelector((state) => state.post);
   const { postsCount } = useSelector((state) => state.post);
   const dispatch = useDispatch();
   const POST_PER_PAGE = 8;
@@ -27,9 +27,13 @@ const PostList = () => {
       <div className="container">
         <SideBar />
         <div className="row gap-3 justify-content-center">
-          {posts?.map((item) => (
-            <PostItem post={item} key={item?._id} />
-          ))}
+          {posts
+            ?.filter((item) =>
+              search === "" ? item : item.title.toLowerCase().includes(search)
+            )
+            .map((item) => (
+              <PostItem post={item} key={item?._id} />
+            ))}
         </div>
         <div className="col-12 mt-3">
           {/* {posts?.length > 2 && ( */}

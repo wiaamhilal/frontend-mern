@@ -13,7 +13,7 @@ import { fetshAllCommentsApi } from "../redux/apiCalls/commentApiCall";
 const MainDashboard = () => {
   const { categories } = useSelector((state) => state.category);
   const { usersCount } = useSelector((state) => state.profile);
-  const { postsCount } = useSelector((state) => state.post);
+  const { postsCount, orders } = useSelector((state) => state.post);
   const { comments } = useSelector((state) => state.comment);
   const dispatch = useDispatch();
 
@@ -59,7 +59,7 @@ const MainDashboard = () => {
         </div>
         <div className="col-12 col-sm-6 col-md-3 p-3 shadow rounded bg-white">
           <div className="d-flex align-itmes-center justify-content-between">
-            <h4>Posts</h4>
+            <h4>Products</h4>
             <h5>{postsCount}</h5>
           </div>
           <div className="d-flex justify-content-center">
@@ -112,6 +112,25 @@ const MainDashboard = () => {
             className="btn btn-success btn-sm w-100 fw-bold"
           >
             see all comments
+          </Link>{" "}
+        </div>
+        <div className="col-12 col-sm-6 col-md-3 shadow rounded p-3 bg-white">
+          <div className="d-flex align-itmes-center justify-content-between">
+            <h4>Orders</h4>
+            <h5>{orders.length}</h5>
+          </div>
+          <div className="d-flex justify-content-center">
+            <img
+              src="https://cdn.icon-icons.com/icons2/2483/PNG/512/order_number_icon_149906.png"
+              style={{ width: "100px", marginBottom: "10px" }}
+              alt=""
+            />
+          </div>
+          <Link
+            to="/dashboard/orders-status"
+            className="btn btn-success btn-sm w-100 fw-bold"
+          >
+            Check orders status
           </Link>{" "}
         </div>
       </div>

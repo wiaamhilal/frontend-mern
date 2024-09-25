@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const Paganation = ({pages, setcurrentPage, currentPage}) => {
+const Paganation = ({ pages, setcurrentPage, currentPage }) => {
   const generatedPages = [];
   for (let i = 1; i <= pages; i++) {
     generatedPages.push(i);
@@ -10,7 +10,11 @@ const Paganation = ({pages, setcurrentPage, currentPage}) => {
   return (
     <nav aria-label="..." className="d-flex justify-content-center">
       <ul class="pagination">
-        <button class="page-item btn p-0" disabled={currentPage === 1}>
+        <button
+          class="page-item btn p-0"
+          disabled={currentPage === 1}
+          onClick={() => setcurrentPage((currentPage += -1))}
+        >
           <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
             Previous
           </a>

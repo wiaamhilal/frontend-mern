@@ -15,11 +15,17 @@ import PostItem from "./PostItem.js";
 import { logoutUser } from "../redux/apiCalls/authApiCall.js";
 import styled from "styled-components";
 import { authActions } from "../redux/slices/authSlice.js";
+import Paganation from "./Paganation.js";
+import { fetchPosts } from "../redux/apiCalls/postApiCall.js";
 const Profile = () => {
   const { profile, loading, isProfileDeleted } = useSelector(
     (state) => state.profile
   );
+
   const { user } = useSelector((state) => state.auth);
+  const { posts } = useSelector((state) => state.post);
+  const myposts = posts?.filter((item) => item.user.email === profile.email);
+
   console.log(profile);
   const { userId } = useParams();
   const dispatch = useDispatch();
@@ -66,6 +72,14 @@ const Profile = () => {
     }
   };
 
+  const POST_PER_PAGE = 8;
+
+  const [currentPage, setcurrentPage] = useState(1);
+  const pages = Math.ceil(profile?.posts?.length / POST_PER_PAGE);
+  console.log();
+  useEffect(() => {
+    dispatch(fetchPosts(currentPage));
+  }, [currentPage]);
   if (loading) {
     return (
       <div className="d-flex align-items-center justify-content-center">
@@ -146,7 +160,7 @@ const Profile = () => {
       </div>
       <h2 className="">{profile?.username} Products :</h2>
       <div className="justify-content-center row gap-3">
-        {profile?.posts?.map((item) => (
+        {myposts?.map((item) => (
           <PostItem
             className="col-12 col-sm-6 col-md-4 col-lg-3"
             post={item}
@@ -154,6 +168,12 @@ const Profile = () => {
             userId={profile?._id}
           />
         ))}
+
+        <Paganation
+          currentPage={currentPage}
+          setcurrentPage={setcurrentPage}
+          pages={pages}
+        />
       </div>
       {user?._id === profile?._id && (
         <button

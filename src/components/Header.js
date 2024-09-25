@@ -4,9 +4,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { logoutUser } from "../redux/apiCalls/authApiCall";
 import { styled } from "styled-components";
 import cardIcon from "../img/shopping-card-svgrepo-com (1).svg";
+import { postActions } from "../redux/slices/postSlice";
 const Headerr = () => {
   const { user } = useSelector((state) => state.auth);
-  const { basket } = useSelector((state) => state.post);
+  const { basket, searsh } = useSelector((state) => state.post);
   const { profile } = useSelector((state) => state.profile);
   // const [isOpen, setisOpen] = useState(true);
   const dispatch = useDispatch();
@@ -159,12 +160,16 @@ const Headerr = () => {
                 {basket.length ? <span>{basket?.length}</span> : null}
               </Basket>
             </ul>
-            <form className="d-flex">
+            <form className="d-flex" onSubmit={() => navicate("/products")}>
               <input
                 className="form-control me-2"
                 type="search"
                 placeholder="Search"
-                aria-label="Search"
+                // aria-label="Search"
+                onChange={(e) =>
+                  dispatch(postActions.setSearch(e.target.value))
+                }
+                value={searsh}
               />
               <button className="btn btn-outline-success" type="submit">
                 Search

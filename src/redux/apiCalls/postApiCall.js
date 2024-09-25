@@ -170,3 +170,66 @@ export function fetchAllPosts() {
     }
   };
 }
+
+// set new order
+export function createNewOrderApi(newOrder) {
+  return async (dispatch, getState) => {
+    try {
+      await request.post(`/api/orders/my-orders`, newOrder, {
+        headers: {
+          Authorization: "Bearer " + getState().auth.user.token,
+        },
+      });
+      dispatch(postActions.setOrders(newOrder));
+    } catch (error) {
+      toast.error(error.response.data.message);
+      dispatch(postActions.setLoading(false));
+    }
+  };
+}
+
+// get all orders
+export function getAllOrdersApi(pageNumber) {
+  return async (dispatch) => {
+    try {
+      const { data } = await request.get(
+        `/api/orders/my-orders?pageNumber=${pageNumber}`
+      );
+      dispatch(postActions.setOrders(data));
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
+}
+
+// updtate order status
+export function updateOrderStatusApi(newOrder, orderId) {
+  return async (dispatch, getState) => {
+    try {
+      const { data } = await request.put(
+        `/api/orders/my-orders/${orderId}`,
+        newOrder,
+        {
+          headers: {
+            Authorization: "bearer " + getState().auth.user.token,
+          },
+        }
+      );
+      dispatch(postActions.setOrders(data));
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
+}
+
+// get orders count
+export function getOrdersCountApi() {
+  return async (dispatch) => {
+    try {
+      const { data } = await request.get(`/api/orders/count`);
+      dispatch(postActions.setOrdersCount(data));
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
+}
