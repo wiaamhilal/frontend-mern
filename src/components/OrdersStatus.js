@@ -62,19 +62,19 @@ const OrdersStatus = () => {
                 {item?.orderDetails[3] && (
                   <BasketItem {...item?.orderDetails[3]} />
                 )}
-                <h3 className="fw-bold text-secondary mt-4">
+                <h4 className="fw-bold text-secondary mt-4">
                   Order ID : {item?._id}
-                </h3>
-                <h3 className="fw-bold text-secondary mt-4">
+                </h4>
+                <h4 className="fw-bold text-secondary mt-4">
                   Total Price :{" "}
                   {formatCurrency(GetBasketTotal(item?.orderDetails))}
-                </h3>
-                <h3 className="fw-bold text-secondary mt-4">
+                </h4>
+                <h4 className="fw-bold text-secondary mt-4">
                   Order Time :{" "}
                   {moment(item?.createdAt).format("MMMM DD  h:mma")}
-                </h3>
+                </h4>
                 <div className="d-flex align-items-center mt-4">
-                  <h3 className="fw-bold text-secondary me-3">order status:</h3>
+                  <h4 className="fw-bold text-secondary me-3">order status:</h4>
                   <form
                     className="d-flex align-items-center"
                     onSubmit={() => submitStatus(item)}
@@ -111,34 +111,34 @@ const OrdersStatus = () => {
                   </form>
                 </div>
                 {item?.orderStatus === "receved" && (
-                  <h3 className="text-success mt-3">
+                  <h4 className="text-success mt-3">
                     the order has been reseved
-                  </h3>
+                  </h4>
                 )}
                 {item?.orderStatus === "canceled" && (
-                  <h3 className="text-danger mt-3">
+                  <h4 className="text-danger mt-3">
                     this order has been canceled!
-                  </h3>
+                  </h4>
                 )}
                 {item?.orderStatus === "confirmid" && (
-                  <h3 className="text-success mt-3">
+                  <h4 className="text-success mt-3">
                     the order has been confirmid
-                  </h3>
+                  </h4>
                 )}
                 {item?.orderStatus === "shipped" && (
-                  <h3 className="text-success mt-3">
+                  <h4 className="text-success mt-3">
                     the order has been shipped
-                  </h3>
+                  </h4>
                 )}
                 {item?.orderStatus === "on the way" && (
-                  <h3 className="text-success mt-3">
+                  <h4 className="text-success mt-3">
                     the order went out for delivery
-                  </h3>
+                  </h4>
                 )}
                 <div className="d-flex align-items-center mt-4">
-                  <h3 className="me-4 fw-bold text-secondary ">
+                  <h4 className="me-4 fw-bold text-secondary ">
                     costumer profile :
-                  </h3>
+                  </h4>
                   <Link
                     to={`/profile/${item?.userInfo?._id}`}
                     className="text-dark"
@@ -151,9 +151,9 @@ const OrdersStatus = () => {
                     <span className="fw-bold">{item?.userInfo?.username}</span>
                   </Link>
                 </div>
-                <h3 className="fw-bold text-secondary mt-4">
+                <h4 className="fw-bold text-secondary mt-4">
                   Delever to : {profile?.location?.building}
-                </h3>
+                </h4>
               </div>
             ))}{" "}
           </div>

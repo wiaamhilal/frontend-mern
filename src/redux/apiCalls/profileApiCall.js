@@ -153,40 +153,40 @@ export function setUserLocationApi(userId, location) {
 }
 
 // set the orders for the user
-// export function setUserOrdersApi(userId, orders) {
-//   return async (dispatch, getState) => {
-//     try {
-//       const { data } = await request.put(
-//         `/api/users/orders/${userId}`,
-//         orders,
-//         {
-//           headers: {
-//             Authorization: "Bearer " + getState().auth.user.token,
-//           },
-//         }
-//       );
-//       dispatch(profileActions.setOrders(data));
-//     } catch (error) {
-//       toast.error(error.response.data.message);
-//     }
-//   };
-// }
+export function setUserOrdersApi(userId, orders) {
+  return async (dispatch, getState) => {
+    try {
+      const { data } = await request.put(
+        `/api/users/orders/${userId}`,
+        orders,
+        {
+          headers: {
+            Authorization: "Bearer " + getState().auth.user.token,
+          },
+        }
+      );
+      dispatch(profileActions.setOrders(data));
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
+}
 
 // set the confirm order for the user
-// export function setConfirmOrderApi(userId) {
-//   return async (dispatch, getState) => {
-//     try {
-//       await request.get(
-//         `/api/users/confirm-order/${userId}`,
-//         {},
-//         {
-//           headers: {
-//             Authorization: "Bearer " + getState().auth.user.token,
-//           },
-//         }
-//       );
-//     } catch (error) {
-//       toast.error(error.response.data.message);
-//     }
-//   };
-// }
+export function setConfirmOrderApi(userId) {
+  return async (dispatch, getState) => {
+    try {
+      await request.get(
+        `/api/users/confirm-order/${userId}`,
+        {},
+        {
+          headers: {
+            Authorization: "Bearer " + getState().auth.user.token,
+          },
+        }
+      );
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
+}

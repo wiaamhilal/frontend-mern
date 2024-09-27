@@ -13,7 +13,7 @@ import { fetshAllCommentsApi } from "../redux/apiCalls/commentApiCall";
 const MainDashboard = () => {
   const { categories } = useSelector((state) => state.category);
   const { usersCount } = useSelector((state) => state.profile);
-  const { postsCount, orders } = useSelector((state) => state.post);
+  const { postsCount, ordersCount } = useSelector((state) => state.post);
   const { comments } = useSelector((state) => state.comment);
   const dispatch = useDispatch();
 
@@ -117,7 +117,7 @@ const MainDashboard = () => {
         <div className="col-12 col-sm-6 col-md-3 shadow rounded p-3 bg-white">
           <div className="d-flex align-itmes-center justify-content-between">
             <h4>Orders</h4>
-            <h5>{orders.length}</h5>
+            <h5>{ordersCount}</h5>
           </div>
           <div className="d-flex justify-content-center">
             <img

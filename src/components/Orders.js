@@ -5,10 +5,7 @@ import BasketItem from "./BasketItem";
 import formatCurrency from "./FormatCurrency";
 import moment from "moment/moment";
 import { GetBasketTotal } from "../App";
-import {
-  getUserProfile,
-  setUserOrdersApi,
-} from "../redux/apiCalls/profileApiCall";
+import { getUserProfile } from "../redux/apiCalls/profileApiCall";
 import { getAllOrdersApi } from "../redux/apiCalls/postApiCall";
 
 const Orders = () => {
@@ -25,7 +22,6 @@ const Orders = () => {
   useEffect(() => {
     dispatch(getAllOrdersApi());
   }, []);
-  console.log(orders);
 
   return (
     <Holder>
@@ -51,19 +47,19 @@ const Orders = () => {
                     {item.orderDetails[3] && (
                       <BasketItem {...item.orderDetails[3]} />
                     )}
-                    <h3 className="fw-bold text-secondary mt-4">
+                    <h4 className="fw-bold text-secondary mt-4">
                       Total Price :{" "}
                       {formatCurrency(GetBasketTotal(item.orderDetails))}
-                    </h3>
-                    <h3 className="fw-bold text-secondary mt-4">
+                    </h4>
+                    <h4 className="fw-bold text-secondary mt-4">
                       Order Time :{" "}
                       {moment(item.createdAt).format("MMMM DD  h:mma")}
-                    </h3>
+                    </h4>
 
                     <div className="d-flex align-items-center mt-4">
-                      <h3 className="fw-bold text-secondary me-4">
+                      <h4 className="fw-bold text-secondary me-4">
                         order status:
-                      </h3>
+                      </h4>
                       {item.orderStatus == "false" && (
                         <button class="btn btn-success" type="button" disabled>
                           <span
@@ -76,9 +72,9 @@ const Orders = () => {
                       )}
                       {item.orderStatus == "confirmid" && (
                         <div>
-                          <h3 className="text-success">
+                          <h4 className="text-success">
                             your order has been confirmid
-                          </h3>
+                          </h4>
                           <div class="progress">
                             <div
                               className="progress-bar progress-bar-striped progress-bar-animated"
@@ -93,9 +89,9 @@ const Orders = () => {
                       )}
                       {item.orderStatus == "shipped" && (
                         <div>
-                          <h3 className="text-success">
+                          <h4 className="text-success">
                             your order has been shipped
-                          </h3>
+                          </h4>
                           <div class="progress">
                             <div
                               className="progress-bar progress-bar-striped progress-bar-animated"
@@ -110,9 +106,9 @@ const Orders = () => {
                       )}
                       {item.orderStatus == "on the way" && (
                         <div>
-                          <h3 className="text-success">
+                          <h4 className="text-success">
                             your order went out for delevery
-                          </h3>
+                          </h4>
                           <div class="progress">
                             <div
                               className="progress-bar progress-bar-striped progress-bar-animated"
@@ -127,9 +123,9 @@ const Orders = () => {
                       )}
                       {item.orderStatus == "receved" && (
                         <div>
-                          <h3 className="text-success">
+                          <h4 className="text-success">
                             your order has been receved
-                          </h3>
+                          </h4>
                           <div class="progress">
                             <div
                               className="progress-bar progress-bar-striped bg-success"
@@ -160,9 +156,9 @@ const Orders = () => {
                         </div>
                       )}
                     </div>
-                    <h3 className="fw-bold text-secondary mt-4">
+                    <h4 className="fw-bold text-secondary mt-4">
                       Delever to : {profile?.location?.building}
-                    </h3>
+                    </h4>
                   </div>
                 )
             )}{" "}

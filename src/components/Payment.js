@@ -5,7 +5,10 @@ import BasketItem from "./BasketItem";
 import formatCurrency from "./FormatCurrency";
 import { GetBasketTotal } from "../App";
 import { useNavigate } from "react-router-dom";
-import { getUserProfile } from "../redux/apiCalls/profileApiCall";
+import {
+  getUserProfile,
+  setConfirmOrderApi,
+} from "../redux/apiCalls/profileApiCall";
 import { postActions } from "../redux/slices/postSlice";
 import { createNewOrderApi } from "../redux/apiCalls/postApiCall";
 
@@ -22,7 +25,7 @@ const Payment = () => {
 
   const buyNow = () => {
     // dispatch(setUserOrdersApi(user._id, { orders: basket }));
-    // dispatch(setConfirmOrderApi(user._id));
+    dispatch(setConfirmOrderApi(user._id));
     dispatch(createNewOrderApi({ newOrder: basket }));
     // dispatch(postActions.setOrderDate(Date()));
     // const created = Timestamp.now();
@@ -34,7 +37,7 @@ const Payment = () => {
     // });
     navicate("/orders");
     dispatch(postActions.clearBasket());
-    // window.location.reload(false);
+    window.location.reload(false);
     // dispatch(clearBasket());
   };
   return (
