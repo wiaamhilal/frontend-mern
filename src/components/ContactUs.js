@@ -40,7 +40,7 @@ const ContactUs = () => {
   };
   console.log();
   useEffect(() => {
-    if (user.isAdmin) {
+    if (user?.isAdmin) {
       dispatch(getUserProfile(user?._id));
       dispatch(AllCommentsClintsApi());
     }
