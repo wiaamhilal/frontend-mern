@@ -4,15 +4,24 @@ import { logoutUser } from "../redux/apiCalls/authApiCall";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import { fitchAllCategories } from "../redux/apiCalls/categoryApiCall";
+import { getAllProfilesApi } from "../redux/apiCalls/profileApiCall";
+import boldStar from "../img/star (1).png";
+import normalStar from "../img/star.png";
+import "@fortawesome/react-fontawesome";
+import "@fortawesome/fontawesome-svg-core";
 const Home = () => {
   const { categories } = useSelector((state) => state.category);
+  const { profiles } = useSelector((state) => state.profile);
   useEffect(() => {
     dispatch(fitchAllCategories());
+    dispatch(getAllProfilesApi());
   }, []);
   const { user } = useSelector((state) => state.auth);
   const navicate = useNavigate();
   const dispatch = useDispatch();
-  console.log(user);
+
+  const adminProfile = profiles?.filter((item) => item?.isAdmin == true);
+
   return (
     <Main>
       {/* <div class="accordion mt-5" id="accordionExample">
@@ -50,7 +59,7 @@ const Home = () => {
       </div> */}
       {user ? (
         <>
-          <p>
+          <p className="welcome-line">
             Wellcome {user && <span>{user.username}</span>} to our page go ahead
             and see our products
           </p>
@@ -181,6 +190,116 @@ const Home = () => {
           </div>
         </Link>
       </div>
+      <div
+        className="shadow-line"
+        style={{ transform: "translateY(361px)" }}
+      ></div>
+      <div class="team">
+        <h2 class="main-title" style={{ transform: "translatey(350px)" }}>
+          Admins
+        </h2>
+        <div class="container">
+          {adminProfile?.map((item) => (
+            <Link className="text-dark" to={`/profile/${item._id}`}>
+              <div class="box">
+                <div class="image">
+                  <img
+                    className="pro-img"
+                    src={item?.profilePhoto?.url}
+                    alt=""
+                  />
+                </div>
+                <ul>
+                  <li>
+                    <img src={boldStar} alt="" />
+                  </li>
+                  <li>
+                    <img src={boldStar} alt="" />
+                  </li>
+                  <li>
+                    <img src={boldStar} alt="" />
+                  </li>
+                  <li>
+                    <img src={boldStar} alt="" />
+                  </li>
+                  <li>
+                    <img
+                      src="https://www.iconpacks.net/icons/1/free-star-icon-984-thumb.png"
+                      alt=""
+                    />
+                  </li>
+                </ul>
+                <h3>{item?.username}</h3>
+                <span>{item?.email}</span>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+      <div class="testi" id="testi">
+        <h2 class="main-title" style={{ transform: "translatey(-10px)" }}>
+          Team Members
+        </h2>
+        <div class="container">
+          {profiles?.map((item, index) => (
+            <>
+              {index < 6 && (
+                <Link className="text-dark" to={`/profile/${item._id}`}>
+                  <div class="box">
+                    <img
+                      className="my-img"
+                      src={item?.profilePhoto?.url}
+                      alt=""
+                    />
+                    <h3>{item?.username}</h3>
+                    <span>{item?.email}</span>
+                    <ul>
+                      <li>
+                        <img src={boldStar} alt="" />
+                      </li>
+                      <li>
+                        <img src={boldStar} alt="" />
+                      </li>
+                      <li>
+                        <img src={boldStar} alt="" />
+                      </li>
+                      {/* <li>
+                        <img src={boldStar} alt="" />
+                      </li> */}
+                      <li>
+                        <img
+                          src="https://www.iconpacks.net/icons/1/free-star-icon-984-thumb.png"
+                          alt=""
+                        />
+                      </li>
+                      <li>
+                        <img
+                          src="https://www.iconpacks.net/icons/1/free-star-icon-984-thumb.png"
+                          alt=""
+                        />
+                      </li>
+                    </ul>
+                    <p>
+                      ! Vel dolores maxime incidunt quos quidem odit.
+                      Voluptatibus non quisquam tempore vel eum! Excepturi ex
+                      sit nulla quam voluptate?
+                    </p>
+                  </div>
+                </Link>
+              )}
+            </>
+          ))}
+        </div>
+        <div className="text-center mt-3">
+          {" "}
+          <button
+            className="btn btn-success rounded-pill"
+            onClick={() => navicate("/all-users")}
+          >
+            see all users
+          </button>
+        </div>
+      </div>
     </Main>
   );
 };
@@ -212,7 +331,7 @@ const Main = styled.div`
     background-image: url("https://images.pexels.com/photos/1006107/pexels-photo-1006107.jpeg");
     background-size: cover;
   }
-  & p {
+  & .welcome-line {
     text-align: center;
     font-weight: bold;
     font-size: 18px;

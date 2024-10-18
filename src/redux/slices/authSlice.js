@@ -51,6 +51,6 @@ const authActions = authSlice.actions;
 
 export { authActions, authReducer };
 
-//  localStorage.getItem("userInfo")
+// user: localStorage.getItem("userInfo")
 // ? JSON.parse(localStorage.getItem("userInfo"))
 // : null,

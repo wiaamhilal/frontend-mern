@@ -190,3 +190,63 @@ export function setConfirmOrderApi(userId) {
     }
   };
 }
+
+// toggle like
+export function toggleUserLikeApi(userId) {
+  return async (dispatch, getState) => {
+    try {
+      const { data } = await request.put(
+        `/api/users/user-like/${userId}`,
+        {},
+        {
+          headers: {
+            Authorization: "bearer " + getState().auth.user.token,
+          },
+        }
+      );
+      dispatch(profileActions.setLikes(data));
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
+}
+
+// toggle dislike
+export function toggleUserDisLikeApi(userId) {
+  return async (dispatch, getState) => {
+    try {
+      const { data } = await request.put(
+        `/api/users/user-dislike/${userId}`,
+        {},
+        {
+          headers: {
+            Authorization: "bearer " + getState().auth.user.token,
+          },
+        }
+      );
+      dispatch(profileActions.setDislikes(data));
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
+}
+
+// toggle like
+export function userRateApi(userId) {
+  return async (dispatch, getState) => {
+    try {
+      const { data } = await request.put(
+        `/api/users/user-rate/${userId}`,
+        {}
+        // {
+        //   headers: {
+        //     Authorization: "bearer " + getState().auth.user.token,
+        //   },
+        // }
+      );
+      dispatch(profileActions.setRete(data));
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
+}

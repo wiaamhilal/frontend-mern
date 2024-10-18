@@ -9,6 +9,7 @@ const profileSlice = createSlice({
     profiles: [],
     location: [],
     orders: [],
+    sliceRate: null,
   },
   reducers: {
     setprofile(state, action) {
@@ -44,6 +45,15 @@ const profileSlice = createSlice({
     },
     setOrders(state, action) {
       state.orders = action.payload;
+    },
+    setLikes(state, action) {
+      state.profile.likes = action.payload.likes;
+    },
+    setDislikes(state, action) {
+      state.profile.dislikes = action.payload.dislikes;
+    },
+    setRete(state, action) {
+      state.profile.rate = action.payload.rate;
     },
   },
 });

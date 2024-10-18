@@ -8,7 +8,6 @@ import {
   getPostsCount,
 } from "../redux/apiCalls/postApiCall";
 import { SideBar } from "./SideBar";
-import { categories } from "../dummyData";
 import { useParams } from "react-router-dom";
 const CategoryPage2 = () => {
   const { postsCount, postsCate } = useSelector((state) => state.post);

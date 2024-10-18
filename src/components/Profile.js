@@ -8,6 +8,9 @@ import {
   changeProfilePhoto,
   deleteProfileApi,
   getUserProfile,
+  toggleUserDisLikeApi,
+  toggleUserLikeApi,
+  userRateApi,
 } from "../redux/apiCalls/profileApiCall.js";
 import { useNavigate, useParams } from "react-router-dom";
 import PostList from "./PostList.js";
@@ -17,22 +20,41 @@ import styled from "styled-components";
 import { authActions } from "../redux/slices/authSlice.js";
 import Paganation from "./Paganation.js";
 import { fetchPosts } from "../redux/apiCalls/postApiCall.js";
+import boldLike from "../img/like-svgrepo-com (2).svg";
+import normalLike from "../img/like-svgrepo-com (3).svg";
+import boldDisLike from "../img/dislike-svgrepo-com (1).svg";
+import normaDislLike from "../img/dislike-svgrepo-com.svg";
+import boldStar from "../img/star (1).png";
+import { profileActions } from "../redux/slices/profileSlice.js";
 const Profile = () => {
-  const { profile, loading, isProfileDeleted } = useSelector(
+  const { profile, loading, isProfileDeleted, sliceRate } = useSelector(
     (state) => state.profile
   );
 
   const { user } = useSelector((state) => state.auth);
   const { posts } = useSelector((state) => state.post);
-  const myposts = posts?.filter((item) => item.user.email === profile.email);
+  const myposts = posts?.filter((item) => item?.user?.email === profile?.email);
 
   console.log(profile);
   const { userId } = useParams();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getUserProfile(userId));
-  }, [userId]);
+  const likeToggle = () => {
+    if (!user) {
+      return toast.error("you have to sign in first");
+    } else {
+      dispatch(toggleUserLikeApi(userId));
+    }
+  };
+
+  const dislikeToggle = () => {
+    if (!user) {
+      return toast.error("you have to sign in first");
+    } else {
+      dispatch(toggleUserDisLikeApi(userId));
+    }
+  };
+
   const navicate = useNavigate();
   useEffect(() => {
     if (isProfileDeleted) {
@@ -76,10 +98,29 @@ const Profile = () => {
 
   const [currentPage, setcurrentPage] = useState(1);
   const pages = Math.ceil(profile?.posts?.length / POST_PER_PAGE);
-  console.log();
+
   useEffect(() => {
     dispatch(fetchPosts(currentPage));
   }, [currentPage]);
+
+  // const likeDislike = profile?.likes?.length + profile?.dislikes?.length;
+  let rate =
+    (profile?.likes?.length /
+      (profile?.dislikes?.length + profile?.likes?.length)) *
+    5;
+  // useEffect(() => {
+  //   dispatch(profileActions.setRete(rate));
+  // }, [rate]);
+
+  useEffect(() => {
+    dispatch(getUserProfile(userId));
+  }, [userId]);
+
+  // useEffect(() => {
+  //   dispatch(userRateApi(userId, { rate }));
+  // }, [userId]);
+
+  console.log(sliceRate);
   if (loading) {
     return (
       <div className="d-flex align-items-center justify-content-center">
@@ -95,6 +136,7 @@ const Profile = () => {
       </div>
     );
   }
+
   return (
     <Main>
       <div
@@ -157,7 +199,53 @@ const Profile = () => {
             Update Profile
           </button>
         )}
+        <Rate>
+          {" "}
+          <div className="">
+            {" "}
+            {Array(Math.round(rate) || 0)
+              .fill()
+              .map((_, i) => (
+                <img src={boldStar} alt="star" className="star-img" />
+              ))}
+          </div>
+        </Rate>
+        <Like>
+          <span
+            className="d-flex justify-content-center"
+            style={{ flexDirection: "column" }}
+          >
+            <img src="" alt="" />
+            <div onClick={() => likeToggle()} style={{ cursor: "pointer" }}>
+              {profile?.likes?.includes(user?._id) ? (
+                <img src={normalLike} alt="" />
+              ) : (
+                <img src={boldLike} alt="" />
+              )}
+            </div>
+            <span className="fw-bold text-secondary m-auto mt-1">
+              {profile?.likes?.length}
+            </span>
+          </span>
+
+          <span
+            className="d-flex justify-content-center"
+            style={{ flexDirection: "column" }}
+          >
+            <div style={{ cursor: "pointer" }} onClick={() => dislikeToggle()}>
+              {profile?.dislikes?.includes(user?._id) ? (
+                <img src={normaDislLike} alt="" />
+              ) : (
+                <img src={boldDisLike} alt="" />
+              )}
+            </div>
+            <span className="fw-bold text-secondary m-auto">
+              {profile?.dislikes?.length}
+            </span>
+          </span>
+        </Like>
       </div>
+
       <h2 className="">{profile?.username} Products :</h2>
       <div className="justify-content-center row gap-3">
         {myposts?.map((item) => (
@@ -175,6 +263,7 @@ const Profile = () => {
           pages={pages}
         />
       </div>
+
       {user?._id === profile?._id && (
         <button
           className="btn btn-secondary mb-3 ms-3 mt-3 rounded-pill"
@@ -215,6 +304,24 @@ const Main = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+`;
+const Like = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  position: relative;
+
+  & img {
+    width: 40px;
+  }
+`;
+const Rate = styled.div`
+  position: relative;
+  & .star-img {
+    width: 22px;
+    margin-right: 10px;
+}
   }
 `;
 export default Profile;
