@@ -210,7 +210,20 @@ const Home = () => {
                   />
                 </div>
                 <ul>
-                  <li>
+                  {Array(
+                    Math.round(
+                      (item?.likes?.length /
+                        (item?.dislikes?.length + item?.likes?.length)) *
+                        5
+                    ) || 0
+                  )
+                    .fill()
+                    .map((_, i) => (
+                      <li>
+                        <img src={boldStar} alt="" />
+                      </li>
+                    ))}
+                  {/* <li>
                     <img src={boldStar} alt="" />
                   </li>
                   <li>
@@ -227,7 +240,7 @@ const Home = () => {
                       src="https://www.iconpacks.net/icons/1/free-star-icon-984-thumb.png"
                       alt=""
                     />
-                  </li>
+                  </li> */}
                 </ul>
                 <h3>{item?.username}</h3>
                 <span>{item?.email}</span>
@@ -254,19 +267,30 @@ const Home = () => {
                     <h3>{item?.username}</h3>
                     <span>{item?.email}</span>
                     <ul>
-                      <li>
+                      {Array(
+                        Math.round(
+                          (item?.likes?.length /
+                            (item?.dislikes?.length + item?.likes?.length)) *
+                            5
+                        ) || 0
+                      )
+                        .fill()
+                        .map((_, i) => (
+                          <li>
+                            <img src={boldStar} alt="" />
+                          </li>
+                        ))}
+
+                      {/* <li>
                         <img src={boldStar} alt="" />
                       </li>
                       <li>
                         <img src={boldStar} alt="" />
-                      </li>
-                      <li>
-                        <img src={boldStar} alt="" />
-                      </li>
+                      </li> */}
                       {/* <li>
                         <img src={boldStar} alt="" />
                       </li> */}
-                      <li>
+                      {/* <li>
                         <img
                           src="https://www.iconpacks.net/icons/1/free-star-icon-984-thumb.png"
                           alt=""
@@ -277,7 +301,7 @@ const Home = () => {
                           src="https://www.iconpacks.net/icons/1/free-star-icon-984-thumb.png"
                           alt=""
                         />
-                      </li>
+                      </li> */}
                     </ul>
                     <p>
                       ! Vel dolores maxime incidunt quos quidem odit.
@@ -293,13 +317,68 @@ const Home = () => {
         <div className="text-center mt-3">
           {" "}
           <button
-            className="btn btn-success rounded-pill"
+            className="wiaam-btn btn"
             onClick={() => navicate("/all-users")}
           >
             see all users
           </button>
         </div>
       </div>
+      {/* start fearures */}
+      <div
+        class="featurs"
+        id="featurs"
+        style={{ transform: "translate(-10px,550px)" }}
+      >
+        <h2 class="main-title">featurs</h2>
+        <div class="container">
+          <div class="box one">
+            <div class="image">
+              <img
+                src="https://pix4free.org/assets/library/2021-06-16/originals/owner.jpg"
+                alt=""
+              />
+            </div>
+            <h3>Owner</h3>
+            <p>
+              after 2 years as an admin you can invest your own cash and you
+              will get benefits depend on your saling sistem{" "}
+            </p>
+            <a href="/contactus">more</a>
+          </div>
+          <div class="box tow">
+            <div class="image">
+              <img
+                src="https://images.squarespace-cdn.com/content/v1/594da388e6f2e154771b71ad/1623869846436-PQ81Y1R9CY6A29F116WP/man-holding-admin-card.jpg"
+                alt=""
+              />
+            </div>
+            <h3>Admin</h3>
+            <p>
+              sold over than 100 product and invited 20 user you can requist to
+              be an admin , but your activity it should still the same you will
+              be removed{" "}
+            </p>
+            <a href="/contactus">more</a>
+          </div>
+          <div class="box three">
+            <div class="image">
+              <img
+                src="https://www.shutterstock.com/shutterstock/photos/231469315/display_1500/stock-photo-word-user-of-the-yellow-square-pixels-on-a-black-matrix-background-registration-concept-231469315.jpg"
+                alt=""
+              />
+            </div>
+            <h3>User</h3>
+            <p>
+              just signin and start post protucts, as a user your authority it
+              will be jut seling products if the activity stop the user will be
+              removed{" "}
+            </p>
+            <a href="/contactus">more</a>
+          </div>
+        </div>
+      </div>
+      {/* end fearures */}
     </Main>
   );
 };

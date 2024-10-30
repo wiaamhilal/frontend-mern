@@ -17,6 +17,15 @@
   resize: none;
   margin-bottom: 10px;
 }
+.wiaam-btn {
+  background-image: linear-gradient(90deg, black 17%, #737373);
+  border: none;
+  color: white;
+  opacity: 0.8;
+  font-weight: bold;
+  /* padding: 8px;
+  border-radius: 8px; */
+}
 
 .my-shadw {
   box-shadow: 12px 12px 10px 1px #808080ad;
@@ -39,6 +48,7 @@
   padding-top: var(--main-padding);
   padding-bottom: var(--main-padding);
   position: relative;
+  z-index: -99999999;
 
 }
 .team .container {
@@ -47,6 +57,7 @@
   row-gap: 80px;
   column-gap: 40px;
   transform: translateY(389px);
+ 
 
 }
 .team .container .box {
@@ -129,7 +140,8 @@
   display: block;
   margin-top: 20px;
   padding: 20px 0;
-  transform: translateX(-48px);
+  /* transform: translateX(-48px); */
+  transform: translate(82px, -35px);
   color: #777;
 }
 /* end the admin page */
@@ -158,7 +170,7 @@
   width: 70px;
   height: 70px;
   border-radius: 50%;
-  border: 6px solid #eee;
+  border: 6px solid #dedede;
   position: absolute;
   right: -18px;
   top: -20px;
@@ -225,7 +237,8 @@ transform: translateY(-13px);
   transform: translatey(-50%);
   width: 8px;
   height: 8px;
-  background-color: #198754;
+  /* background-color: #198754; */
+  background-image: linear-gradient(180deg, black 17%, #8d8d8d);
   border-radius: 50%;
   left: -20px;
 }
@@ -236,7 +249,8 @@ transform: translateY(-13px);
   transform: translatey(-50%);
   width: 8px;
   height: 8px;
-  background-color:#198754;
+  /* background-color:#198754; */
+  background-image: linear-gradient(180deg, black 17%, #8d8d8d);
   border-radius: 50%;
   right: -20px;
 }
@@ -267,3 +281,127 @@ transform: translateY(-13px);
     }
 }
 /* end main title */
+/*start featurs*/
+.featurs{
+  padding-top: var(--main-padding);
+  padding-bottom: var(--main-padding);
+  position: relative;
+}
+.featurs .container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(300px,1fr));
+  gap: 40px;
+}
+.featurs .container .box {
+  text-align: center;
+  box-shadow: 0px 2px 15px rgb(0 0 0 / 20%);
+  width: 369px;
+  background-color: white;
+}
+.featurs .container .image {
+  position: relative;
+}
+.featurs .container .image img{
+  max-width: 100%;
+}
+.featurs .container .image::after{
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 0px 116px 369px;
+  border-color: transparent transparent white;
+  transition: 0.3s;
+}
+.featurs .container .box:hover .image::after {
+  border-width: 0px 369px 116px 0px;
+}
+.featurs .container .box .image::before{
+  content: "";
+  left: 0;
+  top: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-bottom: 2px solid white;
+}
+.featurs .container .one .image::before{
+  background-color: #cc00ff2e;
+}
+.featurs .container .tow .image::before{
+  background-color: #00ff082e;
+}
+.featurs .container .three .image::before{
+  background-color: #ff000047;
+}
+.featurs .container .box h3 {
+  font-size: 30px;
+  position: relative;
+}
+.featurs .container .box h3::before {
+  content: "";
+  height: 3px;
+  position: absolute;
+  bottom: -12px;
+  width: 39px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.featurs .container .one h3::before{
+  background-color: #cc00ff;
+}
+.featurs .container .tow h3::before{
+  background-color: #00ff08;
+}
+.featurs .container .three h3::before{
+  background-color: #ff0000;
+}
+.featurs .container .one a{
+  color: #cc00ff;
+}
+.featurs .container .tow a{
+  color: #00ff08;
+}
+.featurs .container .three a{
+  color: #ff0000;
+}
+.featurs .container .box p {
+  line-height: 2;
+}
+.featurs .container .box a {
+  display: block;
+  font-size: 18px;
+  border: 2px solid;
+  width: fit-content;
+  margin: 65px auto;
+  font-weight: bold;
+  padding: 5px 15px;
+  border-radius: 4px;
+  transform: translateY(30px);
+  transition: 0.3s;
+  background-position: right bottom;
+}
+.featurs .container .one a {
+  background: linear-gradient( to right, #cc00ff 50% ,white 50%);
+  background-size: 200%;
+  background-position: right bottom;
+}
+.featurs .container .tow a {
+  background: linear-gradient( to right, #00ff08 50% ,white 50%);
+  background-size: 200%;
+  background-position: right bottom;
+}
+.featurs .container .three a {
+  background: linear-gradient( to right, #ff0000 50% ,white 50%);
+  background-size: 200%;
+  background-position: right bottom;
+}
+.featurs .container .box a:hover {
+  background-position: left bottom;
+  color: white;
+}    
+
+/*end featurs*/

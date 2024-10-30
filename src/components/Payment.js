@@ -23,22 +23,12 @@ const Payment = () => {
     dispatch(getUserProfile(user._id));
   }, [profile]);
 
-  const buyNow = () => {
-    // dispatch(setUserOrdersApi(user._id, { orders: basket }));
+  const buyNow = async () => {
     dispatch(setConfirmOrderApi(user._id));
-    dispatch(createNewOrderApi({ newOrder: basket }));
-    // dispatch(postActions.setOrderDate(Date()));
-    // const created = Timestamp.now();
-    // const ref = doc(db, "users", user?.uid, "orders", "5454545");
-    // setDoc(ref, {
-    //   basket: basket,
-    //   amount: GetBasketTotal(basket),
-    //   created: created,
-    // });
+    await dispatch(createNewOrderApi({ newOrder: basket }));
     navicate("/orders");
     dispatch(postActions.clearBasket());
     window.location.reload(false);
-    // dispatch(clearBasket());
   };
   return (
     <Holder>
