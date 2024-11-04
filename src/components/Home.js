@@ -356,7 +356,7 @@ const Home = () => {
             <h3>Admin</h3>
             <p>
               sold over than 100 product and invited 20 user you can requist to
-              be an admin , but your activity it should still the same you will
+              be an admin , but your activity it should still the same you will 
               be removed{" "}
             </p>
             <a href="/contactus">more</a>
