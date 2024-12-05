@@ -42,8 +42,8 @@ const OrdersStatus = () => {
   const submitStatus = async (item) => {
     await dispatch(
       updateOrderStatusApi({ orderStatus: orderStatus }, item._id)
-    );
-    window.location.reload(false);
+    )
+      window.location.reload(false);
   };
   return (
     <Holder>
@@ -75,9 +75,9 @@ const OrdersStatus = () => {
                 </h4>
                 <div className="d-flex align-items-center mt-4">
                   <h4 className="fw-bold text-secondary me-3">order status:</h4>
-                  <form
+                  <div
                     className="d-flex align-items-center"
-                    onSubmit={() => submitStatus(item)}
+                    
                   >
                     <select
                       className="inputs m-0 me-3"
@@ -100,15 +100,14 @@ const OrdersStatus = () => {
                         canceled
                       </option>
                     </select>
-                    <input
-                      type="submit"
+                    < button onClick={() => submitStatus(item)}
                       className="btn btn-sm btn-success"
                       disabled={
                         item?.orderStatus === "receved" ||
                         item?.orderStatus === "canceled"
                       }
-                    />
-                  </form>
+                    >submit</button>
+                  </div>
                 </div>
                 {item?.orderStatus === "receved" && (
                   <h4 className="text-success mt-3">

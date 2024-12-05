@@ -34,6 +34,7 @@ import { RotatingLines } from "react-loader-spinner";
 import { useEffect } from "react";
 import OrdersStatus from "./components/OrdersStatus";
 import AllUsers from "./components/AllUsers";
+import Settings from "./components/Settings";
 
 export const GetBasketTotal = (basket) => {
   return basket?.reduce((total, current) => {
@@ -296,13 +297,22 @@ function App() {
             </>
           }
         />
+        <Route
+          path="/settings"
+          element={
+            <>
+              <Header /> <Settings />
+            </>
+          }
+        />
       </Routes>
     </Holder>
   );
 }
 
 const Holder = styled.div`
-  background-image: url("https://images.unsplash.com/photo-1615799998603-7c6270a45196?q=80&w=1604&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+  // background-image: url("https://images.unsplash.com/photo-1615799998603-7c6270a45196?q=80&w=1604&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+
   background-size: contain;
   padding-bottom: 5px;
 

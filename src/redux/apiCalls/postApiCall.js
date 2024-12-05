@@ -233,3 +233,15 @@ export function getOrdersCountApi() {
     }
   };
 }
+
+// get max all orders
+export function getMaxAllOrdersApi() {
+  return async (dispatch) => {
+    try {
+      const { data } = await request.get(`/api/orders/all-orders`);
+      dispatch(postActions.setAllOrders(data));
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
+}

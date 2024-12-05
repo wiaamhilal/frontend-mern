@@ -7,15 +7,53 @@ import { fitchAllCategories } from "../redux/apiCalls/categoryApiCall";
 import { getAllProfilesApi } from "../redux/apiCalls/profileApiCall";
 import boldStar from "../img/star (1).png";
 import normalStar from "../img/star.png";
-import "@fortawesome/react-fontawesome";
-import "@fortawesome/fontawesome-svg-core";
+import {
+  getAllOrdersApi,
+  getMaxAllOrdersApi,
+} from "../redux/apiCalls/postApiCall";
+import FormatCurrency from "./FormatCurrency";
+
 const Home = () => {
   const { categories } = useSelector((state) => state.category);
   const { profiles } = useSelector((state) => state.profile);
+  const { orders, allMaxOrders } = useSelector((state) => state.post);
+  console.log(orders);
+  console.log(orders.map((item) => item.orderDetails[0].category));
+  const allCaty = allMaxOrders.map((item) => item.orderDetails[0].category);
+  const allOrders = allMaxOrders.map((item) => item.orderDetails[0]);
+
+  const screenItems = allOrders.filter((item) => item.category == "Screen");
+  const totalScreens = screenItems.reduce(
+    (acc, product) => acc + product.price,
+    0
+  );
+
+  let screens = allCaty.filter((item) => item == "Screen");
+  screens = (screens.length / allCaty.length) * 100;
+
+  let laptops = allCaty.filter((item) => item == "laptop");
+  laptops = (laptops.length / allCaty.length) * 100;
+
+  let Audio = allCaty.filter((item) => item == "Audio");
+  Audio = (Audio.length / allCaty.length) * 100;
+
+  let Tablets = allCaty.filter((item) => item == "Tablet");
+  Tablets = (Tablets.length / allCaty.length) * 100;
+
+  let Mobiles = allCaty.filter((item) => item == "Mobile");
+  Mobiles = (Mobiles.length / allCaty.length) * 100;
+
+  let Smartwatches = allCaty.filter((item) => item == "Smartwatches");
+  Smartwatches = (Smartwatches.length / allCaty.length) * 100;
+
+  console.log(allMaxOrders);
   useEffect(() => {
     dispatch(fitchAllCategories());
     dispatch(getAllProfilesApi());
+    dispatch(getAllOrdersApi());
+    dispatch(getMaxAllOrdersApi());
   }, []);
+
   const { user } = useSelector((state) => state.auth);
   const navicate = useNavigate();
   const dispatch = useDispatch();
@@ -356,7 +394,7 @@ const Home = () => {
             <h3>Admin</h3>
             <p>
               sold over than 100 product and invited 20 user you can requist to
-              be an admin , but your activity it should still the same you will 
+              be an admin , but your activity it should still the same you will
               be removed{" "}
             </p>
             <a href="/contactus">more</a>
@@ -379,9 +417,101 @@ const Home = () => {
         </div>
       </div>
       {/* end fearures */}
+
+      <div className="progres-holder container">
+        <h2 class="main-title">our sales</h2>
+        <div className="d-flex align-items-center justify-content-between">
+          <div className="d-flex align-items-center">
+            <h4 className="me-4">Screens :</h4>
+            <h5 className="m-0 mb-1">{FormatCurrency(totalScreens)}</h5>
+          </div>
+          <h4 className="percent">{screens}%</h4>
+        </div>
+        <div class="progress mb-3">
+          <div
+            class="progress-bar progress-bar-striped"
+            role="progressbar"
+            style={{ width: `${screens}%` }}
+            aria-valuenow="10"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          ></div>
+        </div>
+        <div className="d-flex align-items-center justify-content-between">
+          <h4>laptops</h4>
+          <h4 className="percent">{laptops}%</h4>
+        </div>
+        <div class="progress mb-3">
+          <div
+            class="progress-bar progress-bar-striped "
+            role="progressbar"
+            style={{ width: `${laptops}%` }}
+            aria-valuenow="25"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          ></div>
+        </div>
+        <div className="d-flex align-items-center justify-content-between">
+          <h4>Audio</h4>
+          <h4 className="percent">{Audio}%</h4>
+        </div>
+        <div class="progress mb-3">
+          <div
+            class="progress-bar progress-bar-striped"
+            role="progressbar"
+            style={{ width: `${Audio}%` }}
+            aria-valuenow="50"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          ></div>
+        </div>
+        <div className="d-flex align-items-center justify-content-between">
+          <h4>Tablets</h4>
+          <h4 className="percent">{Tablets}%</h4>
+        </div>
+        <div class="progress mb-3">
+          <div
+            class="progress-bar progress-bar-striped "
+            role="progressbar"
+            style={{ width: `${Tablets}%` }}
+            aria-valuenow="75"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          ></div>
+        </div>
+        <div className="d-flex align-items-center justify-content-between">
+          <h4>Mobiles</h4>
+          <h4 className="percent">{Mobiles}%</h4>
+        </div>
+        <div class="progress mb-3">
+          <div
+            class="progress-bar progress-bar-striped "
+            role="progressbar"
+            style={{ width: `${Mobiles}%` }}
+            aria-valuenow="100"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          ></div>
+        </div>
+        <div className="d-flex align-items-center justify-content-between">
+          <h4>Smartwatches</h4>
+          <h4 className="percent">{Smartwatches}%</h4>
+        </div>
+        <div class="progress mb-3">
+          <div
+            class="progress-bar progress-bar-striped "
+            role="progressbar"
+            style={{ width: `${Smartwatches}%` }}
+            aria-valuenow="100"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          ></div>
+        </div>
+      </div>
     </Main>
   );
 };
+
 const Main = styled.div`
   & .card-img-top {
   height: 161px;}
@@ -442,6 +572,20 @@ const Main = styled.div`
       height: 210px;
     }
   }
+    & .progres-holder {
+    transform: translateY(650px);
+    & .percent {
+    font-size: 13px;
+    color: #2196f3;
+    border: 1px solid #2196f3;
+    border-radius: 4px;
+    padding: 1px 2px;
+    font-weight: bold;
+      }
+    }
+      & .progress {
+          background: #0d6efd52;
+          }
 `;
 const Acount = styled.div`
   transform: translate(10px, 343px);
@@ -457,6 +601,25 @@ const Acount = styled.div`
   @media (min-width: 767px) {
     bottom: 10px;
   }
+  // & .skills {
+  //   transform: translatey(630px);
+  //   flex: 1;
+  //   & h3 {
+  //     justify-content: space-between;
+  //     display: flex;
+  //     align-items: center;
+  //     & .progres {
+  //       background-color: #d5d5d5;
+  //       height: 25px;
+  //       position: relative;
+  //       & span {
+  //         position: absolute;
+  //         background-color: blue;
+  //         height: 100%;
+  //       }
+  //     }
+  //   }
+  // }
 `;
 
 export default Home;

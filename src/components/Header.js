@@ -139,6 +139,16 @@ const Headerr = () => {
                   Contact Us
                 </Link>
               </li>
+              <li className="nav-item">
+                <Link
+                  className="nav-link"
+                  to="/settings"
+                  tabindex="-1"
+                  aria-disabled="true"
+                >
+                  Settings
+                </Link>
+              </li>
               {profile?.orders && (
                 <li className="nav-item">
                   <Link

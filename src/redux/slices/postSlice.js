@@ -14,6 +14,7 @@ const postSlice = createSlice({
     orderDate: "",
     search: "",
     orders: [],
+    allMaxOrders: [],
     ordersCount: null,
   },
   reducers: {
@@ -87,6 +88,9 @@ const postSlice = createSlice({
     },
     setOrders(state, action) {
       state.orders = action.payload;
+    },
+    setAllOrders(state, action) {
+      state.allMaxOrders = action.payload;
     },
     setOrdersCount(state, action) {
       state.ordersCount = action.payload;

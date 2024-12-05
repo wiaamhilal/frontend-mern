@@ -119,15 +119,15 @@ export function getAllProfilesApi() {
       const { data } = await request.get(
         `/api/users/profile`,
 
-        {
-          headers: {
-            Authorization: "Bearer " + getState().auth.user.token,
-          },
-        }
+        // {
+        //   headers: {
+        //     Authorization: "Bearer " + getState().auth.user.token,
+        //   },
+        // }
       );
       dispatch(profileActions.setProfiles(data));
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error.response.data.message); 
     }
   };
 }
