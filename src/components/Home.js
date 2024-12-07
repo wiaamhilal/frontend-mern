@@ -17,7 +17,7 @@ const Home = () => {
   const { categories } = useSelector((state) => state.category);
   const { profiles } = useSelector((state) => state.profile);
   const { orders, allMaxOrders } = useSelector((state) => state.post);
-  console.log(orders);
+
   console.log(orders.map((item) => item.orderDetails[0].category));
   const allCaty = allMaxOrders.map((item) => item.orderDetails[0].category);
   const allOrders = allMaxOrders.map((item) => item.orderDetails[0]);
@@ -28,23 +28,56 @@ const Home = () => {
     0
   );
 
+  const laptopItems = allOrders.filter((item) => item.category == "laptop");
+  const totlLaptops = laptopItems.reduce(
+    (acc, product) => acc + product.price,
+    0
+  );
+
+  const audioItems = allOrders.filter((item) => item.category == "Audio");
+  const totalAudio = audioItems.reduce(
+    (acc, product) => acc + product.price,
+    0
+  );
+
+  const TabletItems = allOrders.filter((item) => item.category == "Tablet");
+  const totalTablets = TabletItems.reduce(
+    (acc, product) => acc + product.price,
+    0
+  );
+
+  const MobiletItems = allOrders.filter((item) => item.category == "Mobile");
+  const totalMobiles = MobiletItems.reduce(
+    (acc, product) => acc + product.price,
+    0
+  );
+
+  const SmartwatchetItems = allOrders.filter(
+    (item) => item.category == "Smartwatches"
+  );
+  const totalSmartwatches = SmartwatchetItems.reduce(
+    (acc, product) => acc + product.price,
+    0
+  );
+  console.log(laptopItems.length);
+
   let screens = allCaty.filter((item) => item == "Screen");
-  screens = (screens.length / allCaty.length) * 100;
+  screens = Math.round((screens.length / allCaty.length) * 100);
 
   let laptops = allCaty.filter((item) => item == "laptop");
-  laptops = (laptops.length / allCaty.length) * 100;
+  laptops = Math.round((laptops.length / allCaty.length) * 100);
 
   let Audio = allCaty.filter((item) => item == "Audio");
-  Audio = (Audio.length / allCaty.length) * 100;
+  Audio = Math.round((Audio.length / allCaty.length) * 100);
 
   let Tablets = allCaty.filter((item) => item == "Tablet");
-  Tablets = (Tablets.length / allCaty.length) * 100;
+  Tablets = Math.round((Tablets.length / allCaty.length) * 100);
 
   let Mobiles = allCaty.filter((item) => item == "Mobile");
-  Mobiles = (Mobiles.length / allCaty.length) * 100;
+  Mobiles = Math.round((Mobiles.length / allCaty.length) * 100);
 
   let Smartwatches = allCaty.filter((item) => item == "Smartwatches");
-  Smartwatches = (Smartwatches.length / allCaty.length) * 100;
+  Smartwatches = Math.round((Smartwatches.length / allCaty.length) * 100);
 
   console.log(allMaxOrders);
   useEffect(() => {
@@ -420,10 +453,16 @@ const Home = () => {
 
       <div className="progres-holder container">
         <h2 class="main-title">our sales</h2>
+        <img
+          src="https://media.licdn.com/dms/image/v2/D5612AQGXYr8XH3IPfQ/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1701797640305?e=2147483647&v=beta&t=elMXeTA21QTM3RwkmQvnOHcHHzZEWIeVH0Px7NHyK6s"
+          alt=""
+        />
+        <h3 className=" fw-bold">Screens :</h3>
         <div className="d-flex align-items-center justify-content-between">
           <div className="d-flex align-items-center">
-            <h4 className="me-4">Screens :</h4>
-            <h5 className="m-0 mb-1">{FormatCurrency(totalScreens)}</h5>
+            <h5 className=" mb-1 ">{FormatCurrency(totalScreens)}</h5>
+            <h5 className="ms-3 ms-sm-5 mb-1">Sold : </h5>{" "}
+            <h5 className=" mb-1 ms-4">{screenItems.length}</h5>
           </div>
           <h4 className="percent">{screens}%</h4>
         </div>
@@ -437,8 +476,14 @@ const Home = () => {
             aria-valuemax="100"
           ></div>
         </div>
+
+        <h3 className=" fw-bold">Laptops :</h3>
         <div className="d-flex align-items-center justify-content-between">
-          <h4>laptops</h4>
+          <div className="d-flex align-items-center">
+            <h5 className=" mb-1 ">{FormatCurrency(totlLaptops)}</h5>
+            <h5 className="ms-3 ms-sm-5 mb-1">Sold : </h5>{" "}
+            <h5 className=" mb-1 ms-4">{laptopItems.length}</h5>
+          </div>
           <h4 className="percent">{laptops}%</h4>
         </div>
         <div class="progress mb-3">
@@ -451,8 +496,13 @@ const Home = () => {
             aria-valuemax="100"
           ></div>
         </div>
+        <h3 className=" fw-bold">Audio :</h3>
         <div className="d-flex align-items-center justify-content-between">
-          <h4>Audio</h4>
+          <div className="d-flex align-items-center">
+            <h5 className=" mb-1 ">{FormatCurrency(totalAudio)}</h5>
+            <h5 className="ms-3 ms-sm-5 mb-1">Sold : </h5>{" "}
+            <h5 className=" mb-1 ms-4">{audioItems.length}</h5>
+          </div>
           <h4 className="percent">{Audio}%</h4>
         </div>
         <div class="progress mb-3">
@@ -465,8 +515,13 @@ const Home = () => {
             aria-valuemax="100"
           ></div>
         </div>
+        <h3 className=" fw-bold">Tablets :</h3>
         <div className="d-flex align-items-center justify-content-between">
-          <h4>Tablets</h4>
+          <div className="d-flex align-items-center">
+            <h5 className=" mb-1 ">{FormatCurrency(totalTablets)}</h5>
+            <h5 className="ms-3 ms-sm-5 mb-1">Sold : </h5>{" "}
+            <h5 className=" mb-1 ms-4">{TabletItems.length}</h5>
+          </div>
           <h4 className="percent">{Tablets}%</h4>
         </div>
         <div class="progress mb-3">
@@ -479,8 +534,13 @@ const Home = () => {
             aria-valuemax="100"
           ></div>
         </div>
+        <h3 className=" fw-bold">Mobiles :</h3>
         <div className="d-flex align-items-center justify-content-between">
-          <h4>Mobiles</h4>
+          <div className="d-flex align-items-center">
+            <h5 className=" mb-1 ">{FormatCurrency(totalMobiles)}</h5>
+            <h5 className="ms-3 ms-sm-5 mb-1">Sold : </h5>{" "}
+            <h5 className=" mb-1 ms-4">{MobiletItems.length}</h5>
+          </div>
           <h4 className="percent">{Mobiles}%</h4>
         </div>
         <div class="progress mb-3">
@@ -493,8 +553,13 @@ const Home = () => {
             aria-valuemax="100"
           ></div>
         </div>
+        <h3 className=" fw-bold">Audio :</h3>
         <div className="d-flex align-items-center justify-content-between">
-          <h4>Smartwatches</h4>
+          <div className="d-flex align-items-center">
+            <h5 className=" mb-1 ">{FormatCurrency(totalSmartwatches)}</h5>
+            <h5 className="ms-3 ms-sm-5 mb-1">Sold : </h5>{" "}
+            <h5 className=" mb-1 ms-4">{SmartwatchetItems.length}</h5>
+          </div>
           <h4 className="percent">{Smartwatches}%</h4>
         </div>
         <div class="progress mb-3">
@@ -573,6 +638,7 @@ const Main = styled.div`
     }
   }
     & .progres-holder {
+        color: var(--blue-color);
     transform: translateY(650px);
     & .percent {
     font-size: 13px;
@@ -582,6 +648,15 @@ const Main = styled.div`
     padding: 1px 2px;
     font-weight: bold;
       }
+    & img {
+    max-width: 100%;
+    border-radius: 10px;
+    opacity: 0.8;
+    margin-bottom: 20px;
+    }
+    & h5 {
+        font-weight: bold;
+        }
     }
       & .progress {
           background: #0d6efd52;
