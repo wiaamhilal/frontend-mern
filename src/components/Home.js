@@ -94,7 +94,7 @@ const Home = () => {
   const adminProfile = profiles?.filter((item) => item?.isAdmin == true);
 
   return (
-    <Main>
+    <Main className="text-dark">
       {/* <div class="accordion mt-5" id="accordionExample">
         <div class="accordion-item">
           <h2 class="accordion-header" id="headingTwo">
@@ -385,7 +385,7 @@ const Home = () => {
             </>
           ))}
         </div>
-        <div className="text-center mt-3">
+        <div className="text-center mt-3 text-dark">
           {" "}
           <button
             className="wiaam-btn btn"
@@ -397,7 +397,7 @@ const Home = () => {
       </div>
       {/* start fearures */}
       <div
-        class="featurs"
+        class="featurs text-dark"
         id="featurs"
         style={{ transform: "translate(-10px,550px)" }}
       >
@@ -638,6 +638,7 @@ const Main = styled.div`
     }
   }
     & .progres-holder {
+    
         color: var(--blue-color);
     transform: translateY(650px);
     & .percent {

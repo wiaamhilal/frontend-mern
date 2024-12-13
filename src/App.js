@@ -1,6 +1,6 @@
 import "./App.css";
 import Header from "./components/Header";
-import { Route, Routes, Navigate } from "react-router-dom";
+import { Route, Routes, Navigate, json } from "react-router-dom";
 import Home from "./components/Home";
 import CreatePost from "./components/CreatePost";
 import PostPage from "./components/PostPage";
@@ -24,17 +24,18 @@ import ContactUs from "./components/ContactUs";
 import Messages from "./components/Messages";
 // import Headerr from "./components/Headerr";
 import ProductDetails from "./components/PruductDetails";
-import styled from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
 import Basket from "./components/Basket";
 import LocationPage from "./components/LocationPage";
 import Payment from "./components/Payment";
 import Orders from "./components/Orders";
 import SendLink from "./components/SendLink";
 import { RotatingLines } from "react-loader-spinner";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import OrdersStatus from "./components/OrdersStatus";
 import AllUsers from "./components/AllUsers";
 import Settings from "./components/Settings";
+import { darkTheme, lightTheme } from "./utils/themes";
 
 export const GetBasketTotal = (basket) => {
   return basket?.reduce((total, current) => {
@@ -44,6 +45,15 @@ export const GetBasketTotal = (basket) => {
 };
 
 function App() {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  const toggleTheme = () => {
+    setIsDarkMode((prevMode) => !prevMode);
+    localStorage.setItem("theme", JSON.stringify(!isDarkMode));
+  };
+  // user: localStorage.getItem("userInfo")
+  //   ? JSON.parse(localStorage.getItem("userInfo"))
+  //   : null,
   const { user, loadingApp } = useSelector((state) => state.auth);
   console.log(user);
   let myLoadingApp = false;
@@ -57,7 +67,20 @@ function App() {
   console.log(loadingApp);
 
   return (
-    <Holder className="App">
+    // <ThemeProvider >
+    //   <AppWrapper>
+    <Holder
+      className="App"
+      theme={
+        localStorage.getItem("theme")
+          ? JSON.parse(localStorage.getItem("theme"))
+            ? darkTheme
+            : lightTheme
+          : isDarkMode
+          ? darkTheme
+          : lightTheme
+      }
+    >
       {myLoadingApp && (
         <div className="holder-loading">
           <div className="loading-app">
@@ -86,7 +109,12 @@ function App() {
           path="/"
           element={
             <>
-              <Header /> <Home />
+              <Header />{" "}
+              <Home
+                isDarkMode={isDarkMode}
+                darkTheme={darkTheme}
+                lightTheme={lightTheme}
+              />
             </>
           }
         />
@@ -301,19 +329,31 @@ function App() {
           path="/settings"
           element={
             <>
-              <Header /> <Settings />
+              <Header />{" "}
+              <Settings toggleTheme={toggleTheme} isDarkMode={isDarkMode} />
             </>
           }
         />
       </Routes>
     </Holder>
+    //   </AppWrapper>
+    // </ThemeProvider>
   );
 }
 
 const Holder = styled.div`
-  // background-image: url("https://images.unsplash.com/photo-1615799998603-7c6270a45196?q=80&w=1604&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+  background-image: ${(props) => props.theme.background};
+  color: ${(props) => props.theme.text};
+  min-height: 100vh;
+  // display: flex;
+  // align-items: center;
+  // justify-content: center;
+  transition: all 0.3s ease-in-out;
 
-  background-size: contain;
+  // background-image: url("https://img.freepik.com/free-vector/gradient-hexagonal-background_23-2148954968.jpg?t=st=1733811291~exp=1733814891~hmac=3aa03053fbc036b77fbbb50e7ebfc0e4dc7d7be2fc803a3819b57cf6c9945463&w=996")
+  //   : "https://images.unsplash.com/photo-1615799998603-7c6270a45196?q=80&w=1604&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"});
+  // background-size: contain;
+  // background-image: url("  ");
   padding-bottom: 5px;
 
   & .holder-loading {
@@ -331,6 +371,15 @@ const Holder = styled.div`
     z-index: 10000;
     transform: translate(-50%, -50%);
   }
+`;
+const AppWrapper = styled.div`
+  background-image: ${(props) => props.theme.background};
+  color: ${(props) => props.theme.text};
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease-in-out;
 `;
 
 export default App;

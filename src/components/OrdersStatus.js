@@ -42,8 +42,8 @@ const OrdersStatus = () => {
   const submitStatus = async (item) => {
     await dispatch(
       updateOrderStatusApi({ orderStatus: orderStatus }, item._id)
-    )
-      window.location.reload(false);
+    );
+    window.location.reload(false);
   };
   return (
     <Holder>
@@ -75,10 +75,7 @@ const OrdersStatus = () => {
                 </h4>
                 <div className="d-flex align-items-center mt-4">
                   <h4 className="fw-bold text-secondary me-3">order status:</h4>
-                  <div
-                    className="d-flex align-items-center"
-                    
-                  >
+                  <div className="d-flex align-items-center">
                     <select
                       className="inputs m-0 me-3"
                       onChange={(e) => setorderStatus(e.target.value)}
@@ -100,13 +97,16 @@ const OrdersStatus = () => {
                         canceled
                       </option>
                     </select>
-                    < button onClick={() => submitStatus(item)}
+                    <button
+                      onClick={() => submitStatus(item)}
                       className="btn btn-sm btn-success"
                       disabled={
                         item?.orderStatus === "receved" ||
                         item?.orderStatus === "canceled"
                       }
-                    >submit</button>
+                    >
+                      submit
+                    </button>
                   </div>
                 </div>
                 {item?.orderStatus === "receved" && (
@@ -179,8 +179,8 @@ const OrdersStatus = () => {
 const Holder = styled.div`
   overflow: hidden;
   padding-top: 80px;
-  background-image: url("https://images.unsplash.com/photo-1615799998603-7c6270a45196?q=80&w=1604&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
-  background-size: contain;
+  // background-image: url("https://images.unsplash.com/photo-1615799998603-7c6270a45196?q=80&w=1604&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+  // background-size: contain;
   min-height: 100vh;
 
   & .inputs {
