@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { json } from "react-router-dom";
 import styled from "styled-components";
 import swal from "sweetalert";
+import moment from "moment";
 import {
   deleteProfileApi,
   getUserProfile,
@@ -17,6 +18,7 @@ const Settings = ({ toggleTheme, isDarkMode }) => {
   const [bio, setbio] = useState(profile?.bio);
   // const [email, setemail] = useState(profile?.email);
   const [password, setpassword] = useState("");
+  const [securityToggle, setsecurityToggle] = useState(false);
 
   const deleteAcount = () => {
     swal({
@@ -41,10 +43,13 @@ const Settings = ({ toggleTheme, isDarkMode }) => {
       updatedUser.password = password;
     }
     dispatch(updateProfile(profile?._id, updatedUser));
-    setTimeout(() => {
-      window.location.reload(false);
-    }, 1000);
+    // setTimeout(() => {
+    //   window.location.reload(false);
+    // }, 1000);
+    localStorage.setItem("lastPasswordChange", new Date().toISOString());
   };
+  const lastChange = localStorage.getItem("lastPasswordChange");
+  console.log(lastChange);
   useEffect(() => {
     dispatch(getUserProfile(user?._id));
   }, [user._id]);
@@ -172,11 +177,115 @@ const Settings = ({ toggleTheme, isDarkMode }) => {
             />
           </div>
         </Box>
-        <Box>ijijijijijijijjjijijijijjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj</Box>
-        <Box>ijijijijijijijjjijijijijjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj</Box>
+        <Box>
+          <div class="security bg-white">
+            <h3 class="m-0">security info</h3>
+            <p class="mt-2 text-secondary" style={{ fontSize: "14" }}>
+              security information about your acount
+            </p>
+            <div class="password d-flex align-items-center justify-content-between pb-2 border-botom">
+              <div>
+                <span>password</span>
+                <p class="text-secondary mt-1" style={{ fontSize: "14" }}>
+                  {moment(lastChange).format("DD MMMM YYYY")}
+                </p>
+              </div>
+              <input
+                class="btn btn-primary btn-sm"
+                type="submit"
+                value="change"
+                onClick={() => setsecurityToggle(true)}
+              />
+            </div>
+            <div class="enable pt-3 pb-3 bt-eee bb-eee d-flex align-items-center justify-content-between border-botom">
+              <div>
+                <span>two foacter authention</span>
+                <p class=" text-secondary mt-1 mb-0" style={{ fontSize: "14" }}>
+                  enable/disable the settings
+                </p>
+              </div>
+              <div class="form-check form-switch">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  role="switch"
+                  id="flexSwitchCheckDefault"
+                />
+                <label
+                  class="form-check-label"
+                  for="flexSwitchCheckDefault"
+                ></label>
+              </div>
+            </div>
+            <div class="info d-flex align-items-center justify-content-between pt-3 pb-0">
+              <div>
+                <span>device</span>
+                <p class=" text-secondary  mt-1" style={{ fontSize: "14" }}>
+                  check about the log in
+                </p>
+              </div>
+              <input
+                class="btn btn-secondary btn-sm"
+                type="submit"
+                value="device"
+              />
+            </div>
+          </div>
+        </Box>
+        {/* <Box>ijijijijijijijjjijijijijjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj</Box>
         <Box>ijijijijijijijjjijijijijjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj</Box>
-        <Box>ijijijijijijijjjijijijilklkllllllllllllllllllllllllllllllll</Box>
+        <Box>ijijijijijijijjjijijijilklkllllllllllllllllllllllllllllllll</Box> */}
       </Main>
+      <UbdatePassword>
+        <div
+          className="modal"
+          tabindex="-1"
+          style={securityToggle ? { display: "block" } : { display: "none" }}
+        >
+          <div className="modal-dialog" style={{ animation: "fade 0.5s" }}>
+            <div className="modal-content" style={{ marginTop: "80px" }}>
+              <div className="modal-header">
+                <h5 className="modal-title">Update Your Password</h5>
+                <button
+                  type="button"
+                  className="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                  onClick={() => setsecurityToggle(false)}
+                ></button>
+              </div>
+              <div className="modal-body">
+                <form className="my-form" onSubmit={updatePost}>
+                  <input
+                    type="password"
+                    placeholder="inter your new password"
+                    className="input"
+                    onChange={(e) => setpassword(e.target.value)}
+                    value={password}
+                  />
+                </form>
+              </div>
+              <div className="modal-footer">
+                <button
+                  type="button"
+                  className="btn btn-secondary rounded-pill"
+                  data-bs-dismiss="modal"
+                  onClick={() => setsecurityToggle(false)}
+                >
+                  Close
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-primary rounded-pill"
+                  onClick={updatePost}
+                >
+                  Update Now
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </UbdatePassword>
     </div>
   );
 };
@@ -186,6 +295,18 @@ const Main = styled.div`
   gap: 20px;
   margin: 20px;
   padding-top: 50px;
+  & .border-botom {
+    border-bottom: 1px solid #eee;
+  }
+  & .setings-btn {
+    border: none;
+    display: block;
+    padding: 5px 10px;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    width: fit-content;
+  }
 `;
 const Box = styled.div`
   border-radius: 10px;
@@ -230,6 +351,22 @@ const ToggleButton = styled.button`
 
   &:hover {
     opacity: 0.8;
+  }
+`;
+const UbdatePassword = styled.div`
+  & .my-form {
+    display: flex;
+    flex-direction: column;
+    & .input {
+      padding: 5px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      outline: none;
+      display: block;
+      width: 100%;
+      resize: none;
+      margin-bottom: 10px;
+    }
   }
 `;
 export default Settings;
