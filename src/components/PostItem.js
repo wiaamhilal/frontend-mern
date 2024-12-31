@@ -18,7 +18,7 @@ const PostItem = ({ post, username, userId }) => {
       }}
     >
       <img
-        src={post?.image.url}
+        src={post?.image?.url || post?.images[0]?.url}
         class="card-img-top"
         alt="..."
         style={{ height: "192px" }}

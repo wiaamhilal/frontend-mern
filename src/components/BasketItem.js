@@ -9,6 +9,7 @@ import { postActions } from "../redux/slices/postSlice";
 
 const BasketItem = ({
   title,
+  images,
   image,
   likes,
   dislikes,
@@ -22,7 +23,11 @@ const BasketItem = ({
     <div className="position-relative">
       <Link to={`/posts/details/${id}`} style={{ textDecoration: "none" }}>
         <Item className="bg-light rounded row position-relative shadow mb-3 mb-md-4">
-          <img className="col-4 rounded" src={image?.url} alt="" />
+          <img
+            className="col-4 rounded"
+            src={image ? image?.url : images[0]?.url}
+            alt=""
+          />
 
           <div className="position-relative col-8">
             <div className="d-flex align-items-center justify-content-between">

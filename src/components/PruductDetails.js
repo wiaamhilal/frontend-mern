@@ -8,9 +8,11 @@ import boldDisLike from "../img/dislike-svgrepo-com (1).svg";
 import normaDislLike from "../img/dislike-svgrepo-com.svg";
 import swal from "sweetalert";
 import { toast } from "react-toastify";
+import boldStar from "../img/star (1).png";
 import {
   deletePostApi,
   fetchAllPosts,
+  fetchPosts,
   fetchSinglePost,
   toggleDislike,
   toggleLike,
@@ -21,11 +23,12 @@ import UpdatePost from "./UpdatePost";
 import Comment from "./Comment";
 import { postActions } from "../redux/slices/postSlice";
 import FormatCurrency from "./FormatCurrency";
+import PostItem from "./PostItem";
 
 const ParamsComp = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((user) => user.auth);
-  const { post, basket } = useSelector((state) => state.post);
+  const { post, basket, posts } = useSelector((state) => state.post);
   const [image, setimage] = useState("");
   const [toggle, settoggle] = useState(false);
   const likeToggle = () => {
@@ -35,7 +38,7 @@ const ParamsComp = () => {
       dispatch(toggleLike(post?._id));
     }
   };
-  console.log(basket);
+  console.log(post?.images);
   const dislikeToggle = () => {
     if (!user) {
       return toast.error("you have to sign in first");
@@ -56,6 +59,9 @@ const ParamsComp = () => {
       // window.location.reload(false);
     }
   };
+  useEffect(() => {
+    dispatch(fetchPosts(1));
+  }, []);
   const navicate = useNavigate();
   const deletePost = () => {
     swal({
@@ -82,6 +88,11 @@ const ParamsComp = () => {
   useEffect(() => {
     dispatch(fetchSinglePost(id));
   }, [id]);
+
+  let rate =
+    (post?.likes?.length / (post?.dislikes?.length + post?.likes?.length)) * 5;
+
+  const allRates = post?.dislikes?.length + post?.likes?.length;
   return (
     <Holder>
       <div className="">
@@ -91,11 +102,20 @@ const ParamsComp = () => {
             <Photo>
               <img
                 className="mb-3 my-shadw"
-                src={image ? URL.createObjectURL(image) : post?.image.url}
+                src={
+                  (image === "" &&
+                    (post?.image?.url || post?.images[0]?.url)) ||
+                  (image === "second" && post?.images[1]?.url) ||
+                  (image === "third" && post?.images[2]?.url) ||
+                  (image === "forth" && post?.images[3]?.url) ||
+                  (image === "fiveth" && post?.images[4]?.url)
+                  // ? URL.createObjectURL(image)
+                  // : post?.image?.url || post?.images[0]?.url
+                }
                 alt=""
                 style={{}}
               />
-              {user?._id === post?.user._id && (
+              {/* {user?._id === post?.user._id && (
                 <form>
                   <input
                     type="file"
@@ -132,18 +152,57 @@ const ParamsComp = () => {
                     )}
                   </div>
                 </form>
-              )}
+              )} */}
             </Photo>
+            <PlusPhotos>
+              {post?.images[1] && (
+                <div onClick={() => setimage("second")}>
+                  <img src={post?.images[1].url} alt="" />
+                </div>
+              )}
+              {post?.images[2] && (
+                <div onClick={() => setimage("third")}>
+                  <img src={post?.images[2].url} alt="" />
+                </div>
+              )}
+              {post?.images[3] && (
+                <div onClick={() => setimage("forth")}>
+                  <img src={post?.images[3].url} alt="" />
+                </div>
+              )}
+              {post?.images[4] && (
+                <div onClick={() => setimage("fiveth")}>
+                  <img src={post?.images[4].url} alt="" />
+                </div>
+              )}
+            </PlusPhotos>
             <div>
-              <h2 className=" text-center d-block text-sm-start">
+              {" "}
+              <h2 className=" text-center text-sm-start m-0 mb-3">
                 {post?.title}
               </h2>
               <span className="text-color">{post?.description}</span>
             </div>
           </Head>
           <Boxholder className="row gap-4">
-            <div className="col-12 col-sm-6 col-md-3">
-              <h5 className="fw-bold m-0 p-0">{FormatCurrency(post?.price)}</h5>
+            <div className="col-12 col-sm-6 col-md-3 d-flex align-items-center justify-content-between">
+              <h5 className="fw-bold m-0 p-0 me-3">
+                {FormatCurrency(post?.price)}
+              </h5>
+              <FirstStats>
+                {" "}
+                <div
+                  className=""
+                  style={{ width: "160px", marginBottom: " 5px" }}
+                >
+                  {" "}
+                  {Array(Math.round(rate) || 0)
+                    .fill()
+                    .map((_, i) => (
+                      <img src={boldStar} alt="star" className="star-img" />
+                    ))}
+                </div>
+              </FirstStats>
             </div>
             <div className="col-12 col-sm-6 col-md-3">
               <div class="btn-group">
@@ -286,6 +345,96 @@ const ParamsComp = () => {
               </span>
             </span>
           </Like>
+          <ProductsDetails>
+            <h3>Product Details :</h3>
+            {post?.productDetails ? (
+              <p>{post?.productDetails}</p>
+            ) : (
+              <p>
+                {" "}
+                Product Dimensions : 6.06 x 145.29 x 83.4 cm; 23 kg Date First
+                Available : 25 March 2024 Manufacturer : Samsung ASIN :
+                B0D1R8JNF6 Item model number : UA65DU7000UXZN Country of origin
+                : Egypt Best Sellers Rank: #91 in Electronics See Top 100 in
+                Electronics #2 in Smart TVs
+              </p>
+            )}
+          </ProductsDetails>
+          <BrouseItems>
+            <h4>Customers who bought this item also bought :</h4>
+            <div className="row gap-3 justify-content-center brousing">
+              {posts?.map(
+                (item) =>
+                  item?.category == post?.category && (
+                    <PostItem post={item} key={item?._id} />
+                  )
+              )}
+            </div>
+          </BrouseItems>
+          <MoreImages>
+            <h3 className="">From the manufacturer :</h3>
+            <div className="img-container">
+              <img src={post?.images[1]?.url} alt="" />
+              <img src={post?.images[2]?.url} alt="" />
+              <img src={post?.images[3]?.url} alt="" />
+              <img src={post?.images[4]?.url} alt="" />
+            </div>
+          </MoreImages>
+          <Rating className="mt-4">
+            <h4 className="fw-bold">Customer Reviews</h4>
+            <div className="d-flex align-items-center ">
+              <Rate>
+                {" "}
+                <div className="">
+                  {" "}
+                  {Array(Math.round(rate) || 0)
+                    .fill()
+                    .map((_, i) => (
+                      <img src={boldStar} alt="star" className="star-img" />
+                    ))}
+                </div>
+              </Rate>
+              {rate ? (
+                <h5 style={{ margin: "5px 0 0 5px" }}>
+                  {Math.round(rate)} out of 5
+                </h5>
+              ) : null}
+            </div>
+            <span>{allRates} global ratings</span>
+            <div class="btn-group d-block mt-3">
+              <button
+                class="dropdown-toggle btn btn-success btn-sm  rounded-pill"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                How are ratings calculated?
+              </button>
+              <div
+                class="dropdown-menu"
+                style={{ width: "290px", padding: "10px" }}
+              >
+                To calculate the overall star rating and percentage breakdown by
+                star, we dont use a simple average. Instead, our system
+                considers things like how recent a review is and if the reviewer
+                bought the item on Wiaam site. It also analyses reviews to
+                verify trustworthiness.
+              </div>
+            </div>
+            <div
+              className="my-line mt-4 mb-4"
+              style={{ maxWidth: "300px" }}
+            ></div>
+            <h4 className="fw-bold">Review this product</h4>
+            <p>Share your thoughts with other customers</p>
+            <button className="btn btn-success rounded-pill btn-sm">
+              Write a customer review
+            </button>
+            <div
+              className="my-line mt-4 mb-4"
+              style={{ maxWidth: "300px" }}
+            ></div>
+          </Rating>
         </Main>
         <Comment postId={post?._id} />
         <CommentList comments={post?.comments} />
@@ -309,6 +458,12 @@ const Head = styled.div`
     flex-direction: column;
     align-items: center;
   }
+
+  & span {
+    line-height: 1.7;
+  }
+`;
+const Photo = styled.div`
   & img {
     border-radius: 10px;
     width: 100%;
@@ -318,11 +473,7 @@ const Head = styled.div`
       height: 400px;
     }
   }
-  & span {
-    line-height: 1.7;
-  }
 `;
-const Photo = styled.div``;
 const Like = styled.div`
   display: flex;
   align-items: center;
@@ -376,5 +527,69 @@ const Boxholder = styled.div`
   justify-content: space-between;
   flex-wrap: wrap;
   padding: 20px 0;
+`;
+
+const BrouseItems = styled.div`
+  & .brousing {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  }
+`;
+const ProductsDetails = styled.div`
+  padding-bottom: 20px;
+  max-width: 500px;
+  line-height: 1.7;
+`;
+const Rate = styled.div`
+  position: relative;
+  & .star-img {
+    width: 22px;
+    margin-right: 10px;
+}
+  }
+`;
+const FirstStats = styled.data`
+  width: 160px;
+  position: relative;
+  & .star-img {
+    width: 22px;
+    margin-right: 10px;
+}
+  }
+`;
+const Rating = styled.div``;
+const MoreImages = styled.div`
+  & img {
+    width: 100%;
+    border-radius: 20px;
+    max-height: 450px;
+    // margin-bottom: 20px;
+  }
+  & .img-container {
+    @media (max-width: 668px) {
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+    gap: 20px;
+    // margin: 20px;
+  }
+`;
+const PlusPhotos = styled.div`
+  display: flex;
+  @media (min-width: 767px) {
+    flex-direction: column;
+  }
+  gap: 10px;
+  & div {
+    flex: 1;
+  }
+  & img {
+    width: 80px;
+    cursor: pointer;
+    height: 65px;
+    border-radius: 5px;
+  }
 `;
 export default ParamsComp;

@@ -69,12 +69,12 @@ const Settings = ({ toggleTheme, isDarkMode }) => {
           </p>
           <div class="on-off d-flex align-itmes-center justify-content-between mb-4">
             <div>
-              <span>website control</span>
+              <span>Dark Mode</span>
               <span
                 class="d-block text-secondary mt-1"
                 style={{ fontSize: "14px" }}
               >
-                open and close website type the reason
+                open and close the dark mode
               </span>
             </div>
             {/* <label for="toggle">
@@ -103,7 +103,7 @@ const Settings = ({ toggleTheme, isDarkMode }) => {
           <textarea
             class="c-grey fs-14 p-10"
             name=""
-            placeholder="close message content"
+            placeholder="contact us for any help"
           ></textarea>
         </Box>
         <Box>
@@ -170,6 +170,7 @@ const Settings = ({ toggleTheme, isDarkMode }) => {
               style={{ fontSize: "14" }}
             />
             <input
+              disabled={true}
               type="submit"
               value="Delete"
               className="submit-info ms-2 text-danger"
@@ -290,6 +291,9 @@ const Settings = ({ toggleTheme, isDarkMode }) => {
   );
 };
 const Main = styled.div`
+  @media (max-width: 668px) {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   gap: 20px;

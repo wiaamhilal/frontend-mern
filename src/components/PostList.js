@@ -26,7 +26,7 @@ const PostList = () => {
     <Holder>
       <div className="container">
         <SideBar />
-        <div className="row gap-3 justify-content-center">
+        <div className="row gap-3 justify-content-center d-flex">
           {posts
             ?.filter((item) =>
               search === "" ? item : item.title.toLowerCase().includes(search)

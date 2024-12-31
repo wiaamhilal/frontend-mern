@@ -17,27 +17,55 @@ const CreatePost = () => {
   const [desc, setdesc] = useState("");
   const [category, setcategory] = useState("");
   const [file, setfile] = useState("");
+  const [file2, setfile2] = useState("");
+  const [file3, setfile3] = useState("");
+  const [file4, setfile4] = useState("");
+  const [file5, setfile5] = useState("");
+  const [productDetails, setproductDetails] = useState("");
 
   useEffect(() => {
     dispatch(fitchAllCategories());
   }, [categories]);
 
-  const submitCreatepost = (e) => {
-    e.preventDefault();
-    if (title.trim() === "") return toast.error("product title is required");
-    if (price.trim() === "") return toast.error("product price is required");
-    if (desc.trim() === "") return toast.error("description is required");
-    if (category.trim() === "") return toast.error("category is required");
-    if (!file) return toast.error("the image is required");
+  // const submitCreatepost = (e) => {
+  //   e.preventDefault();
+  //   if (title.trim() === "") return toast.error("product title is required");
+  //   if (price.trim() === "") return toast.error("product price is required");
+  //   if (desc.trim() === "") return toast.error("description is required");
+  //   if (category.trim() === "") return toast.error("category is required");
+  //   if (productDetails.trim() === "")
+  //     return toast.error("productDetails is required");
+  //   if (!file) return toast.error("the image is required");
 
+  //   const formData = new FormData();
+  //   formData.append("images", file);
+  //   // formData.append("image2", file2);
+  //   formData.append("description", desc);
+  //   formData.append("title", title);
+  //   formData.append("price", price);
+  //   formData.append("category", category);
+  //   formData.append("productDetails", productDetails);
+  //   dispatch(createNewPost(formData));
+  // };
+  const submitCreatepost = () => {
     const formData = new FormData();
-    formData.append("image", file);
+
+    // Add multiple images
+    const files = [file, file2, file3, file4, file5]; // قائمة الملفات
+    files.forEach((file) => {
+      formData.append("images", file); // تأكد أن الاسم "images" مطابق للـ multer.array()
+    });
+
+    // Add additional fields
     formData.append("description", desc);
     formData.append("title", title);
     formData.append("price", price);
     formData.append("category", category);
+    formData.append("productDetails", productDetails);
+
     dispatch(createNewPost(formData));
   };
+
   useEffect(() => {
     if (isPostCreated === true) {
       navicate("/products");
@@ -75,6 +103,12 @@ const CreatePost = () => {
             placeholder="post description"
             rows={5}
           />
+          <textarea
+            onChange={(e) => setproductDetails(e.target.value)}
+            className="inputs"
+            placeholder="Product details"
+            rows={5}
+          />
           <input
             type="file"
             name="file"
@@ -96,6 +130,102 @@ const CreatePost = () => {
                 className="mb-3"
                 alt=""
                 src={URL.createObjectURL(file)}
+              />
+            )}
+          </div>
+          <input
+            type="file"
+            name="file2"
+            id="file2"
+            className="d-none"
+            onChange={(e) => setfile2(e.target.files[0])}
+          />
+          <label htmlFor="file2" className="btn btn-success w-100 mb-3 mt-1">
+            Chose an image2
+          </label>
+          <div>
+            {file2 && (
+              <img
+                style={{
+                  width: "100%",
+                  maxHeight: "250px",
+                  borderRadius: "10px",
+                }}
+                className="mb-3"
+                alt=""
+                src={URL.createObjectURL(file2)}
+              />
+            )}
+          </div>
+          <input
+            type="file"
+            name="file3"
+            id="file3"
+            className="d-none"
+            onChange={(e) => setfile3(e.target.files[0])}
+          />
+          <label htmlFor="file3" className="btn btn-success w-100 mb-3 mt-1">
+            Chose an image3
+          </label>
+          <div>
+            {file3 && (
+              <img
+                style={{
+                  width: "100%",
+                  maxHeight: "250px",
+                  borderRadius: "10px",
+                }}
+                className="mb-3"
+                alt=""
+                src={URL.createObjectURL(file3)}
+              />
+            )}
+          </div>
+          <input
+            type="file"
+            name="file4"
+            id="file4"
+            className="d-none"
+            onChange={(e) => setfile4(e.target.files[0])}
+          />
+          <label htmlFor="file4" className="btn btn-success w-100 mb-3 mt-1">
+            Chose an image4
+          </label>
+          <div>
+            {file4 && (
+              <img
+                style={{
+                  width: "100%",
+                  maxHeight: "250px",
+                  borderRadius: "10px",
+                }}
+                className="mb-3"
+                alt=""
+                src={URL.createObjectURL(file4)}
+              />
+            )}
+          </div>
+          <input
+            type="file"
+            name="file5"
+            id="file5"
+            className="d-none"
+            onChange={(e) => setfile5(e.target.files[0])}
+          />
+          <label htmlFor="file5" className="btn btn-success w-100 mb-3 mt-1">
+            Chose an image5
+          </label>
+          <div>
+            {file5 && (
+              <img
+                style={{
+                  width: "100%",
+                  maxHeight: "250px",
+                  borderRadius: "10px",
+                }}
+                className="mb-3"
+                alt=""
+                src={URL.createObjectURL(file5)}
               />
             )}
           </div>

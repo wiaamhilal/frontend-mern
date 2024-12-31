@@ -6,6 +6,7 @@ import EditComment from "./EditComment";
 import swal from "sweetalert";
 import { deleteCommentApi } from "../redux/apiCalls/commentApiCall";
 import { Link } from "react-router-dom";
+
 const CommentList = ({ comments }) => {
   const { user } = useSelector((state) => state.auth);
   const { post } = useSelector((state) => state.post);
@@ -30,6 +31,7 @@ const CommentList = ({ comments }) => {
     setmycomment(comment);
     setcommenttoggle(true);
   };
+
   return (
     <Main className="container ">
       <h2 className="">{comments?.length} comments</h2>
@@ -95,4 +97,5 @@ const Box = styled.div`
   border-radius: 10px;
   margin-bottom: 10px;
 `;
+
 export default CommentList;
