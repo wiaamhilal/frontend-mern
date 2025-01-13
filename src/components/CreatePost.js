@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { createNewPost } from "../redux/apiCalls/postApiCall";
-import { useNavigate } from "react-router-dom";
+import { json, useNavigate } from "react-router-dom";
 import { RotatingLines } from "react-loader-spinner";
 import { fitchAllCategories } from "../redux/apiCalls/categoryApiCall";
 
@@ -22,7 +22,9 @@ const CreatePost = () => {
   const [file4, setfile4] = useState("");
   const [file5, setfile5] = useState("");
   const [productDetails, setproductDetails] = useState("");
-
+  const [color, setcolor] = useState("");
+  const [colors, setcolors] = useState([]);
+  // console.log(colors);
   useEffect(() => {
     dispatch(fitchAllCategories());
   }, [categories]);
@@ -47,7 +49,15 @@ const CreatePost = () => {
   //   formData.append("productDetails", productDetails);
   //   dispatch(createNewPost(formData));
   // };
-  const submitCreatepost = () => {
+  // let colors = [];
+  const submitColor = (e) => {
+    e.preventDefault();
+    setcolors([...colors, color]);
+    setcolor("");
+  };
+
+  const submitCreatepost = (e) => {
+    e.preventDefault();
     const formData = new FormData();
 
     // Add multiple images
@@ -62,7 +72,10 @@ const CreatePost = () => {
     formData.append("price", price);
     formData.append("category", category);
     formData.append("productDetails", productDetails);
-
+    // formData.append("colors", colors);
+    colors.forEach((color) => {
+      formData.append("colors", color); // تأكد أن الاسم "images" مطابق للـ multer.array()
+    });
     dispatch(createNewPost(formData));
   };
 
@@ -71,6 +84,10 @@ const CreatePost = () => {
       navicate("/products");
     }
   }, [isPostCreated, navicate]);
+
+  // let colors = [];
+  // console.log(colors);
+
   return (
     <Holder className="container">
       <Main>
@@ -97,6 +114,29 @@ const CreatePost = () => {
               <option value={item.title}>{item.title}</option>
             ))}
           </select>
+          <div className="d-flex align-items-center mb-3">
+            <input
+              className="inputs m-0"
+              type="text"
+              placeholder="inter the protuct colors"
+              onChange={(e) => setcolor(e.target.value)}
+              value={color}
+            />
+            <button
+              className="btn btn-primary btn-sm rouded-pill ms-3"
+              onClick={submitColor}
+            >
+              Add
+            </button>
+          </div>
+          <div>
+            {colors?.map((item, index) => (
+              <span className="me-3">
+                <span>{index + 1}- </span>
+                <span>{item}</span>
+              </span>
+            ))}
+          </div>
           <textarea
             onChange={(e) => setdesc(e.target.value)}
             className="inputs"

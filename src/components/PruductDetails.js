@@ -31,6 +31,7 @@ const ParamsComp = () => {
   const { post, basket, posts } = useSelector((state) => state.post);
   const [image, setimage] = useState("");
   const [toggle, settoggle] = useState(false);
+  const [orderColor, setOrderColor] = useState("Default Color");
   const likeToggle = () => {
     if (!user) {
       return toast.error("you have to sign in first");
@@ -38,7 +39,7 @@ const ParamsComp = () => {
       dispatch(toggleLike(post?._id));
     }
   };
-  console.log(post?.images);
+  console.log(post?.colors);
   const dislikeToggle = () => {
     if (!user) {
       return toast.error("you have to sign in first");
@@ -79,7 +80,7 @@ const ParamsComp = () => {
     });
   };
   const addToTheCard = (post) => {
-    dispatch(postActions.setbasket({ ...post }));
+    dispatch(postActions.setbasket({ ...post, orderColor }));
   };
   useEffect(() => {
     localStorage.setItem("basket", JSON.stringify(basket));
@@ -184,6 +185,36 @@ const ParamsComp = () => {
               <span className="text-color">{post?.description}</span>
             </div>
           </Head>
+          <Colors>
+            {/* {post?.colors?.map((color, id) => (
+              <span className="me-3">
+                <input type="checkbox" id={id} value={color} />
+                <label className="fw-bold fs-4" htmlFor={id}>
+                  {color}
+                </label>
+              </span>
+            ))} */}
+
+            <div className="d-flex align-items-center mt-4">
+              <h4 className="fw-bold me-3">Select the color:</h4>
+              <div className="d-flex align-items-center">
+                <select
+                  className="inputs m-0 me-3"
+                  onChange={(e) => setOrderColor(e.target.value)}
+                >
+                  <option value="none">default color</option>
+                  {post?.colors?.map((color, id) => (
+                    <option value={color}>{color}</option>
+                  ))}
+                </select>
+                {/* <button
+                  className="btn btn-sm btn-success"
+                >
+                  submit
+                </button> */}
+              </div>
+            </div>
+          </Colors>
           <Boxholder className="row gap-4">
             <div className="col-12 col-sm-6 col-md-3 d-flex align-items-center justify-content-between">
               <h5 className="fw-bold m-0 p-0 me-3">
@@ -590,6 +621,17 @@ const PlusPhotos = styled.div`
     cursor: pointer;
     height: 65px;
     border-radius: 5px;
+  }
+`;
+const Colors = styled.div`
+  .inputs {
+    padding: 5px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    outline: none;
+    display: block;
+    width: 100%;
+    resize: none;
   }
 `;
 export default ParamsComp;

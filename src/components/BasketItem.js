@@ -17,6 +17,7 @@ const BasketItem = ({
   price,
   id,
   showbutton,
+  orderColor,
 }) => {
   const dispatch = useDispatch();
   return (
@@ -32,7 +33,7 @@ const BasketItem = ({
           <div className="position-relative col-8">
             <div className="d-flex align-items-center justify-content-between">
               <span className="fw-bold title text-decor-none text-dark">
-                {title}
+                {title} ({orderColor})
               </span>
               <span className="fw-bold price text-decor-none text-dark">
                 {formatCurrency(price)}

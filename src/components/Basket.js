@@ -21,6 +21,7 @@ const Basket = () => {
   //   newbasket = JSON.parse(localStorage.getItem("basket"));
   // }, [basket]);
   // console.log(newbasket);
+  console.log(basket);
   return (
     <Holder>
       <Main className="row gap-4 p-4">
