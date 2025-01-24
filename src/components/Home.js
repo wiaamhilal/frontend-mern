@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../redux/apiCalls/authApiCall";
 import styled from "styled-components";
@@ -12,6 +12,7 @@ import {
   getMaxAllOrdersApi,
 } from "../redux/apiCalls/postApiCall";
 import FormatCurrency from "./FormatCurrency";
+import { createNewClinetComment } from "../redux/apiCalls/commentApiCall";
 
 const Home = () => {
   const { categories } = useSelector((state) => state.category);
@@ -79,7 +80,7 @@ const Home = () => {
   let Smartwatches = allCaty.filter((item) => item == "Smartwatches");
   Smartwatches = Math.round((Smartwatches.length / allCaty.length) * 100);
 
-  console.log(allMaxOrders);
+  console.log(categories[0]?.title);
   useEffect(() => {
     dispatch(fitchAllCategories());
     dispatch(getAllProfilesApi());
@@ -92,42 +93,35 @@ const Home = () => {
   const dispatch = useDispatch();
 
   const adminProfile = profiles?.filter((item) => item?.isAdmin == true);
+  const [comment, setcomment] = useState("");
+  const sendComment = (e) => {
+    e.preventDefault();
+    dispatch(createNewClinetComment({ text: comment }));
+    // toast.success("thank you for your opininiont");
+    setcomment("");
+  };
 
   return (
     <Main className="text-dark">
-      {/* <div class="accordion mt-5" id="accordionExample">
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="headingTwo">
-            <button
-              class="accordion-button collapsed"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#collapseTwo"
-              aria-expanded="false"
-              aria-controls="collapseTwo"
-            >
-              Accordion Item #2
-            </button>
-          </h2>
-          <div
-            id="collapseTwo"
-            class="accordion-collapse collapse"
-            aria-labelledby="headingTwo"
-            data-bs-parent="#accordionExample"
-          >
-            <div class="accordion-body">
-              <strong>This is the second item's accordion body.</strong> It is
-              hidden by default, until the collapse plugin adds the appropriate
-              classes that we use to style each element. These classes control
-              the overall appearance, as well as the showing and hiding via CSS
-              transitions. You can modify any of this with custom CSS or
-              overriding our default variables. It's also worth noting that just
-              about any HTML can go within the <code>.accordion-body</code>,
-              though the transition does limit overflow.
-            </div>
-          </div>
+      <SecondHeder>
+        <div className="over">
+          {/* <Link>Best Sellers</Link>
+          <Link>New Releases</Link>
+          <Link>Today's Deals</Link>
+          <Link>Electronics</Link>
+          <Link>Prime</Link>
+          <Link>Mobile Phones</Link>
+          <Link>Beauty</Link>
+          <Link>Health & Personal Care</Link>
+          <Link>Grocery & Food</Link>
+          <Link>Video Games</Link>
+          <Link>Fashion</Link>
+          <Link>Perfumes</Link> */}
+          {categories?.map((item) => (
+            <Link to={`/posts/category/${item?.title}`}>{item?.title}</Link>
+          ))}
         </div>
-      </div> */}
+      </SecondHeder>
       {user ? (
         <>
           <p className="welcome-line">
@@ -168,7 +162,7 @@ const Home = () => {
           </button>
         </Acount>
       )}
-      <div className="shadow-line"></div>
+      <div className="shadow-line-start"></div>
       <div className="category row">
         <Link
           className="child-cate col-12 col-sm-6 col-md-4 col-lg-3 mb-4"
@@ -262,8 +256,8 @@ const Home = () => {
         </Link>
       </div>
       <div
-        className="shadow-line"
-        style={{ transform: "translateY(361px)" }}
+        className="shadow-line-end"
+        style={{ transform: "translateY(292px)" }}
       ></div>
       <div class="team">
         <h2 class="main-title" style={{ transform: "translatey(350px)" }}>
@@ -451,148 +445,238 @@ const Home = () => {
       </div>
       {/* end fearures */}
 
-      <div className="progres-holder container">
-        <h2 class="main-title">our sales</h2>
-        <img
-          src="https://media.licdn.com/dms/image/v2/D5612AQGXYr8XH3IPfQ/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1701797640305?e=2147483647&v=beta&t=elMXeTA21QTM3RwkmQvnOHcHHzZEWIeVH0Px7NHyK6s"
-          alt=""
-        />
-        <h3 className=" fw-bold">Screens :</h3>
-        <div className="d-flex align-items-center justify-content-between">
-          <div className="d-flex align-items-center">
-            <h5 className=" mb-1 ">{FormatCurrency(totalScreens)}</h5>
-            <h5 className="ms-3 ms-sm-5 mb-1">Sold : </h5>{" "}
-            <h5 className=" mb-1 ms-4">{screenItems.length}</h5>
+      <div
+        className="shadow-line-start"
+        style={{ transform: "translateY(684px)" }}
+      ></div>
+      <div className="progres-holder">
+        <div className="container">
+          <h2 class="main-title">our sales</h2>
+          <img
+            src="https://media.licdn.com/dms/image/v2/D5612AQGXYr8XH3IPfQ/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1701797640305?e=2147483647&v=beta&t=elMXeTA21QTM3RwkmQvnOHcHHzZEWIeVH0Px7NHyK6s"
+            alt=""
+          />
+          <h3 className=" fw-bold">Screens :</h3>
+          <div className="d-flex align-items-center justify-content-between">
+            <div className="d-flex align-items-center">
+              <h5 className=" mb-1 ">{FormatCurrency(totalScreens)}</h5>
+              <h5 className="ms-3 ms-sm-5 mb-1">Sold : </h5>{" "}
+              <h5 className=" mb-1 ms-4">{screenItems.length}</h5>
+            </div>
+            <h4 className="percent">{screens}%</h4>
           </div>
-          <h4 className="percent">{screens}%</h4>
-        </div>
-        <div class="progress mb-3">
-          <div
-            class="progress-bar progress-bar-striped"
-            role="progressbar"
-            style={{ width: `${screens}%` }}
-            aria-valuenow="10"
-            aria-valuemin="0"
-            aria-valuemax="100"
-          ></div>
-        </div>
+          <div class="progress mb-3">
+            <div
+              class="progress-bar progress-bar-striped"
+              role="progressbar"
+              style={{ width: `${screens}%` }}
+              aria-valuenow="10"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            ></div>
+          </div>
 
-        <h3 className=" fw-bold">Laptops :</h3>
-        <div className="d-flex align-items-center justify-content-between">
-          <div className="d-flex align-items-center">
-            <h5 className=" mb-1 ">{FormatCurrency(totlLaptops)}</h5>
-            <h5 className="ms-3 ms-sm-5 mb-1">Sold : </h5>{" "}
-            <h5 className=" mb-1 ms-4">{laptopItems.length}</h5>
+          <h3 className=" fw-bold">Laptops :</h3>
+          <div className="d-flex align-items-center justify-content-between">
+            <div className="d-flex align-items-center">
+              <h5 className=" mb-1 ">{FormatCurrency(totlLaptops)}</h5>
+              <h5 className="ms-3 ms-sm-5 mb-1">Sold : </h5>{" "}
+              <h5 className=" mb-1 ms-4">{laptopItems.length}</h5>
+            </div>
+            <h4 className="percent">{laptops}%</h4>
           </div>
-          <h4 className="percent">{laptops}%</h4>
-        </div>
-        <div class="progress mb-3">
-          <div
-            class="progress-bar progress-bar-striped "
-            role="progressbar"
-            style={{ width: `${laptops}%` }}
-            aria-valuenow="25"
-            aria-valuemin="0"
-            aria-valuemax="100"
-          ></div>
-        </div>
-        <h3 className=" fw-bold">Audio :</h3>
-        <div className="d-flex align-items-center justify-content-between">
-          <div className="d-flex align-items-center">
-            <h5 className=" mb-1 ">{FormatCurrency(totalAudio)}</h5>
-            <h5 className="ms-3 ms-sm-5 mb-1">Sold : </h5>{" "}
-            <h5 className=" mb-1 ms-4">{audioItems.length}</h5>
+          <div class="progress mb-3">
+            <div
+              class="progress-bar progress-bar-striped "
+              role="progressbar"
+              style={{ width: `${laptops}%` }}
+              aria-valuenow="25"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            ></div>
           </div>
-          <h4 className="percent">{Audio}%</h4>
-        </div>
-        <div class="progress mb-3">
-          <div
-            class="progress-bar progress-bar-striped"
-            role="progressbar"
-            style={{ width: `${Audio}%` }}
-            aria-valuenow="50"
-            aria-valuemin="0"
-            aria-valuemax="100"
-          ></div>
-        </div>
-        <h3 className=" fw-bold">Tablets :</h3>
-        <div className="d-flex align-items-center justify-content-between">
-          <div className="d-flex align-items-center">
-            <h5 className=" mb-1 ">{FormatCurrency(totalTablets)}</h5>
-            <h5 className="ms-3 ms-sm-5 mb-1">Sold : </h5>{" "}
-            <h5 className=" mb-1 ms-4">{TabletItems.length}</h5>
+          <h3 className=" fw-bold">Audio :</h3>
+          <div className="d-flex align-items-center justify-content-between">
+            <div className="d-flex align-items-center">
+              <h5 className=" mb-1 ">{FormatCurrency(totalAudio)}</h5>
+              <h5 className="ms-3 ms-sm-5 mb-1">Sold : </h5>{" "}
+              <h5 className=" mb-1 ms-4">{audioItems.length}</h5>
+            </div>
+            <h4 className="percent">{Audio}%</h4>
           </div>
-          <h4 className="percent">{Tablets}%</h4>
-        </div>
-        <div class="progress mb-3">
-          <div
-            class="progress-bar progress-bar-striped "
-            role="progressbar"
-            style={{ width: `${Tablets}%` }}
-            aria-valuenow="75"
-            aria-valuemin="0"
-            aria-valuemax="100"
-          ></div>
-        </div>
-        <h3 className=" fw-bold">Mobiles :</h3>
-        <div className="d-flex align-items-center justify-content-between">
-          <div className="d-flex align-items-center">
-            <h5 className=" mb-1 ">{FormatCurrency(totalMobiles)}</h5>
-            <h5 className="ms-3 ms-sm-5 mb-1">Sold : </h5>{" "}
-            <h5 className=" mb-1 ms-4">{MobiletItems.length}</h5>
+          <div class="progress mb-3">
+            <div
+              class="progress-bar progress-bar-striped"
+              role="progressbar"
+              style={{ width: `${Audio}%` }}
+              aria-valuenow="50"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            ></div>
           </div>
-          <h4 className="percent">{Mobiles}%</h4>
-        </div>
-        <div class="progress mb-3">
-          <div
-            class="progress-bar progress-bar-striped "
-            role="progressbar"
-            style={{ width: `${Mobiles}%` }}
-            aria-valuenow="100"
-            aria-valuemin="0"
-            aria-valuemax="100"
-          ></div>
-        </div>
-        <h3 className=" fw-bold">Audio :</h3>
-        <div className="d-flex align-items-center justify-content-between">
-          <div className="d-flex align-items-center">
-            <h5 className=" mb-1 ">{FormatCurrency(totalSmartwatches)}</h5>
-            <h5 className="ms-3 ms-sm-5 mb-1">Sold : </h5>{" "}
-            <h5 className=" mb-1 ms-4">{SmartwatchetItems.length}</h5>
+          <h3 className=" fw-bold">Tablets :</h3>
+          <div className="d-flex align-items-center justify-content-between">
+            <div className="d-flex align-items-center">
+              <h5 className=" mb-1 ">{FormatCurrency(totalTablets)}</h5>
+              <h5 className="ms-3 ms-sm-5 mb-1">Sold : </h5>{" "}
+              <h5 className=" mb-1 ms-4">{TabletItems.length}</h5>
+            </div>
+            <h4 className="percent">{Tablets}%</h4>
           </div>
-          <h4 className="percent">{Smartwatches}%</h4>
-        </div>
-        <div class="progress mb-3">
-          <div
-            class="progress-bar progress-bar-striped "
-            role="progressbar"
-            style={{ width: `${Smartwatches}%` }}
-            aria-valuenow="100"
-            aria-valuemin="0"
-            aria-valuemax="100"
-          ></div>
+          <div class="progress mb-3">
+            <div
+              class="progress-bar progress-bar-striped "
+              role="progressbar"
+              style={{ width: `${Tablets}%` }}
+              aria-valuenow="75"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            ></div>
+          </div>
+          <h3 className=" fw-bold">Mobiles :</h3>
+          <div className="d-flex align-items-center justify-content-between">
+            <div className="d-flex align-items-center">
+              <h5 className=" mb-1 ">{FormatCurrency(totalMobiles)}</h5>
+              <h5 className="ms-3 ms-sm-5 mb-1">Sold : </h5>{" "}
+              <h5 className=" mb-1 ms-4">{MobiletItems.length}</h5>
+            </div>
+            <h4 className="percent">{Mobiles}%</h4>
+          </div>
+          <div class="progress mb-3">
+            <div
+              class="progress-bar progress-bar-striped "
+              role="progressbar"
+              style={{ width: `${Mobiles}%` }}
+              aria-valuenow="100"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            ></div>
+          </div>
+          <h3 className=" fw-bold">Audio :</h3>
+          <div className="d-flex align-items-center justify-content-between">
+            <div className="d-flex align-items-center">
+              <h5 className=" mb-1 ">{FormatCurrency(totalSmartwatches)}</h5>
+              <h5 className="ms-3 ms-sm-5 mb-1">Sold : </h5>{" "}
+              <h5 className=" mb-1 ms-4">{SmartwatchetItems.length}</h5>
+            </div>
+            <h4 className="percent">{Smartwatches}%</h4>
+          </div>
+          <div class="progress mb-3">
+            <div
+              class="progress-bar progress-bar-striped "
+              role="progressbar"
+              style={{ width: `${Smartwatches}%` }}
+              aria-valuenow="100"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            ></div>
+          </div>
         </div>
       </div>
+      <div
+        className="shadow-line-end"
+        style={{ transform: "translateY(588px)" }}
+      ></div>
+      <MessageUs className="mt-5 row container pb-4">
+        <FirstPart className=" col-12 col-sm-6">
+          <h1 className="mb-3 fw-bold text-center text-sm-start">Message Us</h1>
+          <p style={{ lineHeight: "1.7" }}>
+            If you wish to be considered for employment at Weifield, please do
+            not send a message, here – instead, please complete Weifield’s job
+            application and our Human Resources department will contact you
+            after their review of your submitted information.
+          </p>
+        </FirstPart>
+        <SecondPart className="col-12 col-sm-6">
+          <form>
+            <div className="d-flex align-items-center justify-content-between">
+              <h6 className="fw-bold">Name</h6>{" "}
+              {!user && (
+                <div className="d-flex align-items-center">
+                  <Link
+                    to="/login"
+                    style={{ fontSize: "12px" }}
+                    className="btn btn-sm btn-primary rounded-pill mb-1"
+                  >
+                    Sign in
+                  </Link>
+                  <h6 className="fw-bold text-danger ms-2">
+                    You have to sign in first
+                  </h6>
+                </div>
+              )}
+            </div>
+            <input
+              disabled={!user}
+              type="text"
+              value={user?.username}
+              className="my-feild"
+            />
+            <h6 className="fw-bold mt-3">Email</h6>
+            <input
+              type="email"
+              disabled={!user}
+              className="my-feild"
+              value={user?.email}
+            />
+            <h6 className="fw-bold mt-3">comments</h6>
+            <textarea
+              value={comment}
+              onChange={(e) => setcomment(e.target.value)}
+              disabled={!user}
+              className="my-feild"
+            />
+            <button
+              onClick={sendComment}
+              disabled={!user || !comment}
+              className="d-block btn btn-secondary mt-3 w-100"
+            >
+              Submit
+            </button>
+          </form>
+        </SecondPart>
+      </MessageUs>
     </Main>
   );
 };
 
 const Main = styled.div`
+  overflow-x: hidden;
   & .card-img-top {
-  height: 161px;}
+    height: 161px;
+  }
   & .card-text {
-  font-weight:bold;}
-  & .shadow-line {
+    font-weight: bold;
+  }
+  & .shadow-line-start {
     height: 72px;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%);
+    background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 1) 100%
+    );
     margin-bottom: -36px;
     z-index: 11111;
     position: relative;
     transform: translateY(397px);
     width: 107%;
     left: -10px;
-    );
   }
+  & .shadow-line-end {
+    height: 72px;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 1) 100%
+    );
+    margin-bottom: -36px;
+    z-index: 11111;
+    position: relative;
+    transform: translateY(397px);
+    width: 107%;
+    left: -10px;
+  }
+
   & .carousel-item img {
     @media (max-width: 767px) {
       height: 246.66px;
@@ -600,7 +684,7 @@ const Main = styled.div`
   }
   padding: 0 10px;
   background-image: url("https://images.pexels.com/photos/235986/pexels-photo-235986.jpeg?auto=compress&cs=tinysrgb&w=600");
-      height: 110vh;
+  height: 110vh;
   @media (min-width: 767px) {
     background-image: url("https://images.pexels.com/photos/1006107/pexels-photo-1006107.jpeg");
     background-size: cover;
@@ -637,31 +721,42 @@ const Main = styled.div`
       height: 210px;
     }
   }
-    & .progres-holder {
-    
-        color: var(--blue-color);
+  & .progres-holder {
+    margin: 0 -11px;
+    padding: 50px 0px;
+    background-size: contain;
+    background-image: url(https://images.pexels.com/photos/172294/pexels-photo-172294.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);
+    // min-height: 100vh;
+    color: var(--blue-color);
     transform: translateY(650px);
     & .percent {
-    font-size: 13px;
-    color: #2196f3;
-    border: 1px solid #2196f3;
-    border-radius: 4px;
-    padding: 1px 2px;
-    font-weight: bold;
-      }
+      font-size: 13px;
+      color: #2196f3;
+      border: 1px solid #2196f3;
+      border-radius: 4px;
+      padding: 1px 2px;
+      font-weight: bold;
+    }
     & img {
-    max-width: 100%;
-    border-radius: 10px;
-    opacity: 0.8;
-    margin-bottom: 20px;
+      max-width: 100%;
+      border-radius: 10px;
+      opacity: 0.8;
+      margin-bottom: 20px;
     }
     & h5 {
-        font-weight: bold;
-        }
+      font-weight: bold;
     }
-      & .progress {
-          background: #0d6efd52;
-          }
+  }
+  & .progress {
+    background: #0d6efd52;
+  }
+
+  & .our-sales {
+    background-size: contain;
+    background-image: url(https://plus.unsplash.com/premium_photo-1673766647702-9e5961440e60?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+    // min-height: 100vh;
+    padding-top: 50px;
+  }
 `;
 const Acount = styled.div`
   transform: translate(10px, 343px);
@@ -697,5 +792,50 @@ const Acount = styled.div`
   //   }
   // }
 `;
+const SecondHeder = styled.div`
+  & .over {
+    display: flex;
+    align-items: center;
+    // justify-content: space-between;
+    color: white;
+    // width: 95%;
+    background-image: linear-gradient(90deg, black 17%, #737373);
+    opacity: 0.8;
+    // border-radius: 6px;
+    padding: 2px 0 2px 5px;
+    min-width: 100%;
+    width: fit-content;
+  }
+  & a {
+    color: white;
+    margin-right: 20px;
+  }
 
+  overflow-x: auto;
+  transform: translate(-11px, 54px);
+  width: 107%;
+
+  // width: 1278px;
+`;
+const MessageUs = styled.div`
+  position: relative;
+  transform: translatey(663px);
+  color: white;
+  margin: auto;
+`;
+const FirstPart = styled.div``;
+const SecondPart = styled.div`
+  & .my-feild {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #eee;
+    outline: none;
+    padding: 5px;
+  }
+  & textarea {
+    resize: none;
+    min-height: 150px;
+  }
+`;
 export default Home;

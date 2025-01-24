@@ -14,6 +14,18 @@ export function fetchPosts(pageNumber) {
   };
 }
 
+// get all posts by page number
+export function fetchMaxPosts() {
+  return async (dispatch) => {
+    try {
+      const { data } = await request.get(`/api/posts/max-posts`);
+      dispatch(postActions.setMaxPosts(data));
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
+}
+
 // get post count
 export function getPostsCount() {
   return async (dispatch) => {

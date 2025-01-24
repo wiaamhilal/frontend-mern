@@ -3,6 +3,7 @@ const postSlice = createSlice({
   name: "post",
   initialState: {
     posts: [],
+    maxPosts: [],
     postsCount: null,
     postsCate: [],
     loading: false,
@@ -94,6 +95,9 @@ const postSlice = createSlice({
     },
     setOrdersCount(state, action) {
       state.ordersCount = action.payload;
+    },
+    setMaxPosts(state, action) {
+      state.maxPosts = action.payload;
     },
   },
 });

@@ -91,12 +91,12 @@ const CreatePost = () => {
   return (
     <Holder className="container">
       <Main>
-        <h1 className="text-center">Create Post</h1>
+        <h2 className="text-center">Create A Product</h2>
         <form onSubmit={submitCreatepost}>
           <input
             className="inputs"
             type="text"
-            placeholder="post title"
+            placeholder="product title"
             onChange={(e) => settitle(e.target.value)}
           />
           <input
@@ -118,15 +118,16 @@ const CreatePost = () => {
             <input
               className="inputs m-0"
               type="text"
-              placeholder="inter the protuct colors"
+              placeholder="inter the protuct colors (add them one by one)"
               onChange={(e) => setcolor(e.target.value)}
               value={color}
             />
             <button
-              className="btn btn-primary btn-sm rouded-pill ms-3"
+              style={{ width: "117px" }}
+              className="btn btn-success btn-sm rouded-pill ms-3"
               onClick={submitColor}
             >
-              Add
+              Add A Color
             </button>
           </div>
           <div>
@@ -286,7 +287,9 @@ const CreatePost = () => {
                 />
               </button>
             ) : (
-              <button className="btn btn-success w-100">submit</button>
+              <button className="btn btn-primary w-100">
+                Create The Product
+              </button>
             )}
           </div>
         </form>

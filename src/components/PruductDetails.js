@@ -29,7 +29,7 @@ const ParamsComp = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((user) => user.auth);
   const { post, basket, posts } = useSelector((state) => state.post);
-  const [image, setimage] = useState("");
+  const [image, setimage] = useState("first");
   const [toggle, settoggle] = useState(false);
   const [orderColor, setOrderColor] = useState("Default Color");
   const likeToggle = () => {
@@ -104,7 +104,7 @@ const ParamsComp = () => {
               <img
                 className="mb-3 my-shadw"
                 src={
-                  (image === "" &&
+                  (image === "first" &&
                     (post?.image?.url || post?.images[0]?.url)) ||
                   (image === "second" && post?.images[1]?.url) ||
                   (image === "third" && post?.images[2]?.url) ||
@@ -156,6 +156,11 @@ const ParamsComp = () => {
               )} */}
             </Photo>
             <PlusPhotos>
+              {post?.images[0] && (
+                <div onClick={() => setimage("first")}>
+                  <img src={post?.images[0].url} alt="" />
+                </div>
+              )}
               {post?.images[1] && (
                 <div onClick={() => setimage("second")}>
                   <img src={post?.images[1].url} alt="" />

@@ -9,14 +9,17 @@ import {
 import { getUsersCountApi } from "../redux/apiCalls/profileApiCall";
 import { getPostsCount } from "../redux/apiCalls/postApiCall";
 import { fetshAllCommentsApi } from "../redux/apiCalls/commentApiCall";
+import { styled } from "styled-components";
 
 const MainDashboard = () => {
   const { categories } = useSelector((state) => state.category);
   const { usersCount } = useSelector((state) => state.profile);
-  const { postsCount, ordersCount } = useSelector((state) => state.post);
+  const { postsCount, ordersCount, allMaxOrders } = useSelector(
+    (state) => state.post
+  );
   const { comments } = useSelector((state) => state.comment);
   const dispatch = useDispatch();
-
+  console.log();
   useEffect(() => {
     dispatch(fitchAllCategories());
     dispatch(getUsersCountApi());
@@ -35,6 +38,7 @@ const MainDashboard = () => {
       settitle("");
     }
   };
+
   return (
     <div>
       <div className="row justify-content-center gap-3">
@@ -117,7 +121,7 @@ const MainDashboard = () => {
         <div className="col-12 col-sm-6 col-md-3 shadow rounded p-3 bg-white">
           <div className="d-flex align-itmes-center justify-content-between">
             <h4>Orders</h4>
-            <h5>{ordersCount}</h5>
+            <h5>{allMaxOrders?.length}</h5>
           </div>
           <div className="d-flex justify-content-center">
             <img

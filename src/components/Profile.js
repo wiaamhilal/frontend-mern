@@ -263,7 +263,6 @@ const Profile = () => {
           pages={pages}
         />
       </div>
-
       {user?._id === profile?._id && (
         <button
           className="btn btn-secondary mb-3 ms-3 mt-3 rounded-pill"
@@ -271,6 +270,18 @@ const Profile = () => {
         >
           delete profile
         </button>
+      )}
+      {user?._id !== userId && (
+        <div className="ms-3">
+          <span className="me-2 fw-bold">Contact The Client</span>
+          <img
+            style={{ width: " 50px", cursor: "pointer" }}
+            src="https://cdn-icons-png.flaticon.com/512/3178/3178158.png"
+            alt=""
+            className="me-3"
+            onClick={() => (window.location.href = `mailto:${profile?.email}`)}
+          />
+        </div>
       )}
 
       {profiletoggle && (

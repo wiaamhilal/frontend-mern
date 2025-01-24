@@ -2,12 +2,16 @@ import React, { useEffect, useState } from "react";
 import PostItem from "./PostItem";
 import Paganation from "./Paganation";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchPosts, getPostsCount } from "../redux/apiCalls/postApiCall";
+import {
+  fetchMaxPosts,
+  fetchPosts,
+  getPostsCount,
+} from "../redux/apiCalls/postApiCall";
 import { SideBar } from "./SideBar";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 const PostList = () => {
-  const { posts, search } = useSelector((state) => state.post);
+  const { posts, search, maxPosts } = useSelector((state) => state.post);
   const { postsCount } = useSelector((state) => state.post);
   const dispatch = useDispatch();
   const POST_PER_PAGE = 8;
@@ -16,18 +20,19 @@ const PostList = () => {
   const pages = Math.ceil(postsCount / POST_PER_PAGE);
   useEffect(() => {
     dispatch(fetchPosts(currentPage));
-  }, [currentPage]);
+    dispatch(fetchMaxPosts());
+  }, [currentPage, search]);
 
   useEffect(() => {
     dispatch(getPostsCount());
   }, [getPostsCount]);
-  console.log(posts);
+  console.log(maxPosts);
   return (
     <Holder>
       <div className="container">
         <SideBar />
         <div className="row gap-3 justify-content-center d-flex">
-          {posts
+          {(search === "" ? posts : maxPosts)
             ?.filter((item) =>
               search === "" ? item : item.title.toLowerCase().includes(search)
             )

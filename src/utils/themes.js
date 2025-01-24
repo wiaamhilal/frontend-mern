@@ -6,7 +6,7 @@ export const lightTheme = {
 
 export const darkTheme = {
   background:
-    "url('https://img.freepik.com/free-vector/gradient-hexagonal-background_23-2148954968.jpg?t=st=1733811291~exp=1733814891~hmac=3aa03053fbc036b77fbbb50e7ebfc0e4dc7d7be2fc803a3819b57cf6c9945463&w=996')",
+    "url('https://images.pexels.com/photos/1629236/pexels-photo-1629236.jpeg')",
   text: "#ffffff",
 };
 
