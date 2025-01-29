@@ -103,7 +103,7 @@ const Home = () => {
 
   return (
     <Main className="text-dark">
-      <SecondHeder>
+      <SecondHeder className="ps-2">
         <div className="over">
           {/* <Link>Best Sellers</Link>
           <Link>New Releases</Link>
@@ -122,7 +122,8 @@ const Home = () => {
           ))}
         </div>
       </SecondHeder>
-      {user ? (
+
+      {/* {user ? (
         <>
           <p className="welcome-line">
             Wellcome {user && <span>{user.username}</span>} to our page go ahead
@@ -143,7 +144,178 @@ const Home = () => {
             </Link>
           </div>
         </>
-      )}
+      )} */}
+      <img
+        className="free-del-img"
+        src="https://m.media-amazon.com/images/I/71C4J2fLKAL._SX3000_.jpg"
+        alt=""
+      />
+      <div style={{ overflowX: "auto" }}>
+        <BoxesHolder>
+          <div
+            className=" box shadow "
+            onClick={() => navicate("/posts/details/6793aa94802c114d02837906")}
+          >
+            <h5 className="fw-bold">up to 50 % discount</h5>
+            <div className="d-flex align-items-center justify-content-between mb-4">
+              <div className="me-3">
+                <img
+                  src="https://res.cloudinary.com/difwxqb62/image/upload/v1737730706/mc3lxk4e4mmgcggnptn0.jpg"
+                  alt=""
+                />
+                <span className="d-block">Davidoff</span>
+              </div>
+              <div>
+                <img
+                  src="https://res.cloudinary.com/difwxqb62/image/upload/v1737730706/gnjyz6c1vrlxpaczl9kr.jpg"
+                  alt=""
+                />
+                <span className="d-block">Eau De Toilette</span>
+              </div>
+            </div>
+            <div className="d-flex align-items-center justify-content-between">
+              <div className="me-3">
+                <img
+                  src="https://res.cloudinary.com/difwxqb62/image/upload/v1737730706/mc3lxk4e4mmgcggnptn0.jpg"
+                  alt=""
+                />
+                <span className="d-block">Hot Water Perfume</span>
+              </div>
+              <div>
+                <img
+                  src="https://res.cloudinary.com/difwxqb62/image/upload/v1737730706/dmv8k2frtfk2r3htfqez.jpg"
+                  alt=""
+                />
+                <span className="d-block">Feel the burning</span>
+              </div>
+            </div>
+          </div>
+          <div
+            className=" box shadow "
+            onClick={() => navicate("/posts/details/67934f00ebf435dc4586b1eb")}
+          >
+            <h5 className="fw-bold">Continue shopping deals</h5>
+            <div className="d-flex align-items-center justify-content-between mb-4">
+              <div className="me-3">
+                <img
+                  src="https://res.cloudinary.com/difwxqb62/image/upload/v1737707263/giwdgtj56lufbxae63k3.jpg"
+                  alt=""
+                />
+                <span className="d-block">Facial Mask Pack</span>
+              </div>
+              <div>
+                <img
+                  src="https://res.cloudinary.com/difwxqb62/image/upload/v1737707262/lcxz49ps5fhdzhekodql.jpg"
+                  alt=""
+                />
+                <span className="d-block">Glow with Overnight </span>
+              </div>
+            </div>
+            <div className="d-flex align-items-center justify-content-between">
+              <div className="me-3">
+                <img
+                  src="https://res.cloudinary.com/difwxqb62/image/upload/v1737707262/cjwbhqsob8djli0ekclt.jpg"
+                  alt=""
+                />
+                <span className="d-block">Glowing Skin</span>
+              </div>
+              <div>
+                <img
+                  src="https://res.cloudinary.com/difwxqb62/image/upload/v1737707262/pyips6ufhuc7ywpxwcrn.jpg"
+                  alt=""
+                />
+                <span className="d-block">Korean Skin Care</span>
+              </div>
+            </div>
+          </div>
+          <div className=" box shadow " onClick={() => navicate("/products")}>
+            <h5 className="fw-bold">use these codes for free deliveries</h5>
+            <div className="d-flex align-items-center justify-content-between mb-4">
+              <div className="me-3">
+                <img
+                  src="https://images-eu.ssl-images-amazon.com/images/G/39/beauty/BUW24/JUN/1606893_BuW23_AE_GW_DQC_CL_UnderAED9_186x116_EN._SY116_CB554994419_.jpg"
+                  alt=""
+                />
+                <span className="d-block">valid for 2 times</span>
+              </div>
+              <div>
+                <img
+                  src="https://images-eu.ssl-images-amazon.com/images/G/39/beauty/BUW24/JUN/1606893_BuW23_AE_GW_DQC_CL_UnderAED29_186x116_EN._SY116_CB554994419_.jpg"
+                  alt=""
+                />
+                <span className="d-block">valid for 5 times</span>
+              </div>
+            </div>
+            <div className="d-flex align-items-center justify-content-between">
+              <div className="me-3">
+                <img
+                  src="https://images-eu.ssl-images-amazon.com/images/G/39/beauty/BUW24/JUN/1606893_BuW23_AE_GW_DQC_CL_UnderAED49_186x116_EN._SY116_CB554994419_.jpg"
+                  alt=""
+                />
+                <span className="d-block">valid for 7 times</span>
+              </div>
+              <div>
+                <img
+                  src="https://images-eu.ssl-images-amazon.com/images/G/39/beauty/BUW24/JUN/1606893_BuW23_AE_GW_DQC_CL_UnderAED99_186x116_EN._SY116_CB554994419_.jpg"
+                  alt=""
+                />
+                <span className="d-block">valid for 10 times</span>
+              </div>
+            </div>
+            <h5 className="mt-3">Subscribe & Save</h5>
+            <p style={{ fontSize: "13px" }}>
+              Get extra 10% off your scheduled deliveries. FREE shipping. No
+              fees. No commitments.
+            </p>
+          </div>
+          <div
+            className=" box shadow "
+            onClick={() => navicate("/posts/category/Smartwatches")}
+          >
+            <h5 className="fw-bold">
+              New Arrivals | Watches & Jewelry | Up to 50% off
+            </h5>
+            <div className="d-flex align-items-center justify-content-between mb-4">
+              <div className="me-3">
+                <img
+                  src="https://images-eu.ssl-images-amazon.com/images/G/39/UAE-hq/2024/img/Apparel/XCM_CUTTLE_1717398_3765496_186x116_1X_en_AE._SY116_CB558440092_.jpg"
+                  alt=""
+                />
+                <span className="d-block">Men's Watches</span>
+              </div>
+              <div>
+                <img
+                  src="https://images-eu.ssl-images-amazon.com/images/G/39/UAE-hq/2024/img/Apparel/XCM_CUTTLE_1717398_3765517_186x116_1X_en_AE._SY116_CB558440092_.jpg"
+                  alt=""
+                />
+                <span className="d-block">Women's Watches</span>
+              </div>
+            </div>
+            <div className="d-flex align-items-center justify-content-between">
+              <div className="me-3">
+                <img
+                  src="https://images-eu.ssl-images-amazon.com/images/G/39/UAE-hq/2024/img/Apparel/XCM_CUTTLE_1717398_3765525_186x116_1X_en_AE._SY116_CB558440092_.jpg"
+                  alt=""
+                />
+                <span className="d-block">Men's Accessories</span>
+              </div>
+              <div>
+                <img
+                  src="https://images-eu.ssl-images-amazon.com/images/G/39/UAE-hq/2024/img/Apparel/XCM_CUTTLE_1717398_3765522_186x116_1X_en_AE._SY116_CB558440092_.jpg"
+                  alt=""
+                />
+                <span className="d-block">Women's Jewelry</span>
+              </div>
+            </div>
+            <h5 className="mt-2">Signin with your oun account</h5>
+            <p style={{ fontSize: "13px" }}>
+              signout and go ahead and confirm your own email and get more
+              points
+            </p>
+          </div>
+        </BoxesHolder>
+      </div>
+
       {user ? (
         <Acount>
           <span>{user?.email}</span>
@@ -641,6 +813,20 @@ const Home = () => {
 };
 
 const Main = styled.div`
+  & .free-del-img {
+    max-width: 100%;
+    // opacity: 0.8;
+    transform: translateY(53px);
+    mask-image: linear-gradient(180deg, #000, transparent);
+
+    & div {
+      content: "";
+      background: linear-gradient(to top, #f8f9fa00 0%, #5ac5be 100%);
+      height: 72px;
+      transform: translateY(53px);
+      opacity: 0.8;
+    }
+  }
   overflow-x: hidden;
   & .card-img-top {
     height: 161px;
@@ -682,7 +868,7 @@ const Main = styled.div`
       height: 246.66px;
     }
   }
-  padding: 0 10px;
+  // padding: 0 10px;
   background-image: url("https://images.pexels.com/photos/235986/pexels-photo-235986.jpeg?auto=compress&cs=tinysrgb&w=600");
   height: 110vh;
   @media (min-width: 767px) {
@@ -836,6 +1022,29 @@ const SecondPart = styled.div`
   & textarea {
     resize: none;
     min-height: 150px;
+  }
+`;
+const BoxesHolder = styled.div`
+  min-width: 1300px;
+  // padding-top: 330px;
+  // transform: translateY(-250px);
+  @media (max-width: 668px) {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  // margin: 20px;
+  & .box {
+    background-color: white;
+    border-radius: 5px;
+    padding: 15px;
+    & span {
+      font-size: 14px;
+    }
+    & img {
+      width: 100%;
+    }
   }
 `;
 export default Home;

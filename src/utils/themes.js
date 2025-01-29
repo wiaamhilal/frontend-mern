@@ -1,3 +1,5 @@
+import darkImg from "../img/5053309.jpg";
+
 export const lightTheme = {
   background:
     "url('https://images.unsplash.com/photo-1615799998603-7c6270a45196?q=80&w=1604&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
@@ -5,8 +7,7 @@ export const lightTheme = {
 };
 
 export const darkTheme = {
-  background:
-    "url('https://images.pexels.com/photos/1629236/pexels-photo-1629236.jpeg')",
+  background: `url(${darkImg})`,
   text: "#ffffff",
 };
 

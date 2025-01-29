@@ -125,7 +125,7 @@ const MainDashboard = () => {
           </div>
           <div className="d-flex justify-content-center">
             <img
-              src="https://cdn.icon-icons.com/icons2/2483/PNG/512/order_number_icon_149906.png"
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRk85S1onZP8-MbH6ru4coAJHmKMtDGiUds-w&s"
               style={{ width: "100px", marginBottom: "10px" }}
               alt=""
             />
