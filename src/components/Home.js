@@ -145,11 +145,69 @@ const Home = () => {
           </div>
         </>
       )} */}
-      <img
+      <div
+        id="carouselExampleControls"
+        class="carousel slide"
+        data-bs-ride="carousel"
+        style={{
+          transform: "translateY(53px)",
+          maskImage: "linear-gradient(180deg, #000, transparent)",
+        }}
+      >
+        <div class="carousel-inner" onClick={() => navicate("/products")}>
+          <div class="carousel-item active">
+            <img
+              src="https://m.media-amazon.com/images/I/71C4J2fLKAL._SX3000_.jpg"
+              class="d-block w-100"
+              alt="..."
+            />
+          </div>
+          <div class="carousel-item">
+            <img
+              src="https://m.media-amazon.com/images/I/519mt4QM9rL._SX3000_.jpg"
+              class="d-block w-100"
+              alt="..."
+            />
+          </div>
+          <div class="carousel-item">
+            <img
+              src="https://m.media-amazon.com/images/I/61AUWdCogHL._SX3000_.jpg"
+              class="d-block w-100"
+              alt="..."
+            />
+          </div>
+          <div class="carousel-item">
+            <img
+              src="https://m.media-amazon.com/images/I/71e5i44D-0L._SX3000_.jpg"
+              class="d-block w-100"
+              alt="..."
+            />
+          </div>
+        </div>
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#carouselExampleControls"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#carouselExampleControls"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+      {/* <img
         className="free-del-img"
         src="https://m.media-amazon.com/images/I/71C4J2fLKAL._SX3000_.jpg"
         alt=""
-      />
+      /> */}
       <div style={{ overflowX: "auto" }}>
         <BoxesHolder>
           <div
