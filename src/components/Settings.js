@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { json } from "react-router-dom";
+import { json, Link } from "react-router-dom";
 import styled from "styled-components";
 import swal from "sweetalert";
 import moment from "moment";
@@ -10,6 +10,8 @@ import {
   updateProfile,
 } from "../redux/apiCalls/profileApiCall";
 import { logoutUser } from "../redux/apiCalls/authApiCall";
+import { createNewClinetComment } from "../redux/apiCalls/commentApiCall";
+import { deletePostApi, fetchAllPosts } from "../redux/apiCalls/postApiCall";
 const Settings = ({ toggleTheme, isDarkMode }) => {
   const { profile } = useSelector((state) => state.profile);
   const { user } = useSelector((state) => state.auth);
@@ -19,6 +21,30 @@ const Settings = ({ toggleTheme, isDarkMode }) => {
   // const [email, setemail] = useState(profile?.email);
   const [password, setpassword] = useState("");
   const [securityToggle, setsecurityToggle] = useState(false);
+  const [comment, setcomment] = useState("");
+  const { posts } = useSelector((state) => state.post);
+
+  const myPosts = posts.filter((item) => item?.user.id == user._id);
+  console.log(myPosts);
+
+  useEffect(() => {
+    dispatch(fetchAllPosts());
+  }, []);
+
+  const deletePost = (postId) => {
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this imaginary file!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        dispatch(deletePostApi(postId));
+        window.location.reload(false);
+      }
+    });
+  };
 
   const deleteAcount = () => {
     swal({
@@ -53,6 +79,14 @@ const Settings = ({ toggleTheme, isDarkMode }) => {
   useEffect(() => {
     dispatch(getUserProfile(user?._id));
   }, [user._id]);
+
+  const sendComment = (e) => {
+    e.preventDefault();
+    dispatch(createNewClinetComment({ text: comment }));
+    // toast.success("thank you for your opininiont");
+    setcomment("");
+  };
+
   return (
     <div className="">
       {/* <div>
@@ -100,11 +134,21 @@ const Settings = ({ toggleTheme, isDarkMode }) => {
               ></label>
             </div>
           </div>
-          <textarea
-            class="c-grey fs-14 p-10"
-            name=""
-            placeholder="contact us for any help"
-          ></textarea>
+          <div className="d-flex align-items-start ">
+            <textarea
+              onChange={(e) => setcomment(e.target.value)}
+              class="c-grey fs-14 p-10"
+              name=""
+              value={comment}
+              placeholder="contact us for any help"
+            ></textarea>
+            <button
+              className="ms-2 btn btn-sm btn-primary"
+              onClick={sendComment}
+            >
+              Send
+            </button>
+          </div>
         </Box>
         <Box>
           <div className="d-flex align-items-center justify-content-between">
@@ -233,10 +277,60 @@ const Settings = ({ toggleTheme, isDarkMode }) => {
             </div>
           </div>
         </Box>
-        {/* <Box>ijijijijijijijjjijijijijjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj</Box>
-        <Box>ijijijijijijijjjijijijijjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj</Box>
-        <Box>ijijijijijijijjjijijijilklkllllllllllllllllllllllllllllllll</Box> */}
       </Main>
+      <MyOrders className="row">
+        <div
+          className=" col-12 col-md-10 container table-responsive "
+          style={{ height: "400px" }}
+        >
+          <table className="table " style={{ minWidth: "650px" }}>
+            <thead className="thead-dark">
+              <tr>
+                <th scope="col">count</th>
+                <th scope="col">Product title</th>
+                <th scope="col">Publish Date</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {myPosts?.map((item, index) => (
+                <tr>
+                  <th scope="row">{index + 1}</th>
+                  <td>{item?.title}</td>
+                  <td style={{ minWidth: "150px" }}>
+                    {/* <img
+                      src={item.user.profilePhoto.url}
+                      alt=""
+                      style={{ width: "40px", height: "40px" }}
+                      className="rounded-circle"
+                    /> */}
+                    <span className="ms-2">
+                      {" "}
+                      {moment(item.createdAt).format("MMMM DD  h:mma")}
+                    </span>
+                  </td>
+
+                  <td style={{ minWidth: "170px" }}>
+                    <Link
+                      to={`/posts/details/${item?._id}`}
+                      className="btn btn-success me-3 btn-sm"
+                    >
+                      view post
+                    </Link>
+                    <button
+                      className="btn btn-secondary btn-sm"
+                      onClick={() => deletePost(item?._id)}
+                      disabled={user.email !== "weaam224112@gmail.com"}
+                    >
+                      delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </MyOrders>
       <UbdatePassword>
         <div
           className="modal"
@@ -371,6 +465,13 @@ const UbdatePassword = styled.div`
       resize: none;
       margin-bottom: 10px;
     }
+  }
+`;
+const MyOrders = styled.div`
+  & .table-responsive {
+    height: 400px;
+    width: 98%;
+    margin: 0 20px;
   }
 `;
 export default Settings;

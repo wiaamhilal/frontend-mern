@@ -26,6 +26,7 @@ export const PostsTable = () => {
       }
     });
   };
+  console.log(posts);
   return (
     <div className="row">
       <div className="col-2 d-none d-md-block " style={{ marginTop: "80px" }}>
