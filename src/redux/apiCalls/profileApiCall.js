@@ -117,7 +117,7 @@ export function getAllProfilesApi() {
   return async (dispatch, getState) => {
     try {
       const { data } = await request.get(
-        `/api/users/profile`,
+        `/api/users/profile`
 
         // {
         //   headers: {
@@ -127,7 +127,7 @@ export function getAllProfilesApi() {
       );
       dispatch(profileActions.setProfiles(data));
     } catch (error) {
-      toast.error(error.response.data.message); 
+      toast.error(error.response.data.message);
     }
   };
 }
@@ -245,6 +245,26 @@ export function userRateApi(userId) {
         // }
       );
       dispatch(profileActions.setRete(data));
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
+}
+
+// change user auth
+export function changeUserAuthApi(userId, isAdmin) {
+  return async (dispatch, getState) => {
+    try {
+      const { data } = await request.put(
+        `/api/users/user-auth/${userId}`,
+        isAdmin,
+        {
+          headers: {
+            Authorization: "bearer " + getState().auth.user.token,
+          },
+        }
+      );
+      dispatch(profileActions.setProfiles(data));
     } catch (error) {
       toast.error(error.response.data.message);
     }

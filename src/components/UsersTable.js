@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import swal from "sweetalert";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  changeUserAuthApi,
   deleteProfileApi,
   getAllProfilesApi,
 } from "../redux/apiCalls/profileApiCall";
@@ -27,6 +28,20 @@ export const UsersTable = () => {
       }
     });
   };
+  const submitChangeAdmin = (userId, isAdmin) => {
+    swal({
+      title: "Are you sure?",
+      text: "Are you sure you want to change the authentication to this user",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((ifistrue) => {
+      if (ifistrue) {
+        dispatch(changeUserAuthApi(userId, { isAdmin: isAdmin }));
+        window.location.reload(false);
+      }
+    });
+  };
   return (
     <div className="row">
       <div className="col-2 d-none d-md-block " style={{ marginTop: "80px" }}>
@@ -46,7 +61,7 @@ export const UsersTable = () => {
             </tr>
           </thead>
           <tbody>
-            {profiles.map((item, index) => (
+            {profiles?.map((item, index) => (
               <tr className="">
                 <th scope="row">{index + 1}</th>
                 <td>
@@ -56,23 +71,38 @@ export const UsersTable = () => {
                     style={{ width: "40px", height: "40px" }}
                     className="rounded-circle"
                   />
-                  <span className="ms-2">{item.username}</span>
+                  <span className="ms-2">{item?.username}</span>
                 </td>
-                <td>{item.email}</td>
+                <td>{item?.email}</td>
                 <td>
                   <Link
-                    to={`/profile/${item._id}`}
+                    to={`/profile/${item?._id}`}
                     className="btn btn-success me-3 btn-sm"
                   >
                     view profile
                   </Link>
                   <button
-                    className="btn btn-secondary btn-sm"
-                    onClick={() => deleteUser(item._id)}
+                    className="btn btn-secondary btn-sm me-3"
+                    onClick={() => deleteUser(item?._id)}
                     disabled={user.email !== "weaam224112@gmail.com"}
                   >
                     delete
                   </button>
+                  {item?.isAdmin === false ? (
+                    <button
+                      className="btn btn-primary btn-sm"
+                      onClick={() => submitChangeAdmin(item._id, true)}
+                    >
+                      Promotion To Admin
+                    </button>
+                  ) : (
+                    <button
+                      className="btn btn-danger btn-sm"
+                      onClick={() => submitChangeAdmin(item._id, false)}
+                    >
+                      Demotion To User
+                    </button>
+                  )}
                 </td>
               </tr>
             ))}
