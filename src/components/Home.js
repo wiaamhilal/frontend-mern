@@ -871,6 +871,7 @@ const Home = () => {
 };
 
 const Main = styled.div`
+  // transform: translatey(-38px);
   & .free-del-img {
     max-width: 100%;
     // opacity: 0.8;

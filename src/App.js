@@ -36,6 +36,15 @@ import OrdersStatus from "./components/OrdersStatus";
 import AllUsers from "./components/AllUsers";
 import Settings from "./components/Settings";
 import { darkTheme, lightTheme } from "./utils/themes";
+import React from "react";
+import i18n from "i18next";
+import { useTranslation, initReactI18next } from "react-i18next";
+import LanguageDetector from "i18next-browser-languagedetector";
+import HttpApi from "i18next-http-backend";
+import cookies from "js-cookie";
+import { translatePage } from "./redux/apiCalls/authApiCall";
+import LanguageSwitcher from "./components/LanguageSwitcher";
+import TranslateWidget from "./components/TranslateWedgit";
 
 export const GetBasketTotal = (basket) => {
   return basket?.reduce((total, current) => {
@@ -43,6 +52,40 @@ export const GetBasketTotal = (basket) => {
     return total;
   }, 0);
 };
+
+i18n
+  .use(initReactI18next)
+  .use(LanguageDetector)
+  .use(HttpApi)
+  .init({
+    // the translations
+    // (tip move them in a JSON file and import them,
+    // or even better, manage them via a UI: https://react.i18next.com/guides/multiple-translation-files#manage-your-translations-with-a-management-gui)
+    // resources: {
+    // en: {
+    //   translation:
+    // },
+    // ar: {
+    //   translation:
+    // },
+    // },
+    fallbackLng: "en",
+    detection: {
+      order: [
+        "cookie",
+        "htmlTag",
+        "localStorage",
+        "sessionStorage",
+        "navigator",
+        "path",
+        "subdomain",
+      ],
+      caches: ["cookie"],
+    },
+    backend: {
+      loadPath: "/locale/{{lng}}/translation.json",
+    },
+  });
 
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -81,6 +124,21 @@ function App() {
           : lightTheme
       }
     >
+      {/* <h2> {t("Welcome to React")}</h2>
+      <button
+        onClick={() => {
+          i18n.changeLanguage("ar");
+        }}
+      >
+        AR
+      </button>
+      <button
+        onClick={() => {
+          i18n.changeLanguage("en");
+        }}
+      >
+        EN
+      </button> */}
       {myLoadingApp && (
         <div className="holder-loading">
           <div className="loading-app">
@@ -341,7 +399,17 @@ function App() {
   );
 }
 
+// function App() {
+
+//   return <h2>{t("Welcome to React")}</h2>;
+// }
+
+// append app to dom
+// const root = createRoot(document.getElementById("root"));
+// root.render(<App />);
+
 const Holder = styled.div`
+  // transform: translateY(-40px);
   background-image: ${(props) => props.theme.background};
   color: ${(props) => props.theme.text};
   background-size: contain;

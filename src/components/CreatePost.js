@@ -118,7 +118,7 @@ const CreatePost = () => {
             <input
               className="inputs m-0"
               type="text"
-              placeholder="inter the protuct colors (add them one by one)"
+              placeholder="inter the product colors (add them one by one)"
               onChange={(e) => setcolor(e.target.value)}
               value={color}
             />

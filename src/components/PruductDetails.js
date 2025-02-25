@@ -248,7 +248,7 @@ const ParamsComp = () => {
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  free feturn
+                  free return
                 </button>
                 <div
                   class="dropdown-menu"

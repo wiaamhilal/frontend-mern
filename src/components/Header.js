@@ -5,6 +5,8 @@ import { logoutUser } from "../redux/apiCalls/authApiCall";
 import { styled } from "styled-components";
 import cardIcon from "../img/shopping-card-svgrepo-com (1).svg";
 import { postActions } from "../redux/slices/postSlice";
+import LanguageSwitcher from "./LanguageSwitcher";
+import TranslateWidget from "./TranslateWedgit";
 const Headerr = () => {
   const { user } = useSelector((state) => state.auth);
   const { basket, searsh } = useSelector((state) => state.post);
@@ -19,7 +21,7 @@ const Headerr = () => {
   //   setisOpen(false);
   // };
   return (
-    <Main>
+    <Main className="">
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark my-nav ">
         <div className="container-fluid  justify-content-end">
           <button
@@ -94,7 +96,6 @@ const Headerr = () => {
                   </ul>
                 </li>
               )}
-
               {user && (
                 <li className="nav-item">
                   <Link
@@ -161,7 +162,28 @@ const Headerr = () => {
                   </Link>
                 </li>
               )}
-
+              <li className="nav-item dropdown">
+                <Link
+                  className="nav-link dropdown-toggle"
+                  to="#"
+                  id="navbarDropdown"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Language
+                </Link>
+                <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li>
+                    <LanguageSwitcher />
+                    <TranslateWidget />
+                  </li>
+                </ul>
+              </li>
+              {/* <li>
+                <LanguageSwitcher />
+                <TranslateWidget />
+              </li> */}
               <Basket
                 className="mb-2 mb-md-0"
                 onClick={() => navicate("/basket")}
