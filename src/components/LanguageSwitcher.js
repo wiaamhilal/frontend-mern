@@ -11,9 +11,13 @@ const LanguageSwitcher = () => {
     //   document.documentElement.dir = "ltr";
     // }
   };
-
+  const reloud = () => {
+    setTimeout(() => {
+      window.location.reload(false);
+    }, 1000);
+  };
   return (
-    <div className="p-2">
+    <div className="p-2" onClick={reloud}>
       <button
         className="btn btn-success btn-sm d-block mb-2"
         onClick={() => changeLanguage("ar")}

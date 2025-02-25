@@ -15,6 +15,10 @@ import FormatCurrency from "./FormatCurrency";
 import { createNewClinetComment } from "../redux/apiCalls/commentApiCall";
 
 const Home = () => {
+  // setTimeout(() => {
+  //   window.location.reload(false);
+  // }, "1000");
+
   const { categories } = useSelector((state) => state.category);
   const { profiles } = useSelector((state) => state.profile);
   const { orders, allMaxOrders } = useSelector((state) => state.post);

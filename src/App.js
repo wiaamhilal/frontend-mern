@@ -88,6 +88,10 @@ i18n
   });
 
 function App() {
+  // useEffect(() => {
+  //   window.location.reload(false);
+  // }, []);
+
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   const toggleTheme = () => {
