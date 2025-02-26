@@ -1,3 +1,5 @@
+import swal from "sweetalert";
+
 const LanguageSwitcher = () => {
   const changeLanguage = (langCode) => {
     const selectField = document.querySelector(".goog-te-combo");
@@ -11,10 +13,22 @@ const LanguageSwitcher = () => {
     //   document.documentElement.dir = "ltr";
     // }
   };
+
   const reloud = () => {
-    setTimeout(() => {
-      window.location.reload(false);
-    }, 1000);
+    swal({
+      title: "change the language?",
+      text: "if the language didnt changed try again",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        window.location.reload(false);
+      }
+    });
+    // setTimeout(() => {
+
+    // }, 1000);
   };
   return (
     <div className="p-2" onClick={reloud}>
