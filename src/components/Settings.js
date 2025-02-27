@@ -143,7 +143,7 @@ const Settings = ({ toggleTheme, isDarkMode }) => {
               placeholder="contact us for any help"
             ></textarea>
             <button
-              className="ms-2 btn btn-sm btn-primary"
+              className="ms-2 btn btn-sm btn-success"
               onClick={sendComment}
             >
               Send
@@ -157,7 +157,7 @@ const Settings = ({ toggleTheme, isDarkMode }) => {
             <input
               type="submit"
               value="Submit changes"
-              className="submit-info"
+              className="submit-info text-success"
               onClick={updatePost}
             />
           </div>
@@ -236,7 +236,7 @@ const Settings = ({ toggleTheme, isDarkMode }) => {
                 </p>
               </div>
               <input
-                class="btn btn-primary btn-sm"
+                class="btn btn-success btn-sm"
                 type="submit"
                 value="change"
                 onClick={() => setsecurityToggle(true)}
@@ -371,7 +371,7 @@ const Settings = ({ toggleTheme, isDarkMode }) => {
                 </button>
                 <button
                   type="button"
-                  className="btn btn-primary rounded-pill"
+                  className="btn btn-success rounded-pill"
                   onClick={updatePost}
                 >
                   Update Now

@@ -28,7 +28,7 @@ export const UsersTable = () => {
       }
     });
   };
-  const submitChangeAdmin = (userId, isAdmin) => {
+  const submitChangeAdmin = async (userId, isAdmin) => {
     swal({
       title: "Are you sure?",
       text: "Are you sure you want to change the authentication to this user",
@@ -37,8 +37,9 @@ export const UsersTable = () => {
       dangerMode: true,
     }).then((ifistrue) => {
       if (ifistrue) {
-        dispatch(changeUserAuthApi(userId, { isAdmin: isAdmin }));
-        window.location.reload(false);
+        dispatch(changeUserAuthApi(userId, { isAdmin: isAdmin })).then(() =>
+          window.location.reload(false)
+        );
       }
     });
   };
