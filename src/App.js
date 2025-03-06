@@ -45,6 +45,7 @@ import cookies from "js-cookie";
 import { translatePage } from "./redux/apiCalls/authApiCall";
 import LanguageSwitcher from "./components/LanguageSwitcher";
 import TranslateWidget from "./components/TranslateWedgit";
+import LocationPage2 from "./components/LocationPage2";
 
 export const GetBasketTotal = (basket) => {
   return basket?.reduce((total, current) => {
@@ -343,7 +344,7 @@ function App() {
           path="/location"
           element={
             <>
-              <Header /> <LocationPage />
+              <Header /> <LocationPage2 />
             </>
           }
         />{" "}

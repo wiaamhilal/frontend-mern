@@ -6,6 +6,7 @@ import {
   getUserProfile,
   setUserLocationApi,
 } from "../redux/apiCalls/profileApiCall";
+import MyMap from "./MyMap";
 const LocationPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -38,6 +39,7 @@ const LocationPage = () => {
   return (
     <Holder>
       <Main className="container">
+        <MyMap />
         <div className="row">
           <div className="col-12 col-sm-6">
             <h5 className="fw-bold text-secondary">Name</h5>
