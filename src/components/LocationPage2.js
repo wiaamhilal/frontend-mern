@@ -15,6 +15,8 @@ const LocationPage = () => {
   const { user } = useSelector((state) => state.auth);
   const { profile } = useSelector((state) => state.profile);
   const [number, setnumber] = useState("");
+  const [country, setcountry] = useState();
+  const [city, setcity] = useState();
   const [arya, setarya] = useState("");
   const [street, setstreet] = useState("");
   const [building, setbuilding] = useState();
@@ -44,9 +46,12 @@ const LocationPage = () => {
       const { address } = response.data;
       console.log(address);
       // هنا نقوم بملء الحقول باستخدام البيانات المتاحة
+      setcountry(address?.country);
+      setcity(address?.state);
       setarya(address.residential || address.neighbourhood || ""); // نحدد المنطقة أو المدينة
       setstreet(address.road || ""); // نحدد الشارع
-      setbuilding(address.house_number || address.suburb || ""); // إذا لم يوجد رقم المنزل، نستخدم suburb أو residential كبديل
+      setbuilding(address.house_number || address.suburb || "");
+      // إذا لم يوجد رقم المنزل، نستخدم suburb أو residential كبديل
     } catch (error) {
       console.error("Error fetching address:", error);
     }
@@ -75,6 +80,8 @@ const LocationPage = () => {
     dispatch(
       setUserLocationApi(user._id, {
         phone: number,
+        country: country,
+        city: city,
         arya: arya,
         street: street,
         building: building,
@@ -94,7 +101,44 @@ const LocationPage = () => {
     <Holder>
       <Main className="container">
         <MyMap />
-        <div className="row">
+        <div className="row mt-2">
+          <div className="col-12 col-sm-6">
+            <h5 className="fw-bold text-secondary mt-2 mt-sm-0">Country</h5>
+            <input
+              type="text"
+              className="my-feild"
+              value={country}
+              onChange={(e) => setcountry(e.target.value)}
+            />
+            <h5 className="fw-bold text-secondary mt-2 mt-sm-0">city</h5>
+            <input
+              type="text"
+              className="my-feild"
+              value={city}
+              onChange={(e) => setcity(e.target.value)}
+            />
+            <h5 className="fw-bold text-secondary mt-2 mt-sm-0">Arya</h5>
+            <input
+              type="text"
+              className="my-feild"
+              value={arya}
+              onChange={(e) => setarya(e.target.value)}
+            />
+            <h5 className="fw-bold text-secondary mt-2">Street</h5>
+            <input
+              type="text"
+              className="my-feild"
+              value={street}
+              onChange={(e) => setstreet(e.target.value)}
+            />
+            <h5 className="fw-bold text-secondary mt-2">Building</h5>
+            <input
+              type="text"
+              className="my-feild"
+              value={building}
+              onChange={(e) => setbuilding(e.target.value)}
+            />
+          </div>
           <div className="col-12 col-sm-6">
             <h5 className="fw-bold text-secondary">Name</h5>
             <input
@@ -118,29 +162,6 @@ const LocationPage = () => {
               onChange={(e) => setnumber(e.target.value)}
               placeholder="05..."
             />
-          </div>
-          <div className="col-12 col-sm-6">
-            <h5 className="fw-bold text-secondary mt-2 mt-sm-0">Arya</h5>
-            <input
-              type="text"
-              className="my-feild"
-              value={arya}
-              onChange={(e) => setarya(e.target.value)}
-            />
-            <h5 className="fw-bold text-secondary mt-2">Street</h5>
-            <input
-              type="text"
-              className="my-feild"
-              value={street}
-              onChange={(e) => setstreet(e.target.value)}
-            />
-            <h5 className="fw-bold text-secondary mt-2">Building</h5>
-            <input
-              type="text"
-              className="my-feild"
-              value={building}
-              onChange={(e) => setbuilding(e.target.value)}
-            />
             <button
               className="btn btn-success w-100 mt-4"
               disabled={!number || !arya || !street || !building}
@@ -148,40 +169,51 @@ const LocationPage = () => {
             >
               Submit
             </button>
-          </div>
-        </div>
-
-        <div className="location-info shadow m-auto mt-4 m-sm-0 ">
-          <h3 className="fw-bold">Location Info</h3>
-          <div>
-            <span className="fw-bold">Name: </span>
-            <span className="fw-bold text-secondary mt-2">
-              {user?.username}
-            </span>
-          </div>
-          <div className="mt-2">
-            <span className="fw-bold">Phone Number: </span>
-            <span className="fw-bold text-secondary mt-2">
-              {profile?.location?.phone}
-            </span>
-          </div>
-          <div className="mt-2">
-            <span className="fw-bold">Arya: </span>
-            <span className="fw-bold text-secondary mt-2">
-              {profile?.location?.arya}
-            </span>
-          </div>
-          <div className="mt-2">
-            <span className="fw-bold">Street: </span>
-            <span className="fw-bold mt-2 text-secondary">
-              {profile?.location?.street}
-            </span>
-          </div>
-          <div className="mt-2">
-            <span className="fw-bold">Building: </span>
-            <span className="fw-bold text-secondary mt-2">
-              {profile?.location?.building}
-            </span>
+            <div className="location-info shadow  ">
+              <h3 className="fw-bold">Location Info</h3>
+              <div>
+                <span className="fw-bold">Name: </span>
+                <span className="fw-bold text-secondary mt-2">
+                  {user?.username}
+                </span>
+              </div>
+              <div className="mt-2">
+                <span className="fw-bold">Phone Number: </span>
+                <span className="fw-bold text-secondary mt-2">
+                  {profile?.location?.phone}
+                </span>
+              </div>
+              <div className="mt-2">
+                <span className="fw-bold">Country: </span>
+                <span className="fw-bold text-secondary mt-2">
+                  {profile?.location?.country}
+                </span>
+              </div>
+              <div className="mt-2">
+                <span className="fw-bold">City: </span>
+                <span className="fw-bold text-secondary mt-2">
+                  {profile?.location?.city}
+                </span>
+              </div>
+              <div className="mt-2">
+                <span className="fw-bold">Arya: </span>
+                <span className="fw-bold text-secondary mt-2">
+                  {profile?.location?.arya}
+                </span>
+              </div>
+              <div className="mt-2">
+                <span className="fw-bold">Street: </span>
+                <span className="fw-bold mt-2 text-secondary">
+                  {profile?.location?.street}
+                </span>
+              </div>
+              <div className="mt-2">
+                <span className="fw-bold">Building: </span>
+                <span className="fw-bold text-secondary mt-2">
+                  {profile?.location?.building}
+                </span>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -223,7 +255,8 @@ const Main = styled.div`
     background-color: #eee;
     padding: 15px;
     border-radius: 10px;
-    width: fit-content;
+    width: 100%;
+    margin-top: 38px;
   }
 `;
 

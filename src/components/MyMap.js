@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { MapContainer, TileLayer, Marker, Popup, Circle } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import styled from "styled-components";
 
 // Fix Marker Icons Issue
 delete L.Icon.Default.prototype._getIconUrl;
@@ -68,13 +69,10 @@ const MyMap = () => {
   if (!location) return <div>جاري تحميل الموقع...</div>;
 
   return (
-    <div style={{ height: "100vh", position: "relative" }}>
-      <MapContainer
-        center={[location.lat, location.lng]}
-        zoom={15}
-        style={{ width: "100%", height: "100%" }}
-      >
+    <Main style={{}}>
+      <MapContainer center={[location.lat, location.lng]} zoom={15} style={{}}>
         <TileLayer
+          className="my-map"
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
@@ -88,7 +86,7 @@ const MyMap = () => {
         />
       </MapContainer>
 
-      <div
+      {/* <div
         style={{
           position: "absolute",
           top: "10px",
@@ -123,9 +121,18 @@ const MyMap = () => {
         >
           {isTracking ? "إيقاف التتبع" : "تشغيل التتبع"}
         </button>
-      </div>
-    </div>
+      </div> */}
+    </Main>
   );
 };
-
+const Main = styled.div`
+  & .leaflet-container {
+    position: sticky;
+    outline-style: none;
+    width: 100%;
+    height: 360px;
+    /* margin: auto; */
+    margin-top: 20px;
+  }
+`;
 export default MyMap;
