@@ -180,6 +180,24 @@ const Headerr = () => {
                   </li>
                 </ul>
               </li>
+              <li className="nav-item">
+                <Link
+                  className="nav-link"
+                  to="/location"
+                  tabindex="-1"
+                  aria-disabled="true"
+                >
+                  {/* <span className="d-block" style={{ fontSize: "12px" }}>
+                    Delever to:
+                  </span> */}
+                  {profile?.location
+                    ? profile?.location?.city +
+                      ", " +
+                      profile?.location?.arya.substring(0, 7) +
+                      ".."
+                    : "Delever To"}
+                </Link>
+              </li>
               {/* <li>
                 <LanguageSwitcher />
                 <TranslateWidget />

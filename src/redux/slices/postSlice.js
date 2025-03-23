@@ -17,6 +17,7 @@ const postSlice = createSlice({
     orders: [],
     allMaxOrders: [],
     ordersCount: null,
+    returnOrdes: [],
   },
   reducers: {
     setPosts(state, action) {
@@ -98,6 +99,9 @@ const postSlice = createSlice({
     },
     setMaxPosts(state, action) {
       state.maxPosts = action.payload;
+    },
+    setReturnOrders(state, action) {
+      state.returnOrdes = action.payload;
     },
   },
 });

@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import BasketItem from "./BasketItem";
-import formatCurrency from "./FormatCurrency";
-import moment from "moment/moment";
-import { GetBasketTotal } from "../App";
+
 import { getUserProfile } from "../redux/apiCalls/profileApiCall";
 import { getAllOrdersApi } from "../redux/apiCalls/postApiCall";
-import { Link } from "react-router-dom";
+
+import swal from "sweetalert";
+import YourOrderItem from "./YourOrderItem";
 
 const Orders = () => {
   const { orders } = useSelector((state) => state.post);
-
   const { user } = useSelector((state) => state.auth);
   const { profile } = useSelector((state) => state.profile);
+
   useEffect(() => {
     dispatch(getUserProfile(user._id));
   }, []);
@@ -28,140 +27,20 @@ const Orders = () => {
     <Holder>
       {profile?.orders ? (
         <Main className="container">
-          <h1 className="text-secondary fw-bold mb-5 lh-lg">
-            Thank you for your order m.r {user?.username}
-          </h1>
+          <div className="d-flex align-items-center justify-content-between mb-5">
+            <h1 className="text-secondary m-0 fw-bold  lh-lg">
+              Thank you for your order m.r {user?.username}
+            </h1>
+            {/* <button onClick={ReturnOrder} className="btn btn-danger mt-4 ">
+              Return the order
+            </button> */}
+          </div>
           <h2 className="mb-3 fw-bold text-secondary">Your Orders : </h2>
 
           <div>
             {orders?.map(
               (item) =>
-                item?.userDetails == user?._id && (
-                  <div className="order-item">
-                    <BasketItem {...item.orderDetails[0]} />
-                    {item.orderDetails[1] && (
-                      <BasketItem {...item.orderDetails[1]} />
-                    )}
-                    {item.orderDetails[2] && (
-                      <BasketItem {...item.orderDetails[2]} />
-                    )}
-                    {item.orderDetails[3] && (
-                      <BasketItem {...item.orderDetails[3]} />
-                    )}
-                    <h4 className="fw-bold text-secondary mt-4">
-                      Total Price :{" "}
-                      {formatCurrency(GetBasketTotal(item.orderDetails))}
-                    </h4>
-                    <h4 className="fw-bold text-secondary mt-4">
-                      Order Time :{" "}
-                      {moment(item.createdAt).format("MMMM DD  h:mma")}
-                    </h4>
-
-                    <div className="d-flex align-items-center mt-4">
-                      <h4 className="fw-bold text-secondary me-4">
-                        order status:
-                      </h4>
-                      {item.orderStatus == "false" && (
-                        <button class="btn btn-success" type="button" disabled>
-                          <span
-                            class="spinner-grow spinner-grow-sm me-2"
-                            role="status"
-                            aria-hidden="true"
-                          ></span>
-                          processing...
-                        </button>
-                      )}
-                      {item.orderStatus == "confirmid" && (
-                        <div>
-                          <h4 className="text-success">
-                            your order has been confirmid
-                          </h4>
-                          <div class="progress">
-                            <div
-                              className="progress-bar progress-bar-striped progress-bar-animated"
-                              role="progressbar"
-                              aria-valuenow="75"
-                              aria-valuemin="0"
-                              aria-valuemax="100"
-                              style={{ width: " 10%" }}
-                            ></div>
-                          </div>
-                        </div>
-                      )}
-                      {item.orderStatus == "shipped" && (
-                        <div>
-                          <h4 className="text-success">
-                            your order has been shipped
-                          </h4>
-                          <div class="progress">
-                            <div
-                              className="progress-bar progress-bar-striped progress-bar-animated"
-                              role="progressbar"
-                              aria-valuenow="75"
-                              aria-valuemin="0"
-                              aria-valuemax="100"
-                              style={{ width: " 50%" }}
-                            ></div>
-                          </div>
-                        </div>
-                      )}
-                      {item.orderStatus == "on the way" && (
-                        <div>
-                          <h4 className="text-success">
-                            your order went out for delevery
-                          </h4>
-                          <div class="progress">
-                            <div
-                              className="progress-bar progress-bar-striped progress-bar-animated"
-                              role="progressbar"
-                              aria-valuenow="75"
-                              aria-valuemin="0"
-                              aria-valuemax="100"
-                              style={{ width: " 75%" }}
-                            ></div>
-                          </div>
-                        </div>
-                      )}
-                      {item.orderStatus == "receved" && (
-                        <div>
-                          <h4 className="text-success">
-                            your order has been receved
-                          </h4>
-                          <div class="progress">
-                            <div
-                              className="progress-bar progress-bar-striped bg-success"
-                              role="progressbar"
-                              aria-valuenow="75"
-                              aria-valuemin="0"
-                              aria-valuemax="100"
-                              style={{ width: " 100%" }}
-                            ></div>
-                          </div>
-                        </div>
-                      )}
-                      {item.orderStatus == "canceled" && (
-                        <div>
-                          <h3 className="text-danger">
-                            your order has been canceled
-                          </h3>
-                          <div class="progress">
-                            <div
-                              className="progress-bar progress-bar-striped bg-danger"
-                              role="progressbar"
-                              aria-valuenow="75"
-                              aria-valuemin="0"
-                              aria-valuemax="100"
-                              style={{ width: " 100%" }}
-                            ></div>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                    <h4 className="fw-bold text-secondary mt-4">
-                      Delever to : {profile?.location?.building}
-                    </h4>
-                  </div>
-                )
+                item?.userDetails == user?._id && <YourOrderItem item={item} />
             )}{" "}
           </div>
 
@@ -191,6 +70,8 @@ const Holder = styled.div`
     padding: 15px;
     border-radius: 10px;
     margin-bottom: 30px;
+  }
+  & .return-button {
   }
 `;
 const Main = styled.div``;

@@ -257,3 +257,75 @@ export function getMaxAllOrdersApi() {
     }
   };
 }
+
+// creat new retun order
+export function createNewReturnOrderApi(newOrder) {
+  return async (dispatch, getState) => {
+    try {
+      await request.post(`/api/orders/return-order`, newOrder, {
+        headers: {
+          Authorization: "Bearer " + getState().auth.user.token,
+        },
+      });
+      // dispatch(postActions.setReturnOrders(newOrder));
+    } catch (error) {
+      toast.error(error.response.data.message);
+      dispatch(postActions.setLoading(false));
+    }
+  };
+}
+
+// get max all returned orders
+export function getRetunedOrdersApi() {
+  return async (dispatch, getState) => {
+    try {
+      const { data } = await request.get(
+        `/api/orders/return-order`,
+        {},
+        {
+          headers: {
+            Authorization: "Bearer " + getState().auth.user.token,
+          },
+        }
+      );
+      dispatch(postActions.setReturnOrders(data));
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
+}
+
+// send email confrirm return
+export function sendEmailCinfirmReturnApi(info) {
+  return async (dispatch, getState) => {
+    try {
+      const { data } = await request.post(`/api/orders/approve-return`, info, {
+        headers: {
+          Authorization: "Bearer " + getState().auth.user.token,
+        },
+      });
+      toast.success(data.message);
+      // dispatch(postActions.setReturnOrders(newOrder));
+    } catch (error) {
+      toast.error(error.response.data.message);
+      dispatch(postActions.setLoading(false));
+    }
+  };
+}
+
+export function sendEmailRejectReturnApi(info) {
+  return async (dispatch, getState) => {
+    try {
+      const { data } = await request.post(`/api/orders/reject-return`, info, {
+        headers: {
+          Authorization: "Bearer " + getState().auth.user.token,
+        },
+      });
+      toast.success(data.message);
+      // dispatch(postActions.setReturnOrders(newOrder));
+    } catch (error) {
+      toast.error(error.response.data.message);
+      dispatch(postActions.setLoading(false));
+    }
+  };
+}

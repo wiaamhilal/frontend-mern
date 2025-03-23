@@ -14,6 +14,7 @@ const LocationPage = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
   const { profile } = useSelector((state) => state.profile);
+  const { basket } = useSelector((state) => state.post);
   const [number, setnumber] = useState("");
   const [country, setcountry] = useState();
   const [city, setcity] = useState();
@@ -216,19 +217,20 @@ const LocationPage = () => {
             </div>
           </div>
         </div>
-
-        <button
-          className="btn btn-success w-100 mt-4 mt-sm-5"
-          onClick={() => navigate("/payment")}
-          disabled={
-            !profile?.location?.phone ||
-            !profile?.location?.building ||
-            !profile?.location?.arya ||
-            !profile?.location?.street
-          }
-        >
-          Continue to payment
-        </button>
+        {basket.length != 0 && (
+          <button
+            className="btn btn-success w-100 mt-4 mt-sm-5"
+            onClick={() => navigate("/payment")}
+            disabled={
+              !profile?.location?.phone ||
+              !profile?.location?.building ||
+              !profile?.location?.arya ||
+              !profile?.location?.street
+            }
+          >
+            Continue to payment
+          </button>
+        )}
       </Main>
     </Holder>
   );

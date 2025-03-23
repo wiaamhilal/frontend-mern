@@ -46,6 +46,7 @@ import { translatePage } from "./redux/apiCalls/authApiCall";
 import LanguageSwitcher from "./components/LanguageSwitcher";
 import TranslateWidget from "./components/TranslateWedgit";
 import LocationPage2 from "./components/LocationPage2";
+import ReturnOrderTable from "./components/ReturnOrderTable";
 
 export const GetBasketTotal = (basket) => {
   return basket?.reduce((total, current) => {
@@ -394,6 +395,14 @@ function App() {
             <>
               <Header />{" "}
               <Settings toggleTheme={toggleTheme} isDarkMode={isDarkMode} />
+            </>
+          }
+        />
+        <Route
+          path="/dashboard/retun-order"
+          element={
+            <>
+              <Header /> <ReturnOrderTable />
             </>
           }
         />

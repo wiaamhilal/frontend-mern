@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import normalLike from "../img/like-svgrepo-com (3).svg";
 import normaDislLike from "../img/dislike-svgrepo-com.svg";
@@ -6,6 +6,8 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import formatCurrency from "./FormatCurrency";
 import { postActions } from "../redux/slices/postSlice";
+import swal from "sweetalert";
+import ToggleReturnOrder from "./ToggleReturnOrder";
 
 const BasketItem = ({
   title,
@@ -18,8 +20,27 @@ const BasketItem = ({
   id,
   showbutton,
   orderColor,
+  returnOrder,
+  // toggle,
+  // settoggle,
 }) => {
   const dispatch = useDispatch();
+  const [toggle, settoggle] = useState(false);
+
+  const ReturnOrder = () => {
+    swal({
+      title: "Are you sure?",
+      text: "you want to return this order once you return you cant take it back",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willdo) => {
+      if (willdo) {
+        settoggle(true);
+      }
+    });
+  };
+
   return (
     <div className="position-relative">
       <Link to={`/posts/details/${id}`} style={{ textDecoration: "none" }}>
@@ -66,6 +87,28 @@ const BasketItem = ({
           delete
         </button>
       )}
+      {returnOrder && (
+        <button
+          onClick={ReturnOrder}
+          // onClick={() => dispatch(postActions.deleteBasketItem(id))}
+          className="btn btn-sm btn-secondary position-absolute"
+          style={{ bottom: "5px", right: "0px", width: "fit-content" }}
+        >
+          Return order
+        </button>
+      )}
+      <ToggleReturnOrder
+        toggle={toggle}
+        settoggle={settoggle}
+        title={title}
+        price={price}
+        id={id}
+        images={images}
+        likes={likes}
+        dislikes={dislikes}
+        orderColor={orderColor}
+        description={description}
+      />
     </div>
   );
 };

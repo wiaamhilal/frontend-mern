@@ -7,26 +7,32 @@ import {
   fitchAllCategories,
 } from "../redux/apiCalls/categoryApiCall";
 import { getUsersCountApi } from "../redux/apiCalls/profileApiCall";
-import { getPostsCount } from "../redux/apiCalls/postApiCall";
+import {
+  getPostsCount,
+  getRetunedOrdersApi,
+} from "../redux/apiCalls/postApiCall";
 import { fetshAllCommentsApi } from "../redux/apiCalls/commentApiCall";
 import { styled } from "styled-components";
 
 const MainDashboard = () => {
   const { categories } = useSelector((state) => state.category);
   const { usersCount } = useSelector((state) => state.profile);
-  const { postsCount, ordersCount, allMaxOrders } = useSelector(
+  const { postsCount, ordersCount, allMaxOrders, returnOrdes } = useSelector(
     (state) => state.post
   );
   const { comments } = useSelector((state) => state.comment);
   const dispatch = useDispatch();
-  console.log();
+  console.log(returnOrdes);
   useEffect(() => {
     dispatch(fitchAllCategories());
     dispatch(getUsersCountApi());
     dispatch(getPostsCount());
     dispatch(fetshAllCommentsApi());
+    dispatch(getRetunedOrdersApi());
   }, []);
-
+  // useEffect(() => {
+  //   dispatch(getRetunedOrdersApi());
+  // }, [HandleSubmit()]);
   const [title, settitle] = useState("");
 
   const addcategroyFunc = (e) => {
@@ -135,6 +141,25 @@ const MainDashboard = () => {
             className="btn btn-success btn-sm w-100 fw-bold"
           >
             Check orders status
+          </Link>{" "}
+        </div>
+        <div className="col-12 col-sm-6 col-md-3 shadow rounded p-3 bg-white">
+          <div className="d-flex align-itmes-center justify-content-between">
+            <h4>return orders</h4>
+            <h5>{returnOrdes?.length}</h5>
+          </div>
+          <div className="d-flex justify-content-center">
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRk85S1onZP8-MbH6ru4coAJHmKMtDGiUds-w&s"
+              style={{ width: "100px", marginBottom: "10px" }}
+              alt=""
+            />
+          </div>
+          <Link
+            to="/dashboard/retun-order"
+            className="btn btn-success btn-sm w-100 fw-bold"
+          >
+            Check return requirments
           </Link>{" "}
         </div>
       </div>
