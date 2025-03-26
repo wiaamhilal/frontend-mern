@@ -42,7 +42,7 @@ const BasketItem = ({
   };
 
   return (
-    <div className="position-relative">
+    <Main className="position-relative">
       <Link to={`/posts/details/${id}`} style={{ textDecoration: "none" }}>
         <Item className="bg-light rounded row position-relative shadow mb-3 mb-md-4">
           <img
@@ -64,7 +64,7 @@ const BasketItem = ({
               {description?.substring(0, 60)}
               ...{" "}
             </p>
-            <div className="d-flex mt-sm-4 likes-div">
+            <div className="d-none d-sm-flex mt-sm-4 likes-div">
               {" "}
               <div className="me-3 d-flex align-items-center">
                 <img src={normalLike} className="likes-img me-2" alt="" />{" "}
@@ -91,7 +91,7 @@ const BasketItem = ({
         <button
           onClick={ReturnOrder}
           // onClick={() => dispatch(postActions.deleteBasketItem(id))}
-          className="btn btn-sm btn-secondary position-absolute"
+          className="btn btn-sm btn-secondary position-absolute return-button"
           style={{ bottom: "5px", right: "0px", width: "fit-content" }}
         >
           Return order
@@ -109,9 +109,23 @@ const BasketItem = ({
         orderColor={orderColor}
         description={description}
       />
-    </div>
+    </Main>
   );
 };
+
+const Main = styled.div`
+  & .return-button {
+    background-image: linear-gradient(90deg, black 17%, #737373);
+    border: none;
+    color: white;
+    opacity: 0.8;
+    font-weight: bold;
+    @media (max-width: 767px) {
+      font-size: 10px;
+    }
+  }
+`;
+
 const Item = styled.div`
   & .text-decor-none {
     text-decoration: none;

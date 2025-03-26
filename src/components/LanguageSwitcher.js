@@ -7,11 +7,6 @@ const LanguageSwitcher = () => {
       selectField.value = langCode;
       selectField.dispatchEvent(new Event("change"));
     }
-    // if (langCode == "ar") {
-    //   document.documentElement.dir = "rtl";
-    // } else {
-    //   document.documentElement.dir = "ltr";
-    // }
   };
 
   const reloud = () => {

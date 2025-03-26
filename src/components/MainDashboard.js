@@ -13,6 +13,7 @@ import {
 } from "../redux/apiCalls/postApiCall";
 import { fetshAllCommentsApi } from "../redux/apiCalls/commentApiCall";
 import { styled } from "styled-components";
+import returnIcon from "../img/returnOrder.svg";
 
 const MainDashboard = () => {
   const { categories } = useSelector((state) => state.category);
@@ -145,12 +146,12 @@ const MainDashboard = () => {
         </div>
         <div className="col-12 col-sm-6 col-md-3 shadow rounded p-3 bg-white">
           <div className="d-flex align-itmes-center justify-content-between">
-            <h4>return orders</h4>
+            <h4>return request</h4>
             <h5>{returnOrdes?.length}</h5>
           </div>
           <div className="d-flex justify-content-center">
             <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRk85S1onZP8-MbH6ru4coAJHmKMtDGiUds-w&s"
+              src={returnIcon}
               style={{ width: "100px", marginBottom: "10px" }}
               alt=""
             />
@@ -159,7 +160,7 @@ const MainDashboard = () => {
             to="/dashboard/retun-order"
             className="btn btn-success btn-sm w-100 fw-bold"
           >
-            Check return requirments
+            Check return requests
           </Link>{" "}
         </div>
       </div>

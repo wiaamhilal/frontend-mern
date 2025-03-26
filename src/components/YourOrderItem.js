@@ -18,14 +18,14 @@ const YourOrderItem = ({ item }) => {
       <div className="order-item">
         <BasketItem
           {...item.orderDetails[0]}
-          returnOrder={true}
+          returnOrder={item.orderStatus == "receved" && true}
           // toggle={toggle}
           // settoggle={settoggle}
         />
         {item.orderDetails[1] && (
           <BasketItem
             {...item.orderDetails[1]}
-            returnOrder={true}
+            returnOrder={item.orderStatus == "receved" && true}
             // toggle={toggle}
             // settoggle={settoggle}
           />
@@ -33,7 +33,7 @@ const YourOrderItem = ({ item }) => {
         {item.orderDetails[2] && (
           <BasketItem
             {...item.orderDetails[2]}
-            returnOrder={true}
+            returnOrder={item.orderStatus == "receved" && true}
             // toggle={toggle}
             // settoggle={settoggle}
           />
@@ -41,7 +41,7 @@ const YourOrderItem = ({ item }) => {
         {item.orderDetails[3] && (
           <BasketItem
             {...item.orderDetails[3]}
-            returnOrder={true}
+            returnOrder={item.orderStatus == "receved" && true}
             // toggle={toggle}
             // settoggle={settoggle}
           />
@@ -56,14 +56,21 @@ const YourOrderItem = ({ item }) => {
         <div className="d-flex align-items-center mt-4">
           <h4 className="fw-bold text-secondary me-4">order status:</h4>
           {item.orderStatus == "false" && (
-            <button class="btn btn-success" type="button" disabled>
-              <span
+            <div className="d-flex align-itmes-center">
+              <h4 class="text-success m-0 me-2">
+                {/* <span
                 class="spinner-grow spinner-grow-sm me-2"
                 role="status"
                 aria-hidden="true"
-              ></span>
-              processing...
-            </button>
+              ></span> */}
+                your request has been received
+              </h4>
+              <img
+                src="https://w7.pngwing.com/pngs/182/483/png-transparent-check-correct-green-mark-tick.png"
+                style={{ width: "30px", height: "30px" }}
+                alt=""
+              />
+            </div>
           )}
           {item.orderStatus == "confirmid" && (
             <div>
