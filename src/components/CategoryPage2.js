@@ -21,11 +21,11 @@ const CategoryPage2 = () => {
     dispatch(getPostsCount());
   }, [getPostsCount]);
 
-  const { category } = useParams();
+  const { branchTitle } = useParams();
 
   useEffect(() => {
-    dispatch(fetchPostsByCategory(category));
-  }, [category]);
+    dispatch(fetchPostsByCategory(branchTitle));
+  }, [branchTitle]);
 
   useEffect(() => {
     dispatch(fetchPosts(currentPage));

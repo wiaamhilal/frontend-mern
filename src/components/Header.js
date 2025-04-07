@@ -63,7 +63,7 @@ const Headerr = () => {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/products">
+                <Link className="nav-link" to="/products2">
                   Products
                 </Link>
               </li>
@@ -96,7 +96,7 @@ const Headerr = () => {
                   </ul>
                 </li>
               )}
-              {user && (
+              {/* {user && (
                 <li className="nav-item">
                   <Link
                     className="nav-link"
@@ -107,7 +107,7 @@ const Headerr = () => {
                     Create product
                   </Link>
                 </li>
-              )}
+              )} */}
               {user?.isAdmin && (
                 <li className="nav-item">
                   <Link

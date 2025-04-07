@@ -47,6 +47,11 @@ import LanguageSwitcher from "./components/LanguageSwitcher";
 import TranslateWidget from "./components/TranslateWedgit";
 import LocationPage2 from "./components/LocationPage2";
 import ReturnOrderTable from "./components/ReturnOrderTable";
+import Products2 from "./components/MainProducts";
+import AllLaps from "./components/laptops/AllLaps";
+import CreateCategory from "./components/CreateCategory";
+import MainProducts from "./components/BranchProducts";
+import CreateExestCategory from "./components/CreateExestCategory";
 
 export const GetBasketTotal = (basket) => {
   return basket?.reduce((total, current) => {
@@ -403,6 +408,54 @@ function App() {
           element={
             <>
               <Header /> <ReturnOrderTable />
+            </>
+          }
+        />
+        <Route
+          path="/products2"
+          element={
+            <>
+              <Header /> <Products2 />
+            </>
+          }
+        />
+        <Route
+          path="/all-laps"
+          element={
+            <>
+              <Header /> <AllLaps />
+            </>
+          }
+        />
+        <Route
+          path="/create-category"
+          element={
+            <>
+              <Header /> <CreateCategory />
+            </>
+          }
+        />
+        <Route
+          path="/create-branch-category"
+          element={
+            <>
+              <Header /> <CreateExestCategory />
+            </>
+          }
+        />
+        <Route
+          path="/products/main/:mainTitle"
+          element={
+            <>
+              <Header /> <MainProducts />
+            </>
+          }
+        />
+        <Route
+          path="/products/branch/:branchTitle"
+          element={
+            <>
+              <Header /> <CategoryPage2 />
             </>
           }
         />

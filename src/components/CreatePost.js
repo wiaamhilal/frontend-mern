@@ -6,6 +6,8 @@ import { createNewPost } from "../redux/apiCalls/postApiCall";
 import { json, useNavigate } from "react-router-dom";
 import { RotatingLines } from "react-loader-spinner";
 import { fitchAllCategories } from "../redux/apiCalls/categoryApiCall";
+import SelectWithSearch from "./SelectWithSearch.js";
+import Select from "react-select";
 
 const CreatePost = () => {
   const dispatch = useDispatch();
@@ -15,7 +17,8 @@ const CreatePost = () => {
   const [title, settitle] = useState("");
   const [price, setprice] = useState(null);
   const [desc, setdesc] = useState("");
-  const [category, setcategory] = useState("");
+  // const [category, setcategory] = useState("");
+  const [selectedOption, setSelectedOption] = useState(null);
   const [file, setfile] = useState("");
   const [file2, setfile2] = useState("");
   const [file3, setfile3] = useState("");
@@ -24,32 +27,13 @@ const CreatePost = () => {
   const [productDetails, setproductDetails] = useState("");
   const [color, setcolor] = useState("");
   const [colors, setcolors] = useState([]);
-  // console.log(colors);
+  console.log(selectedOption);
   useEffect(() => {
     dispatch(fitchAllCategories());
-  }, [categories]);
-
-  // const submitCreatepost = (e) => {
-  //   e.preventDefault();
-  //   if (title.trim() === "") return toast.error("product title is required");
-  //   if (price.trim() === "") return toast.error("product price is required");
-  //   if (desc.trim() === "") return toast.error("description is required");
-  //   if (category.trim() === "") return toast.error("category is required");
-  //   if (productDetails.trim() === "")
-  //     return toast.error("productDetails is required");
-  //   if (!file) return toast.error("the image is required");
-
-  //   const formData = new FormData();
-  //   formData.append("images", file);
-  //   // formData.append("image2", file2);
-  //   formData.append("description", desc);
-  //   formData.append("title", title);
-  //   formData.append("price", price);
-  //   formData.append("category", category);
-  //   formData.append("productDetails", productDetails);
-  //   dispatch(createNewPost(formData));
-  // };
-  // let colors = [];
+  }, []);
+  const chosenCategory = categories.filter(
+    (item) => item?.branchTitle == selectedOption?.value
+  );
   const submitColor = (e) => {
     e.preventDefault();
     setcolors([...colors, color]);
@@ -70,9 +54,9 @@ const CreatePost = () => {
     formData.append("description", desc);
     formData.append("title", title);
     formData.append("price", price);
-    formData.append("category", category);
+    formData.append("category", selectedOption?.value);
     formData.append("productDetails", productDetails);
-    // formData.append("colors", colors);
+    formData.append("mainCategory", chosenCategory[0]?.mainTitle);
     colors.forEach((color) => {
       formData.append("colors", color); // تأكد أن الاسم "images" مطابق للـ multer.array()
     });
@@ -87,6 +71,15 @@ const CreatePost = () => {
 
   // let colors = [];
   // console.log(colors);
+
+  const options = categories
+    ? categories.map((item) => ({
+        value: item?.branchTitle,
+        label: item?.branchTitle,
+      }))
+    : [];
+
+  console.log(chosenCategory[0]?.mainTitle);
 
   return (
     <Holder className="container">
@@ -105,15 +98,25 @@ const CreatePost = () => {
             placeholder="procuct price"
             onChange={(e) => setprice(e.target.value)}
           />
-          <select
+          {/* <select
             className="inputs"
             onChange={(e) => setcategory(e.target.value)}
           >
             <option value="none">category</option>
             {categories.map((item) => (
-              <option value={item.title}>{item.title}</option>
+              <option value={item?.branchTitle}>{item?.branchTitle}</option>
             ))}
-          </select>
+          </select> */}
+          {/* <SelectWithSearch /> */}
+          <div className="w-64 mx-auto mt-10 mb-2">
+            <Select
+              options={options}
+              value={selectedOption}
+              onChange={setSelectedOption}
+              placeholder="Chose a category"
+              isSearchable
+            />
+          </div>
           <div className="d-flex align-items-center mb-3">
             <input
               className="inputs m-0"

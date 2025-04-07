@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import {
   addCategoryApi,
@@ -11,41 +11,40 @@ import {
   getPostsCount,
   getRetunedOrdersApi,
 } from "../redux/apiCalls/postApiCall";
-import { fetshAllCommentsApi } from "../redux/apiCalls/commentApiCall";
+import {
+  AllCommentsClintsApi,
+  fetshAllCommentsApi,
+} from "../redux/apiCalls/commentApiCall";
 import { styled } from "styled-components";
 import returnIcon from "../img/returnOrder.svg";
-
+import cateIcon from "../img/category-svgrepo-com (1).svg";
+import commentIcon from "../img/comments-svgrepo-com.svg";
+import createProductIcon from "../img/create-dashboard-svgrepo-com.svg";
 const MainDashboard = () => {
+  const navicate = useNavigate();
   const { categories } = useSelector((state) => state.category);
   const { usersCount } = useSelector((state) => state.profile);
   const { postsCount, ordersCount, allMaxOrders, returnOrdes } = useSelector(
     (state) => state.post
   );
-  const { comments } = useSelector((state) => state.comment);
+  const { comments, clinetComments } = useSelector((state) => state.comment);
   const dispatch = useDispatch();
-  console.log(returnOrdes);
+  const {} = useSelector((state) => state.comment);
   useEffect(() => {
     dispatch(fitchAllCategories());
     dispatch(getUsersCountApi());
     dispatch(getPostsCount());
     dispatch(fetshAllCommentsApi());
     dispatch(getRetunedOrdersApi());
+    dispatch(AllCommentsClintsApi());
   }, []);
   // useEffect(() => {
   //   dispatch(getRetunedOrdersApi());
   // }, [HandleSubmit()]);
   const [title, settitle] = useState("");
 
-  const addcategroyFunc = (e) => {
-    e.preventDefault();
-    if (!title) {
-      return toast.error("category title is required");
-    } else {
-      dispatch(addCategoryApi({ title }));
-      settitle("");
-    }
-  };
-
+  const [catetoggle, setcatetoggle] = useState(false);
+  console.log(catetoggle);
   return (
     <div>
       <div className="row justify-content-center gap-3">
@@ -108,7 +107,7 @@ const MainDashboard = () => {
         </div>
         <div className="col-12 col-sm-6 col-md-3 shadow rounded p-3 bg-white">
           <div className="d-flex align-itmes-center justify-content-between">
-            <h4>comments</h4>
+            <h4>Product Comments</h4>
             <h5>{comments.length}</h5>
           </div>
           <div className="d-flex justify-content-center">
@@ -163,29 +162,152 @@ const MainDashboard = () => {
             Check return requests
           </Link>{" "}
         </div>
+        <div className="col-12 col-sm-6 col-md-3 shadow rounded p-3 bg-white">
+          <div className="d-flex align-itmes-center justify-content-between">
+            <h4>Create new cateogry</h4>
+            {/* <h5>{returnOrdes?.length}</h5> */}
+          </div>
+          <div className="d-flex justify-content-center">
+            <img
+              src={cateIcon}
+              style={{ width: "100px", marginBottom: "10px" }}
+              alt=""
+            />
+          </div>
+          <Link
+            // to="/create-category"
+            className="btn btn-success btn-sm w-100 fw-bold"
+            onClick={() => setcatetoggle(true)}
+          >
+            Create a category
+          </Link>{" "}
+        </div>
+        <div className="col-12 col-sm-6 col-md-3 shadow rounded p-3 bg-white">
+          <div className="d-flex align-itmes-center justify-content-between">
+            <h4>Create new Product</h4>
+            {/* <h5>{comments.length}</h5> */}
+          </div>
+          <div className="d-flex justify-content-center">
+            <img
+              src={createProductIcon}
+              style={{ width: "100px", marginBottom: "10px" }}
+              alt=""
+            />
+          </div>
+          <Link
+            to="/create-post"
+            className="btn btn-success btn-sm w-100 fw-bold"
+          >
+            Create a new product
+          </Link>{" "}
+        </div>
+        <div className="col-12 col-sm-6 col-md-3 shadow rounded p-3 bg-white">
+          <div className="d-flex align-itmes-center justify-content-between">
+            <h4>Client Messages</h4>
+            <h5>{clinetComments.length}</h5>
+          </div>
+          <div className="d-flex justify-content-center">
+            <img
+              src={commentIcon}
+              style={{ width: "100px", marginBottom: "10px" }}
+              alt=""
+            />
+          </div>
+          <Link to="/messages" className="btn btn-success btn-sm w-100 fw-bold">
+            see all Messages
+          </Link>{" "}
+        </div>
       </div>
-      <div
+      {/* <div
         className="the-form shadow mt-5 p-3 rounded m-auto bg-white"
         style={{ maxWidth: "600px" }}
       >
         <h4 className="mb-4">add a new category</h4>
-        <form onSubmit={addcategroyFunc}>
-          <label htmlFor="category" className="fw-bold mb-2 text-secondary">
-            category title
-          </label>
-          <input
-            value={title}
-            type="text"
-            id="category"
-            className="my-input"
-            onChange={(e) => settitle(e.target.value)}
-            name="title"
-          />
-          <button className="btn btn-success w-100 fw-bold btn-sm">add</button>
-        </form>
-      </div>
+       
+        <label htmlFor="category" className="fw-bold mb-2 text-secondary">
+          category title
+        </label>
+        <input
+          value={title}
+          type="text"
+          id="category"
+          className="my-input"
+          onChange={(e) => settitle(e.target.value)}
+          name="title"
+        />
+        <button className="btn btn-success w-100 fw-bold btn-sm">add</button>
+       
+      </div> */}
+      <UbdatePassword>
+        <div
+          className="modal align-items-center justify-content-center"
+          tabindex="-1"
+          style={
+            catetoggle
+              ? { display: "flex ", background: "#0000005e" }
+              : { display: "none" }
+          }
+        >
+          <div className="modal-dialog" style={{ animation: "fade 0.5s" }}>
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">Create A Category</h5>
+                <button
+                  type="button"
+                  className="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                  onClick={() => setcatetoggle(false)}
+                ></button>
+              </div>
+              <div className="modal-body">
+                <p className=" lh-md text-center">
+                  if you have Exest Main Category Example (laptops) and you need
+                  to make a branch for it like (gaming laptops) chose Exest
+                  category , if you need to add a new main category with a
+                  branch chose New Category{" "}
+                </p>
+              </div>
+              <div className="modal-footer d-flex justify-content-between">
+                <button
+                  type="button"
+                  className="btn btn-success rounded-pill"
+                  data-bs-dismiss="modal"
+                  onClick={() => navicate("/create-branch-category")}
+                >
+                  Exest categorie
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-success rounded-pill"
+                  onClick={() => navicate("/create-category")}
+                >
+                  New Category
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </UbdatePassword>
     </div>
   );
 };
+
+const UbdatePassword = styled.div`
+  & .my-form {
+    display: flex;
+    flex-direction: column;
+    & .input {
+      padding: 5px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      outline: none;
+      display: block;
+      width: 100%;
+      resize: none;
+      margin-bottom: 10px;
+    }
+  }
+`;
 
 export default MainDashboard;

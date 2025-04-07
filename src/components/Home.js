@@ -13,6 +13,7 @@ import {
 } from "../redux/apiCalls/postApiCall";
 import FormatCurrency from "./FormatCurrency";
 import { createNewClinetComment } from "../redux/apiCalls/commentApiCall";
+import SalesLest from "./SalesLest";
 
 const Home = () => {
   // setTimeout(() => {
@@ -23,7 +24,6 @@ const Home = () => {
   const { profiles } = useSelector((state) => state.profile);
   const { orders, allMaxOrders } = useSelector((state) => state.post);
 
-  console.log(orders.map((item) => item.orderDetails[0].category));
   const allCaty = allMaxOrders.map((item) => item.orderDetails[0].category);
   const allOrders = allMaxOrders.map((item) => item.orderDetails[0]);
 
@@ -64,7 +64,6 @@ const Home = () => {
     (acc, product) => acc + product.price,
     0
   );
-  console.log(laptopItems.length);
 
   let screens = allCaty.filter((item) => item == "Screen");
   screens = Math.round((screens.length / allCaty.length) * 100);
@@ -84,7 +83,6 @@ const Home = () => {
   let Smartwatches = allCaty.filter((item) => item == "Smartwatches");
   Smartwatches = Math.round((Smartwatches.length / allCaty.length) * 100);
 
-  console.log(categories[0]?.title);
   useEffect(() => {
     dispatch(fitchAllCategories());
     dispatch(getAllProfilesApi());
@@ -105,26 +103,38 @@ const Home = () => {
     setcomment("");
   };
 
+  // إنشاء مجموعة (Set) للاحتفاظ فقط بـ `mainTitle` الفريد
+  const uniqueMainTitles = new Set();
+
+  // تصفية العناصر بحيث يتم الاحتفاظ فقط بأول قيمة فريدة لـ `mainTitle`
+  const filteredItems = categories.filter((item) => {
+    if (item.mainTitle && !uniqueMainTitles.has(item.mainTitle)) {
+      uniqueMainTitles.add(item.mainTitle);
+      return true;
+    }
+    return false;
+  });
+
+  console.log(allMaxOrders.map((item) => item.orderDetails[0].mainCategory));
+
+  const handleItem = (item) => {
+    const chsenItem = allMaxOrders.filter(
+      (order) => order?.orderDetails[0].mainCategory == item
+    );
+    const totalPrice = chsenItem?.reduce((total, current) => {
+      total += current?.orderDetails[0]?.price;
+    }, 0);
+    return totalPrice;
+  };
+  // console.log(totalPrice);
   return (
     <Main className="text-dark">
       <SecondHeder className="ps-2">
-        <div className="over">
-          {/* <Link>Best Sellers</Link>
-          <Link>New Releases</Link>
-          <Link>Today's Deals</Link>
-          <Link>Electronics</Link>
-          <Link>Prime</Link>
-          <Link>Mobile Phones</Link>
-          <Link>Beauty</Link>
-          <Link>Health & Personal Care</Link>
-          <Link>Grocery & Food</Link>
-          <Link>Video Games</Link>
-          <Link>Fashion</Link>
-          <Link>Perfumes</Link> */}
+        {/* <div className="over">
           {categories?.map((item) => (
             <Link to={`/posts/category/${item?.title}`}>{item?.title}</Link>
           ))}
-        </div>
+        </div> */}
       </SecondHeder>
 
       {/* {user ? (
@@ -690,6 +700,32 @@ const Home = () => {
             src="https://media.licdn.com/dms/image/v2/D5612AQGXYr8XH3IPfQ/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1701797640305?e=2147483647&v=beta&t=elMXeTA21QTM3RwkmQvnOHcHHzZEWIeVH0Px7NHyK6s"
             alt=""
           />
+
+          <SalesLest />
+
+          {filteredItems.map((item) => (
+            <>
+              <h3 className=" fw-bold">{item?.mainTitle} :</h3>
+              <div className="d-flex align-items-center justify-content-between">
+                <div className="d-flex align-items-center">
+                  <h5 className=" mb-1 ">{handleItem(item?.mainTitle)}</h5>
+                  <h5 className="ms-3 ms-sm-5 mb-1">Sold : </h5>{" "}
+                  <h5 className=" mb-1 ms-4">{screenItems.length}</h5>
+                </div>
+                <h4 className="percent">{screens}%</h4>
+              </div>
+              <div class="progress mb-3">
+                <div
+                  class="progress-bar progress-bar-striped"
+                  role="progressbar"
+                  style={{ width: `${screens}%` }}
+                  aria-valuenow="10"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                ></div>
+              </div>
+            </>
+          ))}
           <h3 className=" fw-bold">Screens :</h3>
           <div className="d-flex align-items-center justify-content-between">
             <div className="d-flex align-items-center">

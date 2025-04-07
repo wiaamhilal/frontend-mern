@@ -19,7 +19,7 @@ const SidebarDashboard = () => {
         </li>
         <li className="nav-item">
           <Link to="/dashboard/posts-tabe" className="mb-3 nav-link">
-            Posts
+            Products
           </Link>
         </li>
         <li className="nav-item">
@@ -29,7 +29,22 @@ const SidebarDashboard = () => {
         </li>
         <li className="nav-item">
           <Link to="/dashboard/comment-table" className="mb-3 nav-link">
-            Comments
+            Product comments
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link to="/dashboard/retun-order" className="mb-3 nav-link">
+            retun requests
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link to="/create-post" className="mb-3 nav-link">
+            Create Product
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link to="/messages" className="mb-3 nav-link">
+            Client Messages
           </Link>
         </li>
       </ul>

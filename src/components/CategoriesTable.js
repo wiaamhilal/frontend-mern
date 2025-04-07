@@ -45,7 +45,7 @@ export const CategoriesTable = () => {
             {categories.map((item, index) => (
               <tr>
                 <th scope="row">{index + 1}</th>
-                <td>{item.title}</td>
+                <td>{item?.branchTitle}</td>
                 <td>
                   <button
                     className="btn btn-secondary btn-sm"
