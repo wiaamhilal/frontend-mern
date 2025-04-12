@@ -115,26 +115,17 @@ const Home = () => {
     return false;
   });
 
-  console.log(allMaxOrders.map((item) => item.orderDetails[0].mainCategory));
-
-  const handleItem = (item) => {
-    const chsenItem = allMaxOrders.filter(
-      (order) => order?.orderDetails[0].mainCategory == item
-    );
-    const totalPrice = chsenItem?.reduce((total, current) => {
-      total += current?.orderDetails[0]?.price;
-    }, 0);
-    return totalPrice;
-  };
   // console.log(totalPrice);
   return (
     <Main className="text-dark">
       <SecondHeder className="ps-2">
-        {/* <div className="over">
-          {categories?.map((item) => (
-            <Link to={`/posts/category/${item?.title}`}>{item?.title}</Link>
+        <div className="over">
+          {filteredItems?.map((item) => (
+            <Link to={`/products/main/${item?.mainTitle}`}>
+              {item?.mainTitle}
+            </Link>
           ))}
-        </div> */}
+        </div>
       </SecondHeder>
 
       {/* {user ? (
@@ -408,96 +399,19 @@ const Home = () => {
       )}
       <div className="shadow-line-start"></div>
       <div className="category row">
-        <Link
-          className="child-cate col-12 col-sm-6 col-md-4 col-lg-3 mb-4"
-          to={`/posts/category/laptop`}
-        >
-          <div class="card" style={{ width: "18rem" }}>
-            <img
-              src="https://pimwp.s3-accelerate.amazonaws.com/2021/09/laptop1.png"
-              class="card-img-top"
-              alt="..."
-            />
-            <div class="card-body">
-              <h4 class="card-text">Laptops</h4>
+        {filteredItems.map((item) => (
+          <Link
+            className="child-cate col-12 col-sm-6 col-md-4 col-lg-3 mb-4"
+            to={`/products/main/${item?.mainTitle}`}
+          >
+            <div class="card" style={{ width: "18rem" }}>
+              <img src={item?.images[0]?.url} class="card-img-top" alt="..." />
+              <div class="card-body">
+                <h4 class="card-text">{item?.mainTitle}</h4>
+              </div>
             </div>
-          </div>
-        </Link>
-        <Link
-          className="child-cate col-12 col-sm-6 col-md-4 col-lg-3 mb-4"
-          to={`/posts/category/Mobile`}
-        >
-          <div class="card" style={{ width: "18rem" }}>
-            <img
-              src="https://fs.npstatic.com/userfiles/7687254/image/Best_Camera_Phones_2024-w810h462.jpg"
-              class="card-img-top"
-              alt="..."
-            />
-            <div class="card-body">
-              <h4 class="card-text">Phones</h4>
-            </div>
-          </div>
-        </Link>
-        <Link
-          className="child-cate col-12 col-sm-6 col-md-4 col-lg-3 mb-4"
-          to={`/posts/category/Screen`}
-        >
-          <div class="card" style={{ width: "18rem" }}>
-            <img
-              src="https://bestmamba.com/wp-content/uploads/2023/07/Top-Computer-Monitor-for-PS5.jpg"
-              class="card-img-top"
-              alt="..."
-            />
-            <div class="card-body">
-              <h4 class="card-text">Screens</h4>
-            </div>
-          </div>
-        </Link>
-        <Link
-          className="child-cate col-12 col-sm-6 col-md-4 col-lg-3 mb-4"
-          to={`/posts/category/Tablet`}
-        >
-          <div class="card" style={{ width: "18rem" }}>
-            <img
-              src="https://nypost.com/wp-content/uploads/sites/2/2022/09/tabletfeat.jpg?quality=75&strip=all"
-              class="card-img-top"
-              alt="..."
-            />
-            <div class="card-body">
-              <h4 class="card-text">Tablets</h4>
-            </div>
-          </div>
-        </Link>
-        <Link
-          className="child-cate col-12 col-sm-6 col-md-4 col-lg-3 mb-4"
-          to={`/posts/category/Audio`}
-        >
-          <div class="card" style={{ width: "18rem" }}>
-            <img
-              src="https://www.pcworld.com/wp-content/uploads/2024/08/mult-speaker-hub-100751040-orig.jpg?quality=50&strip=all"
-              class="card-img-top"
-              alt="..."
-            />
-            <div class="card-body">
-              <h4 class="card-text">Audio</h4>
-            </div>
-          </div>
-        </Link>
-        <Link
-          className="child-cate col-12 col-sm-6 col-md-4 col-lg-3 mb-4"
-          to={`/posts/category/Smartwatches`}
-        >
-          <div class="card" style={{ width: "18rem" }}>
-            <img
-              src="https://fs.npstatic.com/userfiles/7687254/image/Best_Smartwatches_2023.jpg"
-              class="card-img-top"
-              alt="..."
-            />
-            <div class="card-body">
-              <h4 class="card-text">Smart watches</h4>
-            </div>
-          </div>
-        </Link>
+          </Link>
+        ))}
       </div>
       <div
         className="shadow-line-end"
@@ -703,7 +617,7 @@ const Home = () => {
 
           <SalesLest />
 
-          {filteredItems.map((item) => (
+          {/* {filteredItems.map((item) => (
             <>
               <h3 className=" fw-bold">{item?.mainTitle} :</h3>
               <div className="d-flex align-items-center justify-content-between">
@@ -840,7 +754,7 @@ const Home = () => {
               aria-valuemin="0"
               aria-valuemax="100"
             ></div>
-          </div>
+          </div> */}
         </div>
       </div>
       <div

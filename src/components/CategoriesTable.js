@@ -26,9 +26,9 @@ export const CategoriesTable = () => {
   // };
   return (
     <div className="row">
-      <div className="col-2 d-none d-md-block" style={{ marginTop: "80px" }}>
+      {/* <div className="col-2 d-none d-md-block" style={{ marginTop: "80px" }}>
         <SidebarDashboard />
-      </div>
+      </div> */}
       <div
         className=" col-12 col-md-10 container table-responsive"
         style={{ marginTop: "80px" }}

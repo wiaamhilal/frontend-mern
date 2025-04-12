@@ -27,10 +27,10 @@ const Products2 = () => {
 
   console.log(categories);
   return (
-    <Main>
+    <Main className="container">
       {filteredItems?.map((item) => (
         <Link
-          className="child-cate col-12 col-sm-6 col-md-4 col-lg-3 mb-4"
+          className="child-cate"
           style={{ minWidth: "18rem" }}
           to={`/products/main/${item?.mainTitle}`}
         >
@@ -46,14 +46,26 @@ const Products2 = () => {
   );
 };
 const Main = styled.div`
+  // display: grid;
+  // grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  // gap: 5px;
+  // margin-right: 10px;
+  // margin-left: 10px;
+  // padding-top: 100px;
+
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 5px;
   margin-right: 10px;
   margin-left: 10px;
   padding-top: 100px;
+  width: 100%;
+  margin: auto;
+  gap: 10px;
+
   & img {
     height: 161px;
   }
 `;
 export default Products2;
+// col-12 col-sm-6 col-md-4 col-lg-3 mb-4

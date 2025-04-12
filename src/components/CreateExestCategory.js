@@ -61,7 +61,10 @@ const CreateExestCategory = () => {
 
   useEffect(() => {
     if (isPostCreated === true) {
-      navicate("/products");
+      // navicate("/products");
+      setfile1("");
+      setbranchTitle("");
+      setmainTitle(null);
     }
   }, [isPostCreated, navicate]);
 
@@ -106,6 +109,7 @@ const CreateExestCategory = () => {
             />
           </div>
           <input
+            value={branchTitle}
             className="inputs"
             type="text"
             placeholder="the new category branch title"

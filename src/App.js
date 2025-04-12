@@ -52,6 +52,9 @@ import AllLaps from "./components/laptops/AllLaps";
 import CreateCategory from "./components/CreateCategory";
 import MainProducts from "./components/BranchProducts";
 import CreateExestCategory from "./components/CreateExestCategory";
+import OurSales from "./components/OurSales";
+import OurSalesBranchs from "./components/OurSalesBranchs";
+import OurSalesProducts from "./components/OurSalesProducts";
 
 export const GetBasketTotal = (basket) => {
   return basket?.reduce((total, current) => {
@@ -456,6 +459,30 @@ function App() {
           element={
             <>
               <Header /> <CategoryPage2 />
+            </>
+          }
+        />
+        <Route
+          path="/our-sales"
+          element={
+            <>
+              <Header /> <OurSales />
+            </>
+          }
+        />
+        <Route
+          path="/our-sales-branchs/:mainTitle"
+          element={
+            <>
+              <Header /> <OurSalesBranchs />
+            </>
+          }
+        />
+        <Route
+          path="/our-sales-orders/:orderItem"
+          element={
+            <>
+              <Header /> <OurSalesProducts />
             </>
           }
         />

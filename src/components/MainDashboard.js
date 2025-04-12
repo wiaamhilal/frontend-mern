@@ -19,6 +19,7 @@ import { styled } from "styled-components";
 import returnIcon from "../img/returnOrder.svg";
 import cateIcon from "../img/category-svgrepo-com (1).svg";
 import commentIcon from "../img/comments-svgrepo-com.svg";
+import salesImg from "../img/sales-up-graph-svgrepo-com (1).svg";
 import createProductIcon from "../img/create-dashboard-svgrepo-com.svg";
 const MainDashboard = () => {
   const navicate = useNavigate();
@@ -215,6 +216,25 @@ const MainDashboard = () => {
           </div>
           <Link to="/messages" className="btn btn-success btn-sm w-100 fw-bold">
             see all Messages
+          </Link>{" "}
+        </div>
+        <div className="col-12 col-sm-6 col-md-3 shadow rounded p-3 bg-white">
+          <div className="d-flex align-itmes-center justify-content-between">
+            <h4>our sales</h4>
+            <h5>{allMaxOrders.length}</h5>
+          </div>
+          <div className="d-flex justify-content-center">
+            <img
+              src={salesImg}
+              style={{ width: "100px", marginBottom: "10px" }}
+              alt=""
+            />
+          </div>
+          <Link
+            to="/our-sales"
+            className="btn btn-success btn-sm w-100 fw-bold"
+          >
+            see all sales
           </Link>{" "}
         </div>
       </div>
