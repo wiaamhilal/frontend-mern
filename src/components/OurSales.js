@@ -1,13 +1,15 @@
 import FormatCurrency from "./FormatCurrency";
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { getMaxAllOrdersApi } from "../redux/apiCalls/postApiCall";
 
 const OurSales = () => {
   const { orders, allMaxOrders } = useSelector((state) => state.post);
   const { categories } = useSelector((state) => state.category);
   const navicate = useNavigate();
+  const dispatch = useDispatch();
   // إنشاء مجموعة (Set) للاحتفاظ فقط بـ `mainTitle` الفريد
   const uniqueMainTitles = new Set();
 
@@ -32,7 +34,7 @@ const OurSales = () => {
 
     return { chosenItem, totalPrice };
   };
-
+  dispatch(getMaxAllOrdersApi());
   return (
     <Main>
       <div class="services" id="services">

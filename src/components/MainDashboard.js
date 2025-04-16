@@ -8,6 +8,7 @@ import {
 } from "../redux/apiCalls/categoryApiCall";
 import { getUsersCountApi } from "../redux/apiCalls/profileApiCall";
 import {
+  getMaxAllOrdersApi,
   getPostsCount,
   getRetunedOrdersApi,
 } from "../redux/apiCalls/postApiCall";
@@ -38,6 +39,7 @@ const MainDashboard = () => {
     dispatch(fetshAllCommentsApi());
     dispatch(getRetunedOrdersApi());
     dispatch(AllCommentsClintsApi());
+    dispatch(getMaxAllOrdersApi());
   }, []);
   // useEffect(() => {
   //   dispatch(getRetunedOrdersApi());
