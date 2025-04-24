@@ -59,7 +59,11 @@ const CreateCategory = () => {
 
   useEffect(() => {
     if (isPostCreated === true) {
-      navicate("/products");
+      // navicate("/products");
+      setbranchTitle("");
+      setmainTitle("");
+      setfile1("");
+      setfile2("");
     }
   }, [isPostCreated, navicate]);
 
@@ -69,12 +73,14 @@ const CreateCategory = () => {
         <h2 className="text-center">Create A Category</h2>
         <form onSubmit={submitCreateCategory}>
           <input
+            value={mainTitle}
             className="inputs"
             type="text"
             placeholder="category main title"
             onChange={(e) => setmainTitle(e.target.value)}
           />
           <input
+            value={branchTitle}
             className="inputs"
             type="text"
             placeholder="category branchtitle"
