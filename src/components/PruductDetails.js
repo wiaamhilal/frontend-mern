@@ -47,7 +47,7 @@ const ParamsComp = () => {
       dispatch(toggleDislike(post?._id));
     }
   };
-
+  console.log(post);
   const uploadImgSubmit = async (e) => {
     e.preventDefault();
     if (!image) {
@@ -222,9 +222,21 @@ const ParamsComp = () => {
           </Colors>
           <Boxholder className="row gap-4">
             <div className="col-12 col-sm-6 col-md-3 d-flex align-items-center justify-content-between">
-              <h5 className="fw-bold m-0 p-0 me-3">
-                {FormatCurrency(post?.price)}
-              </h5>
+              <div className="d-flex align-items-cinter">
+                <h5 className="fw-bold m-0 p-0 me-3">
+                  {FormatCurrency(post?.price)}
+                </h5>
+                {post?.oldPrice[0] && (
+                  <div className="">
+                    <h5 className="text-decoration-line-through text-muted me-2">
+                      {FormatCurrency(post?.oldPrice[0])}
+                    </h5>
+                    <h4 className="fw-bold m-0 p-0 text-danger">
+                      {post?.oldPrice[1]} -%
+                    </h4>
+                  </div>
+                )}
+              </div>
               <FirstStats>
                 {" "}
                 <div
@@ -474,7 +486,7 @@ const ParamsComp = () => {
         </Main>
         <Comment postId={post?._id} />
         <CommentList comments={post?.comments} />
-        <UpdatePost settoggle={settoggle} toggle={toggle} post={post} />
+        <UpdatePost settoggle={settoggle} toggle={toggle} post={post} id={id} />
       </div>
     </Holder>
   );

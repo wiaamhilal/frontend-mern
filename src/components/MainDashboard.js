@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import {
   addCategoryApi,
   fitchAllCategories,
+  getAllAdsApi,
 } from "../redux/apiCalls/categoryApiCall";
 import { getUsersCountApi } from "../redux/apiCalls/profileApiCall";
 import {
@@ -22,9 +23,12 @@ import cateIcon from "../img/category-svgrepo-com (1).svg";
 import commentIcon from "../img/comments-svgrepo-com.svg";
 import salesImg from "../img/sales-up-graph-svgrepo-com (1).svg";
 import createProductIcon from "../img/create-dashboard-svgrepo-com.svg";
+import discountimg from "../img/discount.svg";
+import discountListPic from "../img/discount-label-svgrepo-com.svg";
+
 const MainDashboard = () => {
   const navicate = useNavigate();
-  const { categories } = useSelector((state) => state.category);
+  const { categories, productad } = useSelector((state) => state.category);
   const { usersCount } = useSelector((state) => state.profile);
   const { postsCount, ordersCount, allMaxOrders, returnOrdes } = useSelector(
     (state) => state.post
@@ -40,6 +44,7 @@ const MainDashboard = () => {
     dispatch(getRetunedOrdersApi());
     dispatch(AllCommentsClintsApi());
     dispatch(getMaxAllOrdersApi());
+    dispatch(getAllAdsApi());
   }, []);
   // useEffect(() => {
   //   dispatch(getRetunedOrdersApi());
@@ -237,6 +242,44 @@ const MainDashboard = () => {
             className="btn btn-success btn-sm w-100 fw-bold"
           >
             see all sales
+          </Link>{" "}
+        </div>
+        <div className="col-12 col-sm-6 col-md-3 shadow rounded p-3 bg-white">
+          <div className="d-flex align-itmes-center justify-content-between">
+            <h4>create new discount ad</h4>
+            {/* <h5>{productad?.length}</h5> */}
+          </div>
+          <div className="d-flex justify-content-center">
+            <img
+              src={discountimg}
+              style={{ width: "100px", marginBottom: "10px" }}
+              alt=""
+            />
+          </div>
+          <Link
+            to="/create-discount-ad"
+            className="btn btn-success btn-sm w-100 fw-bold"
+          >
+            create discount ad
+          </Link>{" "}
+        </div>
+        <div className="col-12 col-sm-6 col-md-3 shadow rounded p-3 bg-white">
+          <div className="d-flex align-itmes-center justify-content-between">
+            <h4>discount list</h4>
+            <h5>{productad?.length}</h5>
+          </div>
+          <div className="d-flex justify-content-center">
+            <img
+              src={discountListPic}
+              style={{ width: "100px", marginBottom: "10px" }}
+              alt=""
+            />
+          </div>
+          <Link
+            to="/discount-list"
+            className="btn btn-success btn-sm w-100 fw-bold"
+          >
+            edit the discount list
           </Link>{" "}
         </div>
       </div>

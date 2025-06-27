@@ -92,3 +92,54 @@ export function createExistCateApi(newcate) {
     }
   };
 }
+
+// create ad api
+export function createadApi(newad) {
+  return async (dispatch, getState) => {
+    try {
+      dispatch(postActions.setLoading(true));
+      const { data } = await request.post(`/api/category/createad`, newad, {
+        headers: {
+          Authorization: "Bearer " + getState().auth.user.token,
+          // "Content-Type": "multipart/form-data",
+        },
+      });
+
+      toast.success("the ad has been added successfuly");
+      dispatch(postActions.setIsPostCreated());
+      setTimeout(() => dispatch(postActions.falseIsPostCreated()), 2000);
+    } catch (error) {
+      toast.error(error.response.data.message);
+      dispatch(postActions.setLoading(false));
+    }
+  };
+}
+
+// fitch all ads
+export function getAllAdsApi() {
+  return async (dispatch) => {
+    try {
+      const { data } = await request.get("/api/category/createad");
+      dispatch(categoryActions.setProductad(data));
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
+}
+
+// delete ad
+export function deleteAdApi(adId) {
+  return async (dispatch, getState) => {
+    try {
+      const { data } = await request.delete(`/api/category/createad/${adId}`, {
+        headers: {
+          Authorization: "Bearer " + getState().auth.user.token,
+        },
+      });
+      dispatch(categoryActions.deletead(data.adId));
+      toast.success("ad has been deleted");
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
+}

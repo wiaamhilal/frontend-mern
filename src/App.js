@@ -48,13 +48,15 @@ import TranslateWidget from "./components/TranslateWedgit";
 import LocationPage2 from "./components/LocationPage2";
 import ReturnOrderTable from "./components/ReturnOrderTable";
 import Products2 from "./components/MainProducts";
-import AllLaps from "./components/laptops/AllLaps";
+// import AllLaps from "./components/laptops/AllLaps";
 import CreateCategory from "./components/CreateCategory";
 import MainProducts from "./components/BranchProducts";
 import CreateExestCategory from "./components/CreateExestCategory";
 import OurSales from "./components/OurSales";
 import OurSalesBranchs from "./components/OurSalesBranchs";
 import OurSalesProducts from "./components/OurSalesProducts";
+import DiscountAd from "./components/DiscountAd";
+import DiscountList from "./components/DiscountList";
 
 export const GetBasketTotal = (basket) => {
   return basket?.reduce((total, current) => {
@@ -422,14 +424,14 @@ function App() {
             </>
           }
         />
-        <Route
+        {/* <Route
           path="/all-laps"
           element={
             <>
               <Header /> <AllLaps />
             </>
           }
-        />
+        /> */}
         <Route
           path="/create-category"
           element={
@@ -483,6 +485,22 @@ function App() {
           element={
             <>
               <Header /> <OurSalesProducts />
+            </>
+          }
+        />
+        <Route
+          path="/create-discount-ad"
+          element={
+            <>
+              <Header /> <DiscountAd />
+            </>
+          }
+        />
+        <Route
+          path="/discount-list"
+          element={
+            <>
+              <Header /> <DiscountList />
             </>
           }
         />

@@ -15,7 +15,7 @@ const ToggleResponceRejected = ({ toggle, settoggle, item }) => {
       setSelected(value); // تحديد الخيار المختار
     }
   };
-  console.log(toggle);
+  console.log(item);
   const diclineReturn = (userEmail, orderName, returnReason, id) => {
     swal({
       title: "Are you sure?",
@@ -46,7 +46,7 @@ const ToggleResponceRejected = ({ toggle, settoggle, item }) => {
         >
           <div className="modal-content">
             <div className="modal-header">
-              <h5 className="modal-title">dicline Return Order</h5>
+              <h5 className="modal-title">decline Return Order</h5>
               <button
                 type="button"
                 className="btn-close"
@@ -105,6 +105,16 @@ const ToggleResponceRejected = ({ toggle, settoggle, item }) => {
                 {/* <label>
                   inter witch item you want to return and the reason
                 </label> */}
+                <label>other reason :</label>
+                <textarea
+                  onChange={(e) => setSelected(e.target.value)}
+                  className="input"
+                  disabled={
+                    selected ===
+                      "this order has been receved to you in long time" ||
+                    selected === "this order violates the return policy"
+                  }
+                />
               </form>
             </div>
             <div className="modal-footer">

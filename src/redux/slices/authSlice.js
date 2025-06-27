@@ -14,7 +14,7 @@ const authSlice = createSlice({
         publicId: "uz4fi2lh2dvpgi3wqmgk",
       },
       token:
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZmY5MzJkODk2MjczY2UxOWYyMjcxZCIsImlzQWRtaW4iOnRydWUsImlhdCI6MTc0NDgyMTAyM30.L-Wn5364tqa7Rik6fv37T8f4s_62hlmRuthqu42KFLo",
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZmY5MzJkODk2MjczY2UxOWYyMjcxZCIsImlzQWRtaW4iOnRydWUsImlhdCI6MTc0NTQ5MTU4NX0.hFyA08nglUKRG5GCnHSjEQpjlw625GBE3i5Zk98MOq4",
       username: "Test",
       _id: "67ff932d896273ce19f2271d",
     },

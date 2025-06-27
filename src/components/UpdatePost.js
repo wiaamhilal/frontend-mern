@@ -1,29 +1,85 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import styled from "styled-components";
-import { updatePostText } from "../redux/apiCalls/postApiCall";
+import { fetchSinglePost, updatePostText } from "../redux/apiCalls/postApiCall";
 
-const UpdatePost = ({ toggle, settoggle, post }) => {
+const UpdatePost = ({ toggle, settoggle, post, id }) => {
+  useEffect(() => {
+    dispatch(fetchSinglePost(id));
+  }, [id]);
   const dispatch = useDispatch();
   const { categories } = useSelector((state) => state.category);
   const [title, settitle] = useState(post?.title);
   const [description, setdescription] = useState(post?.description);
   const [category, setcategory] = useState(post?.category);
+  const [price, setprice] = useState(post?.price);
+  const [dicountMount, setdiscountMount] = useState();
+  const [changePrice, setchangePrice] = useState();
 
-  const updatePost = (e) => {
+  console.log(price);
+  // const updatePost = async (e) => {
+  //   e.preventDefault();
+  //   let newPrice = price;
+  //   if (dicountMount > 0) {
+  //     newPrice = price - (price * discountAmount) / 100;
+  //   }
+  //   await dispatch(
+  //     updatePostText(
+  //       { title, description, category, price: newPrice },
+  //       post._id
+  //     )
+  //   );
+  //   settoggle(false);
+  //   // window.location.reload();
+  //   console.log(newPrice);
+  // };
+
+  const updatePost = async (e) => {
     e.preventDefault();
-    if (title.trim() === "") {
-      return toast.error("post title is required");
-    } else if (description.trim() === "") {
-      return toast.error("description is required");
-    } else if (category.trim() === "") {
-      return toast.error("category is required");
-    } else {
-      dispatch(updatePostText({ title, description, category }, post._id));
-      settoggle(false);
+    let newPrice = price;
+
+    const discount = parseFloat(dicountMount); // تأكد من أنه رقم
+
+    if (!isNaN(discount) && discount > 0 && discount <= 100) {
+      newPrice = price - (price * discount) / 100;
     }
+
+    if (dicountMount >= 5) {
+      await dispatch(
+        updatePostText(
+          {
+            title,
+            description,
+            category,
+            price: newPrice,
+            oldPrice: [post?.price, discount],
+          },
+          post._id
+        )
+      );
+    } else {
+      await dispatch(
+        updatePostText(
+          {
+            title,
+            description,
+            category,
+            price: changePrice,
+            oldPrice: [],
+          },
+          post._id
+        )
+      );
+    }
+
+    settoggle(false);
+    console.log(newPrice);
+    window.location.reload();
   };
+
+  const discountAmount = [0, 5, 10, 15, 20, 25, 50, 75];
+
   return (
     <Main>
       <div
@@ -64,6 +120,7 @@ const UpdatePost = ({ toggle, settoggle, post }) => {
                     <option value={item.title}>{item.title}</option>
                   ))}
                 </select>
+
                 <textarea
                   onChange={(e) => setdescription(e.target.value)}
                   value={description}
@@ -71,6 +128,26 @@ const UpdatePost = ({ toggle, settoggle, post }) => {
                   placeholder="description"
                   rows="5"
                 ></textarea>
+                <h5>create discount for the product</h5>
+                <select
+                  className="input"
+                  onChange={(e) => setdiscountMount(e.target.value)}
+                  value={dicountMount}
+                  disabled={changePrice}
+                >
+                  {discountAmount.map((item) => (
+                    <option value={item}>{item} %</option>
+                  ))}
+                </select>
+                <h5>or change the price</h5>
+                <input
+                  type="number"
+                  placeholder="product price"
+                  className="input"
+                  onChange={(e) => setchangePrice(e.target.value)}
+                  // value={Math.trunc(price)}
+                  disabled={dicountMount}
+                />
               </form>
             </div>
             <div className="modal-footer">

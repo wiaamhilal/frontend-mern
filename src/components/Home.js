@@ -3,7 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../redux/apiCalls/authApiCall";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
-import { fitchAllCategories } from "../redux/apiCalls/categoryApiCall";
+import {
+  fitchAllCategories,
+  getAllAdsApi,
+} from "../redux/apiCalls/categoryApiCall";
 import { getAllProfilesApi } from "../redux/apiCalls/profileApiCall";
 import boldStar from "../img/star (1).png";
 import normalStar from "../img/star.png";
@@ -20,10 +23,10 @@ const Home = () => {
   //   window.location.reload(false);
   // }, "1000");
 
-  const { categories } = useSelector((state) => state.category);
+  const { categories, productad } = useSelector((state) => state.category);
   const { profiles } = useSelector((state) => state.profile);
   const { orders, allMaxOrders } = useSelector((state) => state.post);
-
+  console.log(productad);
   const allCaty = allMaxOrders.map((item) => item.orderDetails[0].category);
   const allOrders = allMaxOrders.map((item) => item.orderDetails[0]);
 
@@ -88,6 +91,7 @@ const Home = () => {
     dispatch(getAllProfilesApi());
     dispatch(getAllOrdersApi());
     dispatch(getMaxAllOrdersApi());
+    dispatch(getAllAdsApi());
   }, []);
 
   const { user } = useSelector((state) => state.auth);
@@ -115,7 +119,7 @@ const Home = () => {
     return false;
   });
 
-  // console.log(totalPrice);
+  console.log(filteredItems);
   return (
     <Main className="text-dark">
       <SecondHeder className="ps-2">
@@ -399,15 +403,17 @@ const Home = () => {
       )}
       <div className="shadow-line-start"></div>
       <div className="category row">
-        {filteredItems.map((item) => (
+        {productad.map((item) => (
           <Link
             className="child-cate col-12 col-sm-6 col-md-4 col-lg-3 mb-4"
-            to={`/products/main/${item?.mainTitle}`}
+            to={`/products/main/${item?.category}`}
           >
             <div class="card" style={{ width: "18rem" }}>
-              <img src={item?.images[0]?.url} class="card-img-top" alt="..." />
+              <img src={item.url} class="card-img-top" alt="..." />
               <div class="card-body">
-                <h4 class="card-text">{item?.mainTitle}</h4>
+                <h4 class="card-text">
+                  discount up to {item?.range} % on {item?.category}
+                </h4>
               </div>
             </div>
           </Link>

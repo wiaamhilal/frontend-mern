@@ -26,7 +26,13 @@ const ToggleReturnOrder = ({
   const dispatch = useDispatch();
 
   const [selected, setSelected] = useState(null);
-
+  const [file, setfile] = useState("");
+  const [file2, setfile2] = useState("");
+  const [file3, setfile3] = useState("");
+  const { returnOrdes } = useSelector((state) => state.post);
+  useEffect(() => {
+    dispatch(getRetunedOrdersApi());
+  }, []);
   const handleCheck = (value) => {
     if (selected === value) {
       setSelected(null); // إلغاء التحديد إذا ضغط نفس الخيار
@@ -34,28 +40,55 @@ const ToggleReturnOrder = ({
       setSelected(value); // تحديد الخيار المختار
     }
   };
-  console.log(selected);
+  // console.log(returnOrdes.map((item) => item?.user));
   const HandleSubmit = async () => {
-    // const payload = { selected, user, order: { title, price, id } };
-    dispatch(
-      await createNewReturnOrderApi({
-        order: {
-          title,
-          price,
-          id,
-          images,
-          likes,
-          dislikes,
-          description,
-          orderColor,
-          returnOrder,
-        },
-        reason: selected,
+    // if ((returnOrdes?.order?.id == id) & (returnOrdes?.user == user)) {
+    //   return toast.error("you alredy tequist this order for return");
+    // }
+
+    // if (
+    //   returnOrdes.map(
+    //     (item) => (item.order.id == id) & (item?.user?._id == user._id)
+    //   )
+    // ) {
+    //   return toast.error("You already requested a return for this order.");
+    // }
+    if (!selected) {
+      return toast.error("the reason is requird");
+    }
+    if (!file || !file2 || !file3) {
+      return toast.error("the 3 images are requird");
+    }
+    const formData = new FormData();
+
+    formData.append("images", file);
+    formData.append("images", file2);
+    formData.append("images", file3);
+
+    formData.append(
+      "order",
+      JSON.stringify({
+        title,
+        price,
+        id,
+        images,
+        likes,
+        dislikes,
+        description,
+        orderColor,
+        returnOrder,
       })
     );
-    // console.log(payload);
+
+    formData.append("reason", selected);
+
+    await dispatch(createNewReturnOrderApi(formData));
     setSelected(null);
+    setfile("");
+    setfile2("");
+    setfile3("");
     settoggle(false);
+    toast.success("your requist has been reseved");
   };
 
   return (
@@ -81,7 +114,10 @@ const ToggleReturnOrder = ({
               ></button>
             </div>
             <div className="modal-body">
-              <form className="my-form">
+              <h5 className="fw-blod ms-0 mb-3">
+                1- why do you need to return this product :
+              </h5>
+              <form className="my-form ms-3">
                 {/* <div className="p-4 space-y-2">
                   <label className="d-flex align-items-center">
                     <input type="checkbox" className="me-2" />
@@ -155,6 +191,90 @@ const ToggleReturnOrder = ({
                 {/* <label>
                   inter witch item you want to return and the reason
                 </label> */}
+                <h5 className="fw-blod mb-3 second-label">
+                  2- you need to upload three photos for the product :
+                </h5>
+                <input
+                  type="file"
+                  name="file"
+                  id="file"
+                  className="d-none"
+                  onChange={(e) => setfile(e.target.files[0])}
+                />
+                <label
+                  htmlFor="file"
+                  className="btn btn-success w-100 mb-3 mt-1"
+                >
+                  Chose an image
+                </label>
+                <div>
+                  {file && (
+                    <img
+                      style={{
+                        width: "100%",
+                        maxHeight: "250px",
+                        borderRadius: "10px",
+                      }}
+                      className="mb-3"
+                      alt=""
+                      src={URL.createObjectURL(file)}
+                    />
+                  )}
+                </div>
+                <input
+                  type="file"
+                  name="file2"
+                  id="file2"
+                  className="d-none"
+                  onChange={(e) => setfile2(e.target.files[0])}
+                />
+                <label
+                  htmlFor="file2"
+                  className="btn btn-success w-100 mb-3 mt-1"
+                >
+                  Chose an image2
+                </label>
+                <div>
+                  {file2 && (
+                    <img
+                      style={{
+                        width: "100%",
+                        maxHeight: "250px",
+                        borderRadius: "10px",
+                      }}
+                      className="mb-3"
+                      alt=""
+                      src={URL.createObjectURL(file2)}
+                    />
+                  )}
+                </div>
+                <input
+                  type="file"
+                  name="file3"
+                  id="file3"
+                  className="d-none"
+                  onChange={(e) => setfile3(e.target.files[0])}
+                />
+                <label
+                  htmlFor="file3"
+                  className="btn btn-success w-100 mb-3 mt-1"
+                >
+                  Chose an image3
+                </label>
+                <div>
+                  {file3 && (
+                    <img
+                      style={{
+                        width: "100%",
+                        maxHeight: "250px",
+                        borderRadius: "10px",
+                      }}
+                      className="mb-3"
+                      alt=""
+                      src={URL.createObjectURL(file3)}
+                    />
+                  )}
+                </div>
               </form>
             </div>
             <div className="modal-footer">
@@ -219,6 +339,11 @@ const Main = styled.div`
     font-size: 14px;
     font-weight: bold;
     margin-bottom: 5px;
+  }
+  & .second-label {
+    position: relative;
+    margin-left: -1rem;
+    line-height: 1.6;
   }
 `;
 export default ToggleReturnOrder;

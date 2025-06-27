@@ -265,11 +265,13 @@ export function createNewReturnOrderApi(newOrder) {
       await request.post(`/api/orders/return-order`, newOrder, {
         headers: {
           Authorization: "Bearer " + getState().auth.user.token,
+          "Content-Type": "multipart/form-data",
         },
       });
       // dispatch(postActions.setReturnOrders(newOrder));
     } catch (error) {
-      toast.error(error.response.data.message);
+      console.error("API Error:", error.response || error.message || error);
+      toast.error(error?.response?.data?.message || "حدث خطأ غير متوقع");
       dispatch(postActions.setLoading(false));
     }
   };
