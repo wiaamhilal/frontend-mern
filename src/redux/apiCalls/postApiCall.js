@@ -331,3 +331,42 @@ export function sendEmailRejectReturnApi(info) {
     }
   };
 }
+
+// create ad api
+export function createAdProductApi(newad) {
+  return async (dispatch, getState) => {
+    try {
+      dispatch(postActions.setLoading(true));
+      const { data } = await request.post(
+        `/api/posts/create-product-ad`,
+        newad,
+        {
+          headers: {
+            Authorization: "Bearer " + getState().auth.user.token,
+            // "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      toast.success("the ad has been added successfuly");
+      dispatch(postActions.setIsPostCreated());
+      setTimeout(() => dispatch(postActions.falseIsPostCreated()), 2000);
+    } catch (error) {
+      toast.error(error.response.data.message);
+      dispatch(postActions.setLoading(false));
+    }
+  };
+}
+
+// fitch all ads
+export function getAllProuctsAdsApi() {
+  return async (dispatch) => {
+    try {
+      const { data } = await request.get(`/api/posts/get-product-ad`);
+      dispatch(postActions.setPostsAd(data));
+    } catch (error) {
+      toast.error(error.response.data.message);
+      console.log(error.response.data);
+    }
+  };
+}

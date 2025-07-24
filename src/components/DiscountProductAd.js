@@ -1,22 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
-import {
-  createadApi,
-  fitchAllCategories,
-} from "../redux/apiCalls/categoryApiCall";
+import { createadApi } from "../redux/apiCalls/categoryApiCall";
 import styled from "styled-components";
+import {
+  createAdProductApi,
+  fetchAllPosts,
+} from "../redux/apiCalls/postApiCall";
 
-const DiscountAd = () => {
+const DiscountProductAd = () => {
   const dispatch = useDispatch();
   const { categories } = useSelector((state) => state.category);
+  const { posts } = useSelector((state) => state.post);
   const [selectedOption, setSelectedOption] = useState(null);
   const [dicountMount, setdiscountMount] = useState();
 
-  const options = categories
-    ? categories.map((item) => ({
-        value: item?.mainTitle,
-        label: item?.mainTitle,
+  const options = posts
+    ? posts.map((item) => ({
+        value: item,
+        label: item?.title,
       }))
     : [];
   const discountAmount = [5, 10, 15, 20, 25, 50, 75];
@@ -29,18 +31,16 @@ const DiscountAd = () => {
       return;
     }
 
-    if (!dicountMount) {
-      console.error("يجب تحديد قيمة الخصم (range).");
-      return;
-    }
+    // if (!dicountMount) {
+    //   console.error("يجب تحديد قيمة الخصم (range).");
+    //   return;
+    // }
 
     try {
       const adData = {
-        category: selectedOption.label,
-        range: dicountMount,
-        url: myurlphoto[0]?.images[0]?.url,
+        id: selectedOption?.value?._id,
       };
-      dispatch(createadApi(adData));
+      dispatch(createAdProductApi(adData));
 
       // يمكن عرض رسالة نجاح هنا إذا أردت
     } catch (error) {
@@ -49,27 +49,27 @@ const DiscountAd = () => {
   };
 
   useEffect(() => {
-    dispatch(fitchAllCategories());
+    dispatch(fetchAllPosts());
   }, []);
-  console.log(selectedOption?.label);
+  console.log(selectedOption?.value?._id);
   return (
     <Holder>
       <Main className="container">
-        <h1 className="text-center fw-bold">Discount ad</h1>
+        <h1 className="text-center fw-bold">Product Discount ad</h1>
         <h4 className="text-center mb-3">
-          Create a discound ad and post it in the main page of your website, go
-          ahead and let the people know what you sell
+          Create a discound ad for a special product and post it in the main
+          page of your website, go ahead and let the people know what you sell
         </h4>{" "}
         <div className="w-64 mx-auto mt-10 mb-2">
           <Select
             options={options}
             value={selectedOption}
             onChange={setSelectedOption}
-            placeholder="Chose a category"
+            placeholder="Chose a product"
             isSearchable
           />
         </div>
-        <select
+        {/* <select
           className="inputs"
           onChange={(e) => setdiscountMount(e.target.value)}
           value={dicountMount}
@@ -78,10 +78,10 @@ const DiscountAd = () => {
           {discountAmount.map((item) => (
             <option value={item}>{item} %</option>
           ))}
-        </select>
+        </select> */}
         <button
           className="btn btn-success w-100"
-          disabled={!dicountMount || !selectedOption}
+          disabled={!selectedOption}
           onClick={SubmitForm}
         >
           Submit
@@ -113,4 +113,4 @@ const Main = styled.div`
     display: block;
   }
 `;
-export default DiscountAd;
+export default DiscountProductAd;

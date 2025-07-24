@@ -6,6 +6,7 @@ import styled from "styled-components";
 
 const Products2 = () => {
   const { categories } = useSelector((state) => state.category);
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fitchAllCategories());
@@ -22,8 +23,6 @@ const Products2 = () => {
     }
     return false;
   });
-
-  console.log(filteredItems);
 
   console.log(categories);
   return (

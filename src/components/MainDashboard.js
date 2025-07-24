@@ -52,10 +52,11 @@ const MainDashboard = () => {
   const [title, settitle] = useState("");
 
   const [catetoggle, setcatetoggle] = useState(false);
+  const [adToggle, setadToggle] = useState(false);
   console.log(catetoggle);
   return (
     <div>
-      <div className="row justify-content-center gap-3">
+      <div className=" row justify-content-center gap-3">
         <div className="col-12 col-sm-6 col-md-3 p-3 shadow rounded bg-white">
           <div className="d-flex align-itmes-center justify-content-between">
             <h4>Users</h4>
@@ -257,7 +258,8 @@ const MainDashboard = () => {
             />
           </div>
           <Link
-            to="/create-discount-ad"
+            // to="/create-discount-ad"
+            onClick={() => setadToggle(true)}
             className="btn btn-success btn-sm w-100 fw-bold"
           >
             create discount ad
@@ -348,6 +350,58 @@ const MainDashboard = () => {
                   onClick={() => navicate("/create-category")}
                 >
                   New Category
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </UbdatePassword>
+
+      <UbdatePassword>
+        <div
+          className="modal align-items-center justify-content-center"
+          tabindex="-1"
+          style={
+            adToggle
+              ? { display: "flex ", background: "#0000005e" }
+              : { display: "none" }
+          }
+        >
+          <div className="modal-dialog" style={{ animation: "fade 0.5s" }}>
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">Create A New AD</h5>
+                <button
+                  type="button"
+                  className="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                  onClick={() => setadToggle(false)}
+                ></button>
+              </div>
+              <div className="modal-body">
+                <p className=" lh-md text-center">
+                  Ad for 1 product or for hall categorie ?, Example if you have
+                  range of discounts on your laptops chose category, if you have
+                  a big discount for one product and you want to show it to the
+                  custimers chose one product
+                </p>
+              </div>
+              <div className="modal-footer d-flex justify-content-between">
+                <button
+                  type="button"
+                  className="btn btn-success rounded-pill"
+                  data-bs-dismiss="modal"
+                  onClick={() => navicate("/discount-product-ad")}
+                >
+                  One Product
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-success rounded-pill"
+                  onClick={() => navicate("/create-discount-ad")}
+                >
+                  Hall Category
                 </button>
               </div>
             </div>

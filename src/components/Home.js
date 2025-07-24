@@ -12,6 +12,7 @@ import boldStar from "../img/star (1).png";
 import normalStar from "../img/star.png";
 import {
   getAllOrdersApi,
+  getAllProuctsAdsApi,
   getMaxAllOrdersApi,
 } from "../redux/apiCalls/postApiCall";
 import FormatCurrency from "./FormatCurrency";
@@ -25,7 +26,8 @@ const Home = () => {
 
   const { categories, productad } = useSelector((state) => state.category);
   const { profiles } = useSelector((state) => state.profile);
-  const { orders, allMaxOrders } = useSelector((state) => state.post);
+  const { orders, allMaxOrders, postsAd } = useSelector((state) => state.post);
+
   console.log(productad);
   const allCaty = allMaxOrders.map((item) => item.orderDetails[0].category);
   const allOrders = allMaxOrders.map((item) => item.orderDetails[0]);
@@ -92,6 +94,7 @@ const Home = () => {
     dispatch(getAllOrdersApi());
     dispatch(getMaxAllOrdersApi());
     dispatch(getAllAdsApi());
+    dispatch(getAllProuctsAdsApi());
   }, []);
 
   const { user } = useSelector((state) => state.auth);
@@ -219,167 +222,35 @@ const Home = () => {
       /> */}
       <div style={{ overflowX: "auto" }}>
         <BoxesHolder>
-          <div
-            className=" box shadow "
-            onClick={() => navicate("/posts/details/6793aa94802c114d02837906")}
-          >
-            <h5 className="fw-bold">up to 50 % discount</h5>
-            <div className="d-flex align-items-center justify-content-between mb-4">
-              <div className="me-3">
-                <img
-                  src="https://res.cloudinary.com/difwxqb62/image/upload/v1737730706/mc3lxk4e4mmgcggnptn0.jpg"
-                  alt=""
-                />
-                <span className="d-block">Davidoff</span>
+          {postsAd?.map((item) => (
+            <div
+              className=" box shadow "
+              onClick={() => navicate(`/posts/details/${item?.order?._id}`)}
+            >
+              <h5 className="fw-bold">{item?.order?.oldPrice[1]} % discount</h5>
+
+              <div className="d-flex align-items-center justify-content-between mb-4">
+                <div className="me-3">
+                  <img src={item?.order?.images[0]?.url} alt="" />
+                  <span className="d-block">limited ofer</span>
+                </div>
+                <div>
+                  <img src={item?.order?.images[1]?.url} alt="" />
+                  <span className="d-block">limited quantity</span>
+                </div>
               </div>
-              <div>
-                <img
-                  src="https://res.cloudinary.com/difwxqb62/image/upload/v1737730706/gnjyz6c1vrlxpaczl9kr.jpg"
-                  alt=""
-                />
-                <span className="d-block">Eau De Toilette</span>
-              </div>
-            </div>
-            <div className="d-flex align-items-center justify-content-between">
-              <div className="me-3">
-                <img
-                  src="https://res.cloudinary.com/difwxqb62/image/upload/v1737730706/mc3lxk4e4mmgcggnptn0.jpg"
-                  alt=""
-                />
-                <span className="d-block">Hot Water Perfume</span>
-              </div>
-              <div>
-                <img
-                  src="https://res.cloudinary.com/difwxqb62/image/upload/v1737730706/dmv8k2frtfk2r3htfqez.jpg"
-                  alt=""
-                />
-                <span className="d-block">Feel the burning</span>
+              <div className="d-flex align-items-center justify-content-between">
+                <div className="me-3">
+                  <img src={item?.order?.images[2]?.url} alt="" />
+                  <span className="d-block">best price</span>
+                </div>
+                <div>
+                  <img src={item?.order?.images[3]?.url} alt="" />
+                  <span className="d-block">try it now</span>
+                </div>
               </div>
             </div>
-          </div>
-          <div
-            className=" box shadow "
-            onClick={() => navicate("/posts/details/67934f00ebf435dc4586b1eb")}
-          >
-            <h5 className="fw-bold">Continue shopping deals</h5>
-            <div className="d-flex align-items-center justify-content-between mb-4">
-              <div className="me-3">
-                <img
-                  src="https://res.cloudinary.com/difwxqb62/image/upload/v1737707263/giwdgtj56lufbxae63k3.jpg"
-                  alt=""
-                />
-                <span className="d-block">Facial Mask Pack</span>
-              </div>
-              <div>
-                <img
-                  src="https://res.cloudinary.com/difwxqb62/image/upload/v1737707262/lcxz49ps5fhdzhekodql.jpg"
-                  alt=""
-                />
-                <span className="d-block">Glow with Overnight </span>
-              </div>
-            </div>
-            <div className="d-flex align-items-center justify-content-between">
-              <div className="me-3">
-                <img
-                  src="https://res.cloudinary.com/difwxqb62/image/upload/v1737707262/cjwbhqsob8djli0ekclt.jpg"
-                  alt=""
-                />
-                <span className="d-block">Glowing Skin</span>
-              </div>
-              <div>
-                <img
-                  src="https://res.cloudinary.com/difwxqb62/image/upload/v1737707262/pyips6ufhuc7ywpxwcrn.jpg"
-                  alt=""
-                />
-                <span className="d-block">Korean Skin Care</span>
-              </div>
-            </div>
-          </div>
-          <div className=" box shadow " onClick={() => navicate("/products")}>
-            <h5 className="fw-bold">use these codes for free deliveries</h5>
-            <div className="d-flex align-items-center justify-content-between mb-4">
-              <div className="me-3">
-                <img
-                  src="https://images-eu.ssl-images-amazon.com/images/G/39/beauty/BUW24/JUN/1606893_BuW23_AE_GW_DQC_CL_UnderAED9_186x116_EN._SY116_CB554994419_.jpg"
-                  alt=""
-                />
-                <span className="d-block">valid for 2 times</span>
-              </div>
-              <div>
-                <img
-                  src="https://images-eu.ssl-images-amazon.com/images/G/39/beauty/BUW24/JUN/1606893_BuW23_AE_GW_DQC_CL_UnderAED29_186x116_EN._SY116_CB554994419_.jpg"
-                  alt=""
-                />
-                <span className="d-block">valid for 5 times</span>
-              </div>
-            </div>
-            <div className="d-flex align-items-center justify-content-between">
-              <div className="me-3">
-                <img
-                  src="https://images-eu.ssl-images-amazon.com/images/G/39/beauty/BUW24/JUN/1606893_BuW23_AE_GW_DQC_CL_UnderAED49_186x116_EN._SY116_CB554994419_.jpg"
-                  alt=""
-                />
-                <span className="d-block">valid for 7 times</span>
-              </div>
-              <div>
-                <img
-                  src="https://images-eu.ssl-images-amazon.com/images/G/39/beauty/BUW24/JUN/1606893_BuW23_AE_GW_DQC_CL_UnderAED99_186x116_EN._SY116_CB554994419_.jpg"
-                  alt=""
-                />
-                <span className="d-block">valid for 10 times</span>
-              </div>
-            </div>
-            <h5 className="mt-3">Subscribe & Save</h5>
-            <p style={{ fontSize: "13px" }}>
-              Get extra 10% off your scheduled deliveries. FREE shipping. No
-              fees. No commitments.
-            </p>
-          </div>
-          <div
-            className=" box shadow "
-            onClick={() => navicate("/posts/category/Smartwatches")}
-          >
-            <h5 className="fw-bold">
-              New Arrivals | Watches & Jewelry | Up to 50% off
-            </h5>
-            <div className="d-flex align-items-center justify-content-between mb-4">
-              <div className="me-3">
-                <img
-                  src="https://images-eu.ssl-images-amazon.com/images/G/39/UAE-hq/2024/img/Apparel/XCM_CUTTLE_1717398_3765496_186x116_1X_en_AE._SY116_CB558440092_.jpg"
-                  alt=""
-                />
-                <span className="d-block">Men's Watches</span>
-              </div>
-              <div>
-                <img
-                  src="https://images-eu.ssl-images-amazon.com/images/G/39/UAE-hq/2024/img/Apparel/XCM_CUTTLE_1717398_3765517_186x116_1X_en_AE._SY116_CB558440092_.jpg"
-                  alt=""
-                />
-                <span className="d-block">Women's Watches</span>
-              </div>
-            </div>
-            <div className="d-flex align-items-center justify-content-between">
-              <div className="me-3">
-                <img
-                  src="https://images-eu.ssl-images-amazon.com/images/G/39/UAE-hq/2024/img/Apparel/XCM_CUTTLE_1717398_3765525_186x116_1X_en_AE._SY116_CB558440092_.jpg"
-                  alt=""
-                />
-                <span className="d-block">Men's Accessories</span>
-              </div>
-              <div>
-                <img
-                  src="https://images-eu.ssl-images-amazon.com/images/G/39/UAE-hq/2024/img/Apparel/XCM_CUTTLE_1717398_3765522_186x116_1X_en_AE._SY116_CB558440092_.jpg"
-                  alt=""
-                />
-                <span className="d-block">Women's Jewelry</span>
-              </div>
-            </div>
-            <h5 className="mt-2">Signin with your oun account</h5>
-            <p style={{ fontSize: "13px" }}>
-              signout and go ahead and confirm your own email and get more
-              points
-            </p>
-          </div>
+          ))}
         </BoxesHolder>
       </div>
 
@@ -1063,6 +934,7 @@ const BoxesHolder = styled.div`
     }
     & img {
       width: 100%;
+      height: 150px;
     }
   }
 `;

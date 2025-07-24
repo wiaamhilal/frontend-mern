@@ -57,6 +57,8 @@ import OurSalesBranchs from "./components/OurSalesBranchs";
 import OurSalesProducts from "./components/OurSalesProducts";
 import DiscountAd from "./components/DiscountAd";
 import DiscountList from "./components/DiscountList";
+import DiscountProductAd from "./components/DiscountProductAd";
+import BranchProducts from "./components/BranchProducts";
 
 export const GetBasketTotal = (basket) => {
   return basket?.reduce((total, current) => {
@@ -452,7 +454,7 @@ function App() {
           path="/products/main/:mainTitle"
           element={
             <>
-              <Header /> <MainProducts />
+              <Header /> <BranchProducts />
             </>
           }
         />
@@ -501,6 +503,14 @@ function App() {
           element={
             <>
               <Header /> <DiscountList />
+            </>
+          }
+        />
+        <Route
+          path="/discount-product-ad"
+          element={
+            <>
+              <Header /> <DiscountProductAd />
             </>
           }
         />
