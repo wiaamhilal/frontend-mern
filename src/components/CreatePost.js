@@ -27,7 +27,7 @@ const CreatePost = () => {
   const [productDetails, setproductDetails] = useState("");
   const [color, setcolor] = useState("");
   const [colors, setcolors] = useState([]);
-  console.log(selectedOption);
+
   useEffect(() => {
     dispatch(fitchAllCategories());
   }, []);
@@ -69,17 +69,12 @@ const CreatePost = () => {
     }
   }, [isPostCreated, navicate]);
 
-  // let colors = [];
-  // console.log(colors);
-
   const options = categories
     ? categories.map((item) => ({
         value: item?.branchTitle,
         label: item?.branchTitle,
       }))
     : [];
-
-  console.log(chosenCategory[0]?.mainTitle);
 
   return (
     <Holder className="container">

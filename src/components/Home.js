@@ -28,7 +28,6 @@ const Home = () => {
   const { profiles } = useSelector((state) => state.profile);
   const { orders, allMaxOrders, postsAd } = useSelector((state) => state.post);
 
-  console.log(productad);
   const allCaty = allMaxOrders.map((item) => item.orderDetails[0].category);
   const allOrders = allMaxOrders.map((item) => item.orderDetails[0]);
 
@@ -122,41 +121,17 @@ const Home = () => {
     return false;
   });
 
-  console.log(filteredItems);
   return (
     <Main className="text-dark">
       <SecondHeder className="ps-2">
         <div className="over">
-          {filteredItems?.map((item) => (
-            <Link to={`/products/main/${item?.mainTitle}`}>
+          {filteredItems?.map((item, index) => (
+            <Link key={index} to={`/products/main/${item?.mainTitle}`}>
               {item?.mainTitle}
             </Link>
           ))}
         </div>
       </SecondHeder>
-
-      {/* {user ? (
-        <>
-          <p className="welcome-line">
-            Wellcome {user && <span>{user.username}</span>} to our page go ahead
-            and see our products
-          </p>
-          <div className="d-flex algin-items-center justify-content-center">
-            <Link to="/products" className="btn fw-bold the-btn mt-2">
-              Go Ahead
-            </Link>
-          </div>
-        </>
-      ) : (
-        <>
-          <p>sign in to be able to take advantage of the feature of our site</p>
-          <div className="d-flex algin-items-center justify-content-center">
-            <Link to="/login" className="btn fw-bold the-btn mt-2">
-              Sign in
-            </Link>
-          </div>
-        </>
-      )} */}
       <div
         id="carouselExampleControls"
         class="carousel slide"
@@ -215,14 +190,9 @@ const Home = () => {
           <span class="visually-hidden">Next</span>
         </button>
       </div>
-      {/* <img
-        className="free-del-img"
-        src="https://m.media-amazon.com/images/I/71C4J2fLKAL._SX3000_.jpg"
-        alt=""
-      /> */}
       <div style={{ overflowX: "auto" }}>
         <BoxesHolder>
-          {postsAd?.map((item) => (
+          {postsAd?.slice(-4).map((item) => (
             <div
               className=" box shadow "
               onClick={() => navicate(`/posts/details/${item?.order?._id}`)}
@@ -323,24 +293,6 @@ const Home = () => {
                         <img src={boldStar} alt="" />
                       </li>
                     ))}
-                  {/* <li>
-                    <img src={boldStar} alt="" />
-                  </li>
-                  <li>
-                    <img src={boldStar} alt="" />
-                  </li>
-                  <li>
-                    <img src={boldStar} alt="" />
-                  </li>
-                  <li>
-                    <img src={boldStar} alt="" />
-                  </li>
-                  <li>
-                    <img
-                      src="https://www.iconpacks.net/icons/1/free-star-icon-984-thumb.png"
-                      alt=""
-                    />
-                  </li> */}
                 </ul>
                 <h3>{item?.username}</h3>
                 <span>{item?.email}</span>
@@ -380,28 +332,6 @@ const Home = () => {
                             <img src={boldStar} alt="" />
                           </li>
                         ))}
-
-                      {/* <li>
-                        <img src={boldStar} alt="" />
-                      </li>
-                      <li>
-                        <img src={boldStar} alt="" />
-                      </li> */}
-                      {/* <li>
-                        <img src={boldStar} alt="" />
-                      </li> */}
-                      {/* <li>
-                        <img
-                          src="https://www.iconpacks.net/icons/1/free-star-icon-984-thumb.png"
-                          alt=""
-                        />
-                      </li>
-                      <li>
-                        <img
-                          src="https://www.iconpacks.net/icons/1/free-star-icon-984-thumb.png"
-                          alt=""
-                        />
-                      </li> */}
                     </ul>
                     <p>
                       ! Vel dolores maxime incidunt quos quidem odit.
@@ -493,145 +423,6 @@ const Home = () => {
           />
 
           <SalesLest />
-
-          {/* {filteredItems.map((item) => (
-            <>
-              <h3 className=" fw-bold">{item?.mainTitle} :</h3>
-              <div className="d-flex align-items-center justify-content-between">
-                <div className="d-flex align-items-center">
-                  <h5 className=" mb-1 ">{handleItem(item?.mainTitle)}</h5>
-                  <h5 className="ms-3 ms-sm-5 mb-1">Sold : </h5>{" "}
-                  <h5 className=" mb-1 ms-4">{screenItems.length}</h5>
-                </div>
-                <h4 className="percent">{screens}%</h4>
-              </div>
-              <div class="progress mb-3">
-                <div
-                  class="progress-bar progress-bar-striped"
-                  role="progressbar"
-                  style={{ width: `${screens}%` }}
-                  aria-valuenow="10"
-                  aria-valuemin="0"
-                  aria-valuemax="100"
-                ></div>
-              </div>
-            </>
-          ))}
-          <h3 className=" fw-bold">Screens :</h3>
-          <div className="d-flex align-items-center justify-content-between">
-            <div className="d-flex align-items-center">
-              <h5 className=" mb-1 ">{FormatCurrency(totalScreens)}</h5>
-              <h5 className="ms-3 ms-sm-5 mb-1">Sold : </h5>{" "}
-              <h5 className=" mb-1 ms-4">{screenItems.length}</h5>
-            </div>
-            <h4 className="percent">{screens}%</h4>
-          </div>
-          <div class="progress mb-3">
-            <div
-              class="progress-bar progress-bar-striped"
-              role="progressbar"
-              style={{ width: `${screens}%` }}
-              aria-valuenow="10"
-              aria-valuemin="0"
-              aria-valuemax="100"
-            ></div>
-          </div>
-
-          <h3 className=" fw-bold">Laptops :</h3>
-          <div className="d-flex align-items-center justify-content-between">
-            <div className="d-flex align-items-center">
-              <h5 className=" mb-1 ">{FormatCurrency(totlLaptops)}</h5>
-              <h5 className="ms-3 ms-sm-5 mb-1">Sold : </h5>{" "}
-              <h5 className=" mb-1 ms-4">{laptopItems.length}</h5>
-            </div>
-            <h4 className="percent">{laptops}%</h4>
-          </div>
-          <div class="progress mb-3">
-            <div
-              class="progress-bar progress-bar-striped "
-              role="progressbar"
-              style={{ width: `${laptops}%` }}
-              aria-valuenow="25"
-              aria-valuemin="0"
-              aria-valuemax="100"
-            ></div>
-          </div>
-          <h3 className=" fw-bold">Audio :</h3>
-          <div className="d-flex align-items-center justify-content-between">
-            <div className="d-flex align-items-center">
-              <h5 className=" mb-1 ">{FormatCurrency(totalAudio)}</h5>
-              <h5 className="ms-3 ms-sm-5 mb-1">Sold : </h5>{" "}
-              <h5 className=" mb-1 ms-4">{audioItems.length}</h5>
-            </div>
-            <h4 className="percent">{Audio}%</h4>
-          </div>
-          <div class="progress mb-3">
-            <div
-              class="progress-bar progress-bar-striped"
-              role="progressbar"
-              style={{ width: `${Audio}%` }}
-              aria-valuenow="50"
-              aria-valuemin="0"
-              aria-valuemax="100"
-            ></div>
-          </div>
-          <h3 className=" fw-bold">Tablets :</h3>
-          <div className="d-flex align-items-center justify-content-between">
-            <div className="d-flex align-items-center">
-              <h5 className=" mb-1 ">{FormatCurrency(totalTablets)}</h5>
-              <h5 className="ms-3 ms-sm-5 mb-1">Sold : </h5>{" "}
-              <h5 className=" mb-1 ms-4">{TabletItems.length}</h5>
-            </div>
-            <h4 className="percent">{Tablets}%</h4>
-          </div>
-          <div class="progress mb-3">
-            <div
-              class="progress-bar progress-bar-striped "
-              role="progressbar"
-              style={{ width: `${Tablets}%` }}
-              aria-valuenow="75"
-              aria-valuemin="0"
-              aria-valuemax="100"
-            ></div>
-          </div>
-          <h3 className=" fw-bold">Mobiles :</h3>
-          <div className="d-flex align-items-center justify-content-between">
-            <div className="d-flex align-items-center">
-              <h5 className=" mb-1 ">{FormatCurrency(totalMobiles)}</h5>
-              <h5 className="ms-3 ms-sm-5 mb-1">Sold : </h5>{" "}
-              <h5 className=" mb-1 ms-4">{MobiletItems.length}</h5>
-            </div>
-            <h4 className="percent">{Mobiles}%</h4>
-          </div>
-          <div class="progress mb-3">
-            <div
-              class="progress-bar progress-bar-striped "
-              role="progressbar"
-              style={{ width: `${Mobiles}%` }}
-              aria-valuenow="100"
-              aria-valuemin="0"
-              aria-valuemax="100"
-            ></div>
-          </div>
-          <h3 className=" fw-bold">Audio :</h3>
-          <div className="d-flex align-items-center justify-content-between">
-            <div className="d-flex align-items-center">
-              <h5 className=" mb-1 ">{FormatCurrency(totalSmartwatches)}</h5>
-              <h5 className="ms-3 ms-sm-5 mb-1">Sold : </h5>{" "}
-              <h5 className=" mb-1 ms-4">{SmartwatchetItems.length}</h5>
-            </div>
-            <h4 className="percent">{Smartwatches}%</h4>
-          </div>
-          <div class="progress mb-3">
-            <div
-              class="progress-bar progress-bar-striped "
-              role="progressbar"
-              style={{ width: `${Smartwatches}%` }}
-              aria-valuenow="100"
-              aria-valuemin="0"
-              aria-valuemax="100"
-            ></div>
-          </div> */}
         </div>
       </div>
       <div
@@ -916,15 +707,12 @@ const SecondPart = styled.div`
 `;
 const BoxesHolder = styled.div`
   min-width: 1300px;
-  // padding-top: 330px;
-  // transform: translateY(-250px);
   @media (max-width: 668px) {
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   }
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
-  // margin: 20px;
   & .box {
     background-color: white;
     border-radius: 5px;

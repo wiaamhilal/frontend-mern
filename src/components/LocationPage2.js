@@ -22,30 +22,13 @@ const LocationPage = () => {
   const [street, setstreet] = useState("");
   const [building, setbuilding] = useState();
 
-  // دالة لجلب العنوان من الإحداثيات
-  //   const getAddressFromCoordinates = async (lat, lng) => {
-  //     try {
-  //       const response = await axios.get(
-  //         `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`
-  //       );
-  //       const { address } = response.data;
-  //       setarya(address.residential || "");
-  //       setstreet(address.road || "");
-  //       setbuilding(address.house_number);
-  //       console.log(response);
-  //     } catch (error) {
-  //       console.error("Error fetching address:", error);
-  //     }
-  //   };
-
-  // دالة لجلب العنوان من الإحداثيات
   const getAddressFromCoordinates = async (lat, lng) => {
     try {
       const response = await axios.get(
         `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`
       );
       const { address } = response.data;
-      console.log(address);
+
       // هنا نقوم بملء الحقول باستخدام البيانات المتاحة
       setcountry(address?.country);
       setcity(address?.state);

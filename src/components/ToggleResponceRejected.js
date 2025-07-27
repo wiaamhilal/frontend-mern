@@ -15,7 +15,7 @@ const ToggleResponceRejected = ({ toggle, settoggle, item }) => {
       setSelected(value); // تحديد الخيار المختار
     }
   };
-  console.log(item);
+
   const diclineReturn = (userEmail, orderName, returnReason, id) => {
     swal({
       title: "Are you sure?",

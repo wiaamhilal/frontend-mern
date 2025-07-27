@@ -51,7 +51,7 @@ const DiscountAd = () => {
   useEffect(() => {
     dispatch(fitchAllCategories());
   }, []);
-  console.log(selectedOption?.label);
+
   return (
     <Holder>
       <Main className="container">

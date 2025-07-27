@@ -53,7 +53,6 @@ const MainDashboard = () => {
 
   const [catetoggle, setcatetoggle] = useState(false);
   const [adToggle, setadToggle] = useState(false);
-  console.log(catetoggle);
   return (
     <div>
       <div className=" row justify-content-center gap-3">

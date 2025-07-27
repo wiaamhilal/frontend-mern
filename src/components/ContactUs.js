@@ -38,7 +38,6 @@ const ContactUs = () => {
     // toast.success("thank you for your opininiont");
     setcomment("");
   };
-  console.log();
   useEffect(() => {
     if (user?.isAdmin) {
       dispatch(getUserProfile(user?._id));

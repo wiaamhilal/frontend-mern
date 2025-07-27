@@ -32,8 +32,6 @@ const OurSalesProducts = () => {
   }, []);
   const dispatch = useDispatch();
 
-  console.log(allMaxOrders);
-
   const POST_PER_PAGE = 8;
   const [search, setsearch] = useState("");
 
@@ -64,7 +62,7 @@ const OurSalesProducts = () => {
   const myOrders = allMaxOrders.filter(
     (item) => item.orderDetails[0].category === orderItem
   );
-  console.log(myOrders);
+
   return (
     <Holder>
       {myOrders ? (

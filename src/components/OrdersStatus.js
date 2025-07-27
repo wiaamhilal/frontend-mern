@@ -32,8 +32,6 @@ const OrdersStatus = () => {
   }, []);
   const dispatch = useDispatch();
 
-  console.log(allMaxOrders);
-
   const POST_PER_PAGE = 8;
   const [search, setsearch] = useState("");
 

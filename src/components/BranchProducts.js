@@ -17,46 +17,41 @@ const BranchProducts = () => {
 
   const { mainTitle } = useParams();
   const filterdcate = categories.filter((item) => item.mainTitle === mainTitle);
-  console.log(postsAd);
-  console.log(filterdcate[0]?.mainTitle);
   const theRightAd = postsAd.filter(
     (item) => item?.order?.mainCategory === filterdcate[0]?.mainTitle
   );
-  console.log(theRightAd);
   return (
     <Holder>
       <BoxesHolder className="">
-        <div>
-          {theRightAd?.map((item) => (
-            <div
-              className=" box shadow "
-              onClick={() => navicate(`/posts/details/${item?.order?._id}`)}
-            >
-              <h5 className="fw-bold">{item?.order?.oldPrice[1]} % discount</h5>
+        {theRightAd?.map((item) => (
+          <div
+            className=" box shadow "
+            onClick={() => navicate(`/posts/details/${item?.order?._id}`)}
+          >
+            <h5 className="fw-bold">{item?.order?.oldPrice[1]} % discount</h5>
 
-              <div className="d-flex align-items-center justify-content-between mb-4">
-                <div className="me-3">
-                  <img src={item?.order?.images[0]?.url} alt="" />
-                  <span className="d-block">limited ofer</span>
-                </div>
-                <div>
-                  <img src={item?.order?.images[1]?.url} alt="" />
-                  <span className="d-block">limited quantity</span>
-                </div>
+            <div className="d-flex align-items-center justify-content-between mb-4">
+              <div className="me-3">
+                <img src={item?.order?.images[0]?.url} alt="" />
+                <span className="d-block">limited ofer</span>
               </div>
-              <div className="d-flex align-items-center justify-content-between">
-                <div className="me-3">
-                  <img src={item?.order?.images[2]?.url} alt="" />
-                  <span className="d-block">best price</span>
-                </div>
-                <div>
-                  <img src={item?.order?.images[3]?.url} alt="" />
-                  <span className="d-block">try it now</span>
-                </div>
+              <div>
+                <img src={item?.order?.images[1]?.url} alt="" />
+                <span className="d-block">limited quantity</span>
               </div>
             </div>
-          ))}
-        </div>
+            <div className="d-flex align-items-center justify-content-between">
+              <div className="me-3">
+                <img src={item?.order?.images[2]?.url} alt="" />
+                <span className="d-block">best price</span>
+              </div>
+              <div>
+                <img src={item?.order?.images[3]?.url} alt="" />
+                <span className="d-block">try it now</span>
+              </div>
+            </div>
+          </div>
+        ))}
       </BoxesHolder>
       <div className="top-shadow">
         <Main className=" container">
@@ -108,15 +103,13 @@ const Main = styled.div`
 `;
 
 const BoxesHolder = styled.div`
-  overflow-x: auto;
-  padding-top: 70px;
-  & > div {
-    min-width: 1300px;
-    display: grid;
+  min-width: 1300px;
+  @media (max-width: 668px) {
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
   }
-
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
   & .box {
     background-color: white;
     border-radius: 5px;
@@ -126,6 +119,7 @@ const BoxesHolder = styled.div`
     }
     & img {
       width: 100%;
+      height: 150px;
     }
   }
 `;

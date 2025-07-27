@@ -51,7 +51,7 @@ const PostPage = () => {
   useEffect(() => {
     dispatch(fetchSinglePost(id));
   }, [id]);
-  console.log(id);
+
   return (
     <div>
       <div className="container">

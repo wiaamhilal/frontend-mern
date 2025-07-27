@@ -22,7 +22,7 @@ const CreateExestCategory = () => {
   const [branchTitle, setbranchTitle] = useState("");
   const [file1, setfile1] = useState("");
   const [file2, setfile2] = useState("");
-  // console.log(colors);
+
   const submitCreateCategory = (e) => {
     e.preventDefault();
 
@@ -53,11 +53,6 @@ const CreateExestCategory = () => {
       )
       .join("");
   }
-
-  // const product = "gaming laptop";
-  // const camelCaseProduct = toCamelCase(product);
-
-  console.log(mainTitle?.value); // الناتج: gamingLaptop
 
   useEffect(() => {
     if (isPostCreated === true) {

@@ -5,8 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../redux/apiCalls/authApiCall";
 import styled from "styled-components";
 const Login = () => {
-  // const navicate = useNavigate();
-  // const {isEmailVerified} = useSelector((state) => state.auth);
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
   const dispatch = useDispatch();
@@ -18,15 +16,9 @@ const Login = () => {
     } else if (!password) {
       return toast.error("password is required");
     } else {
-      console.log(email, password);
       dispatch(loginUser({ email, password }));
     }
   };
-  // useEffect(() => {
-  //   if (!isEmailVerified) {
-  //     navicate("/");
-  //   }
-  // });
 
   return (
     <Holder>

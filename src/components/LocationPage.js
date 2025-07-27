@@ -35,7 +35,7 @@ const LocationPage = () => {
   useEffect(() => {
     dispatch(getUserProfile(user._id));
   }, [profile]);
-  console.log(profile);
+
   return (
     <Holder>
       <Main className="container">

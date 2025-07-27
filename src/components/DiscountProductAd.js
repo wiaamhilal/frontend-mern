@@ -51,7 +51,7 @@ const DiscountProductAd = () => {
   useEffect(() => {
     dispatch(fetchAllPosts());
   }, []);
-  console.log(selectedOption?.value?._id);
+
   return (
     <Holder>
       <Main className="container">
@@ -81,7 +81,7 @@ const DiscountProductAd = () => {
         </select> */}
         <button
           className="btn btn-success w-100"
-          disabled={!selectedOption}
+          disabled={!selectedOption || selectedOption?.value?.oldPrice == null}
           onClick={SubmitForm}
         >
           Submit

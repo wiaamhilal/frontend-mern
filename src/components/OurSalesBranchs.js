@@ -37,7 +37,7 @@ const OurSalesBranchs = () => {
   const myMainOrders = allMaxOrders.filter(
     (item) => item.orderDetails[0]?.mainCategory === mainTitle
   );
-  console.log(allMaxOrders);
+
   return (
     <Main>
       <div class="services" id="services">

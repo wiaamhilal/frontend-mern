@@ -9,9 +9,7 @@ import ToggleReturnOrder from "./ToggleReturnOrder";
 const YourOrderItem = ({ item }) => {
   const { profile } = useSelector((state) => state.profile);
 
-  item.orderDetails.map((it) => {
-    console.log(it);
-  });
+  item.orderDetails.map((it) => {});
 
   return (
     <div>

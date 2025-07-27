@@ -18,7 +18,6 @@ const ReturnOrderTable = () => {
   const [toggle, settoggle] = useState(false);
   const { returnOrdes } = useSelector((state) => state.post);
   const dispatch = useDispatch();
-  // console.log(toggle);
 
   const approveReturn = (userEmail, orderName, orderPrice, id) => {
     dispatch(

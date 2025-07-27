@@ -39,7 +39,7 @@ const ParamsComp = () => {
       dispatch(toggleLike(post?._id));
     }
   };
-  console.log(post?.colors);
+
   const dislikeToggle = () => {
     if (!user) {
       return toast.error("you have to sign in first");
@@ -47,7 +47,7 @@ const ParamsComp = () => {
       dispatch(toggleDislike(post?._id));
     }
   };
-  console.log(post);
+
   const uploadImgSubmit = async (e) => {
     e.preventDefault();
     if (!image) {
@@ -226,7 +226,7 @@ const ParamsComp = () => {
                 <h5 className="fw-bold m-0 p-0 me-3">
                   {FormatCurrency(post?.price)}
                 </h5>
-                {post?.oldPrice[0] && (
+                {post?.oldPrice && (
                   <div className="">
                     <h5 className="text-decoration-line-through text-muted me-2">
                       {FormatCurrency(post?.oldPrice[0])}

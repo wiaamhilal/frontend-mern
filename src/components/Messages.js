@@ -41,7 +41,7 @@ const Messages = () => {
   useEffect(() => {
     dispatch(AllCommentsClintsApi());
   }, [clinetComments]);
-  // console.log(clinetComments);
+
   return (
     <Holder>
       <button

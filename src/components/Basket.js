@@ -15,13 +15,9 @@ const Basket = () => {
     setcobonText("");
   };
   const { basket } = useSelector((state) => state.post);
-  // let newbasket = basket;
+
   const { user } = useSelector((state) => state.auth);
-  // useEffect(() => {
-  //   newbasket = JSON.parse(localStorage.getItem("basket"));
-  // }, [basket]);
-  // console.log(newbasket);
-  console.log(basket);
+
   return (
     <Holder>
       <Main className="row gap-4 p-4">

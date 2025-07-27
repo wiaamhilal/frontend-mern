@@ -116,7 +116,6 @@ function App() {
   //   ? JSON.parse(localStorage.getItem("userInfo"))
   //   : null,
   const { user, loadingApp } = useSelector((state) => state.auth);
-  console.log(user);
   let myLoadingApp = false;
   useEffect(() => {
     if (loadingApp == true) {
@@ -125,7 +124,6 @@ function App() {
       myLoadingApp = false;
     }
   }, [loadingApp, myLoadingApp]);
-  console.log(loadingApp);
 
   return (
     // <ThemeProvider >

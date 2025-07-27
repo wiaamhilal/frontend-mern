@@ -26,7 +26,6 @@ const CommentList = ({ comments }) => {
       }
     });
   };
-  console.log(mycomment);
   const findMyComment = (comment) => {
     setmycomment(comment);
     setcommenttoggle(true);

@@ -26,7 +26,7 @@ const PostList = () => {
   useEffect(() => {
     dispatch(getPostsCount());
   }, [getPostsCount]);
-  console.log(maxPosts);
+
   return (
     <Holder>
       <div className="container">

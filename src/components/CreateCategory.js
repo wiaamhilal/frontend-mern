@@ -19,7 +19,7 @@ const CreateCategory = () => {
   const [branchTitle, setbranchTitle] = useState("");
   const [file1, setfile1] = useState("");
   const [file2, setfile2] = useState("");
-  // console.log(colors);
+
   const submitCreateCategory = (e) => {
     e.preventDefault();
 
@@ -52,14 +52,8 @@ const CreateCategory = () => {
       .join("");
   }
 
-  // const product = "gaming laptop";
-  // const camelCaseProduct = toCamelCase(product);
-
-  // console.log(camelCaseProduct); // الناتج: gamingLaptop
-
   useEffect(() => {
     if (isPostCreated === true) {
-      // navicate("/products");
       setbranchTitle("");
       setmainTitle("");
       setfile1("");

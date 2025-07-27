@@ -24,7 +24,6 @@ const Products2 = () => {
     return false;
   });
 
-  console.log(categories);
   return (
     <Main className="container">
       {filteredItems?.map((item) => (

@@ -17,24 +17,6 @@ const UpdatePost = ({ toggle, settoggle, post, id }) => {
   const [dicountMount, setdiscountMount] = useState();
   const [changePrice, setchangePrice] = useState();
 
-  console.log(price);
-  // const updatePost = async (e) => {
-  //   e.preventDefault();
-  //   let newPrice = price;
-  //   if (dicountMount > 0) {
-  //     newPrice = price - (price * discountAmount) / 100;
-  //   }
-  //   await dispatch(
-  //     updatePostText(
-  //       { title, description, category, price: newPrice },
-  //       post._id
-  //     )
-  //   );
-  //   settoggle(false);
-  //   // window.location.reload();
-  //   console.log(newPrice);
-  // };
-
   const updatePost = async (e) => {
     e.preventDefault();
     let newPrice = price;
@@ -74,7 +56,6 @@ const UpdatePost = ({ toggle, settoggle, post, id }) => {
     }
 
     settoggle(false);
-    console.log(newPrice);
     window.location.reload();
   };
 

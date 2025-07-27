@@ -31,8 +31,6 @@ const CategoryPage2 = () => {
     dispatch(fetchPosts(currentPage));
   }, [currentPage]);
 
-  console.log(pages, postsCate);
-
   return (
     <div>
       <div className="container" style={{ paddingTop: "70px" }}>

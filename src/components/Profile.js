@@ -35,7 +35,6 @@ const Profile = () => {
   const { posts } = useSelector((state) => state.post);
   const myposts = posts?.filter((item) => item?.user?.email === profile?.email);
 
-  console.log(profile);
   const { userId } = useParams();
   const dispatch = useDispatch();
 
@@ -89,8 +88,6 @@ const Profile = () => {
       await dispatch(changeProfilePhoto(formData));
       setfile(null);
       dispatch(authActions.setLoadingApp(false));
-
-      // window.location.reload(false);
     }
   };
 
@@ -103,24 +100,15 @@ const Profile = () => {
     dispatch(fetchPosts(currentPage));
   }, [currentPage]);
 
-  // const likeDislike = profile?.likes?.length + profile?.dislikes?.length;
   let rate =
     (profile?.likes?.length /
       (profile?.dislikes?.length + profile?.likes?.length)) *
     5;
-  // useEffect(() => {
-  //   dispatch(profileActions.setRete(rate));
-  // }, [rate]);
 
   useEffect(() => {
     dispatch(getUserProfile(userId));
   }, [userId]);
 
-  // useEffect(() => {
-  //   dispatch(userRateApi(userId, { rate }));
-  // }, [userId]);
-
-  console.log(sliceRate);
   if (loading) {
     return (
       <div className="d-flex align-items-center justify-content-center">
